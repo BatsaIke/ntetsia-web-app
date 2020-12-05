@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Stack,
-  Text,
-  useColorMode,
-} from '@chakra-ui/react';
+import { Button, Flex, Heading, Stack, useColorMode } from '@chakra-ui/react';
 
 const AccountType = ({ state, onChange, type }) => {
   const { colorMode } = useColorMode;

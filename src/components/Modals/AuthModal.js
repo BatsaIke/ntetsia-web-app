@@ -8,6 +8,7 @@ import {
   Flex,
   Heading,
   Grid,
+  Text,
 } from '@chakra-ui/react';
 import Button from 'components/Button';
 import FormInput from 'components/Form/FormInput';
@@ -32,16 +33,18 @@ const AuthModal = ({ isOpen, onClose }) => {
       setErrors({ submit: error.message });
     }
   };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalCloseButton />
-        <ModalBody>
+        <ModalBody p={14}>
           <Flex direction='column' mb={8} textAlign='center'>
             <Heading as='h3' fontWeight='bold' fontSize={{ md: '2xl' }}>
               Sign into your account
             </Heading>
+            <Text>Lorem ipsum dolor sit amet consectetur.</Text>
           </Flex>
 
           <Formik

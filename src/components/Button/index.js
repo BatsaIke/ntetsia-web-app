@@ -1,9 +1,13 @@
 import React from 'react';
-import { Button as ChakraButton } from '@chakra-ui/react';
+import { Button as ChakraButton, useColorMode } from '@chakra-ui/react';
 
 const Button = ({ title, ...rest }) => {
+  const { colorMode } = useColorMode();
   return (
-    <ChakraButton colorScheme='facebook' {...rest}>
+    <ChakraButton
+      colorScheme={colorMode === 'dark' ? 'twitter' : 'facebook'}
+      {...rest}
+    >
       {title}
     </ChakraButton>
   );

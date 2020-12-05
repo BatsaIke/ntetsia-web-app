@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import Tab from './Tab';
 
-const MotionBox = motion.custom(Box);
 const MotionFlex = motion.custom(Flex);
 
 const Tabs = ({ children, width, borderWidth, px, pt }) => {

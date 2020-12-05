@@ -85,7 +85,7 @@ export const AuthProvider = ({ children }) => {
     window.sessionStorage.removeItem('user');
     setUser(null);
     delete api.defaults.headers.Authorization;
-    history.push('/');
+    history.push('/login');
   };
 
   return (

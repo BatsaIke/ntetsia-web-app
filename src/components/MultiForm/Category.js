@@ -1,13 +1,13 @@
 import { Box, Button, Heading, Stack } from '@chakra-ui/react';
 
-const AccountType = ({ state, onChange }) => {
+const Category = ({ state, onChange }) => {
   const updateDaysActive = (day) => {
     onChange(day);
   };
 
   const Type = ({ children, ...rest }) => (
     <Button
-      colorScheme={state.includes(children) ? 'teal' : 'gray'}
+      colorScheme={state.includes(children) ? 'twitter' : 'facebook'}
       rounded='0px'
       onClick={() => updateDaysActive(children)}
       {...rest}
@@ -30,4 +30,4 @@ const AccountType = ({ state, onChange }) => {
   );
 };
 
-export default AccountType;
+export default Category;

@@ -6,7 +6,6 @@ import RightSidebar from './RightSidebar';
 import useComponent from 'context/componentContext';
 import PostModal from 'components/Modals/PostModal';
 import UpdateProfileModal from 'components/Modals/updateProfileModal';
-import AuthModal from 'components/Modals/AuthModal';
 
 const Layout = ({ children, height, pt, px, ...rest }) => {
   const { colorMode } = useColorMode();

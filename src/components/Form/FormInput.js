@@ -19,7 +19,9 @@ const FormInput = ({
 }) => {
   return (
     <FormControl id={name} isRequired={isRequired} isInvalid={error && touch}>
-      <FormLabel htmlFor={name}>{label}</FormLabel>
+      <FormLabel htmlFor={name} fontSize='sm'>
+        {label}
+      </FormLabel>
       <Input
         h={12}
         name={name}
@@ -28,7 +30,7 @@ const FormInput = ({
         borderWidth={2}
         {...rest}
       />
-      <FormErrorMessage>{error}</FormErrorMessage>
+      <FormErrorMessage fontSize='xs'>{error}</FormErrorMessage>
     </FormControl>
   );
 };

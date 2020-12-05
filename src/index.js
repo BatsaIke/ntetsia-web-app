@@ -1,13 +1,21 @@
+import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
+import App from 'container/App';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { QueryCache, ReactQueryCacheProvider } from 'react-query';
+import { theme } from 'theme/theme';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+const queryCache = new QueryCache();
+
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <ReactQueryCacheProvider queryCache={queryCache}>
+    <ChakraProvider theme={theme}>
+      <ColorModeScript initialColorMode='dark' />
+      <App />
+    </ChakraProvider>
+  </ReactQueryCacheProvider>,
   document.getElementById('root')
 );
 

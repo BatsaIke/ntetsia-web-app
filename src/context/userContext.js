@@ -10,8 +10,9 @@ const authContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
   const toast = useToast();
-  const history = useHistory();
+  let history = useHistory();
   const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,7 +23,8 @@ export const AuthProvider = ({ children }) => {
         // console.log("Got a token in the cookies, let's see if it is valid");
         api.defaults.headers.Authorization = `Bearer ${token}`;
         const data = JSON.parse(user);
-        setUser(data?.id);
+        setUser(data?.profile?.id);
+        setIsAuthenticated(data?.token);
         // console.log('Got user', res);
       }
       setLoading(false);
@@ -44,8 +46,12 @@ export const AuthProvider = ({ children }) => {
         });
         if (token) {
           Cookies.set('token', token.data.token, { expires: 60 });
+          const user = token.data;
+          window.sessionStorage.setItem('user', JSON.stringify(user));
+          setIsAuthenticated(user?.token);
+          history.push('/');
+          window.location.reload();
         }
-        history.push('/');
       }
     } catch (error) {
       toast({
@@ -91,7 +97,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <authContext.Provider
       value={{
-        isAuthenticated: !!user,
+        isAuthenticated,
         user,
         signin,
         loading,
@@ -103,8 +109,6 @@ export const AuthProvider = ({ children }) => {
     </authContext.Provider>
   );
 };
-
-// export default const useAuth () ret useContext(authContext);
 
 export default function useAuth() {
   const context = useContext(authContext);

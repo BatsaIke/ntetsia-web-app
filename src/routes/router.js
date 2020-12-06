@@ -13,10 +13,14 @@ const Router = () => {
         <Route exact path='/login' component={Pages.Login} />
         <Route exact path='/register' component={Pages.Register} />
         <PrivateRoute exact path='/profile/:id' component={Pages.Profile} />
-        <Route exact path='/profile' component={Pages.Profile} />
-        <Route exact path='/jobs' component={Pages.Jobs} />
-        <Route exact path='/contribution' component={Pages.Contribution} />
-        <Route exact path='/my-ideas' component={Pages.MyIdeas} />
+        <PrivateRoute exact path='/profile' component={Pages.Profile} />
+        <PrivateRoute exact path='/jobs' component={Pages.Jobs} />
+        <PrivateRoute
+          exact
+          path='/contribution'
+          component={Pages.Contribution}
+        />
+        <PrivateRoute exact path='/my-ideas' component={Pages.MyIdeas} />
       </Switch>
     </React.Suspense>
   );

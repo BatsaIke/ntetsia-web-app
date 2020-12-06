@@ -63,7 +63,7 @@ const LoginCard = () => {
       >
         <Flex direction='column' mb={8} textAlign='center'>
           <Heading as='h3' fontWeight='bold' fontSize={{ md: '2xl' }}>
-            Sign into your account
+            Sign in to your account
           </Heading>
           <Text>
             New to Ntetsia?{' '}

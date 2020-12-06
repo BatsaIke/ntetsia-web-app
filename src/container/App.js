@@ -6,15 +6,15 @@ import Router from 'routes/router';
 
 function App() {
   return (
-    <AuthProvider>
-      <ApiProvider>
-        <ComponentProvider>
-          <BrowserRouter>
+    <ApiProvider>
+      <BrowserRouter>
+        <AuthProvider>
+          <ComponentProvider>
             <Router />
-          </BrowserRouter>
-        </ComponentProvider>
-      </ApiProvider>
-    </AuthProvider>
+          </ComponentProvider>
+        </AuthProvider>
+      </BrowserRouter>
+    </ApiProvider>
   );
 }
 

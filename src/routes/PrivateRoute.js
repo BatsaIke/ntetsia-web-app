@@ -1,16 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
-import useAuth from 'context/userContext';
+import Cookies from 'js-cookie';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { isAuthenticated } = useAuth;
+  const token = Cookies.get('token');
+
+  // console.log('private route', isAuthenticated);
 
   return (
     <Route
       {...rest}
       render={(props) => {
-        return isAuthenticated ? (
+        return token ? (
           <Component {...props} />
         ) : (
           <Redirect

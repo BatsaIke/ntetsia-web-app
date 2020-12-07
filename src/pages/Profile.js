@@ -6,17 +6,19 @@ import {
   Icon,
   Image,
   Input,
-  Link,
   Text,
   useColorMode,
   useToast,
 } from '@chakra-ui/react';
 import Button from 'components/Button';
+import Post from 'components/Cards/Post';
+import PostSkeleton from 'components/Cards/PostSkeleton';
 import Tabs from 'components/Tabs/Tabs';
 import Layout from 'container/Layout';
 import useAPI from 'context/apiContext';
 import useComponent from 'context/componentContext';
 import {
+  useFeeds,
   useFollowers,
   useFollowing,
   useOthersProfile,
@@ -24,9 +26,8 @@ import {
 } from 'hooks/useGlobalHooks';
 import React from 'react';
 import { BiCamera } from 'react-icons/bi';
-import { BsArrowLeft } from 'react-icons/bs';
 import { useMutation, useQueryCache } from 'react-query';
-import { Link as ReachRouter, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 const Profile = () => {
   const { location } = useHistory();
@@ -40,6 +41,7 @@ const Profile = () => {
   const { profilePicture, backgroundImage, follow, unfollow } = useAPI();
   const toast = useToast();
   const { user: others } = useOthersProfile(state?.member?.id);
+  const { feeds, isLoading } = useFeeds();
 
   const newUser = location.pathname === '/profile' ? user : others;
 
@@ -83,6 +85,8 @@ const Profile = () => {
     }
   };
 
+  const filteredFeeds = feeds?.data.filter((e) => e.is_owner === true);
+
   const [mutateFollow] = useMutation(follow, {
     onSuccess: () => queryCache.invalidateQueries('profile'),
   });
@@ -100,25 +104,19 @@ const Profile = () => {
   };
 
   // console.log('new user', newUser);
+  console.log('feeds', feeds);
 
   return (
-    <Layout>
-      <Box color={colorMode === 'dark' ? 'white' : 'gray.700'} pos='relative'>
-        <Box borderY='1px' py={3} borderColor='gray.600' my={4}>
-          <Link
-            as={ReachRouter}
-            to='/'
-            _hover={{
-              textDecor: 'none',
-              bg: colorMode === 'dark' ? 'gray.700' : 'gray.100',
-              rounded: '100%',
-            }}
-            w={16}
-            h={16}
-          >
-            <Icon as={BsArrowLeft} boxSize={6} />
-          </Link>
-        </Box>
+    <Layout
+      pageTitle={`${newUser?.first_name || 'firstname'} ${
+        newUser?.last_name || 'lastname'
+      }`}
+      path='/'
+      icon
+      py={12}
+      post={newUser?.posts_count}
+    >
+      <Box pos='relative'>
         <Box h={56} pos='relative'>
           <Image
             h='100%'
@@ -144,7 +142,7 @@ const Profile = () => {
               <Input
                 d='none'
                 type='file'
-                name='image'
+                name='profile'
                 id='profile'
                 onChange={handleUploadChange}
               />
@@ -237,7 +235,9 @@ const Profile = () => {
               <Text as='span' fontWeight='bold' fontSize='2xl'>
                 {newUser?.first_name} {newUser?.last_name}
               </Text>
-              <Text color='gray.400'>{newUser?.occupation}</Text>
+              <Text color='gray.500' mt={-2}>
+                {newUser?.occupation}
+              </Text>
             </Box>
             <Flex align='center' my={1}>
               <Text mr={12} fontWeight='bold'>
@@ -255,7 +255,7 @@ const Profile = () => {
                   as='span'
                   color={colorMode === 'dark' ? 'gray.400' : 'gray.600'}
                 >
-                  Followers
+                  {newUser?.followers_count > 1 ? 'Followers' : 'Follower'}
                 </Text>
               </Text>
             </Flex>
@@ -267,37 +267,33 @@ const Profile = () => {
             my={4}
           />
 
-          <Box mt={4} fontWeight='medium'>
+          <Box mt={4} fontWeight='semibold'>
             <Flex
               fontWeight='bold'
               color={colorMode === 'dark' ? 'gray.400' : 'gray.500'}
             >
               <Text mr={10}>
                 Referer ID:{' '}
-                <Text as='span' fontWeight='medium' color='white'>
+                <Text as='span' color='white'>
                   {newUser?.referer_id}
                 </Text>
               </Text>
               <Text>
                 Email:{' '}
-                <Text as='span' fontWeight='medium' color='white'>
+                <Text as='span' color='white'>
                   {newUser?.email}
                 </Text>
               </Text>
             </Flex>
 
-            <Flex align='center'>
-              <Text>City: {newUser?.city}</Text>
-              <Text mx={12}>Region: {newUser?.region}</Text>
-              <Text>Country: {newUser?.country}</Text>
+            <Flex align='center' fontWeight='semibold'>
+              <Text>City: {newUser?.city || 'No City'}</Text>
+              <Text mx={12}>Region: {newUser?.region || 'No Region'}</Text>
+              <Text>Country: {newUser?.country || 'No Country'}</Text>
             </Flex>
 
-            <Box mt={6}>
-              <Text>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Officia culpa veniam dignissimos soluta nemo exercitationem
-                inventore.
-              </Text>
+            <Box mt={6} fontWeight='normal'>
+              <Text>{newUser?.bio || 'You have no bio'}</Text>
             </Box>
           </Box>
         </Box>
@@ -309,14 +305,28 @@ const Profile = () => {
         />
 
         <Tabs>
-          <Box label='My Feeds'></Box>
+          <Box label='My Feeds'>
+            {isLoading && (
+              <Box minW='100%'>
+                <PostSkeleton />
+                <PostSkeleton />
+                <PostSkeleton />
+                <PostSkeleton />
+              </Box>
+            )}
+            {filteredFeeds?.map((feed) => (
+              <Post key={feed.id} feed={feed} user={feed?.member} />
+            ))}
+          </Box>
           <Box label='Following'>
-            {console.log('userFollowing', userFollowing)}
+            following
+            {/* {console.log('userFollowing', userFollowing)} */}
           </Box>
           <Box label='Followers'>
-            {console.log('userFollowers', userFollowers)}
+            followers
+            {/* {console.log('userFollowers', userFollowers)} */}
           </Box>
-          <Box label='Contributions'></Box>
+          <Box label='Contributions'>contributions</Box>
         </Tabs>
       </Box>
     </Layout>

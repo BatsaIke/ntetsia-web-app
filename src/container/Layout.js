@@ -1,4 +1,14 @@
-import { Box, Container, Grid, GridItem, useColorMode } from '@chakra-ui/react';
+import {
+  Box,
+  Container,
+  Flex,
+  Grid,
+  GridItem,
+  Icon,
+  Link,
+  Text,
+  useColorMode,
+} from '@chakra-ui/react';
 import React from 'react';
 import PropTypes from 'prop-types';
 import LeftSidebar from './LeftSidebar';
@@ -6,8 +16,10 @@ import RightSidebar from './RightSidebar';
 import useComponent from 'context/componentContext';
 import PostModal from 'components/Modals/PostModal';
 import UpdateProfileModal from 'components/Modals/updateProfileModal';
+import { BsArrowLeftShort } from 'react-icons/bs';
+import { Link as ReachLink } from 'react-router-dom';
 
-const Layout = ({ children, height, pt, px, ...rest }) => {
+const Layout = ({ children, px, py, path, icon, pageTitle, post, ...rest }) => {
   const { colorMode } = useColorMode();
   const { showEmoji, setShowEmoji, isOpen, onClose, modal } = useComponent();
 
@@ -41,19 +53,55 @@ const Layout = ({ children, height, pt, px, ...rest }) => {
         <GridItem>
           <LeftSidebar />
         </GridItem>
-        <GridItem>
+        <GridItem overflow='hidden' pos='relative' w='100%'>
           <Box
             as='main'
             gridArea='main'
-            w='100%'
-            color='gray.800'
-            pt={pt}
-            px={px}
-            h={height}
+            overflow='hidden'
             fontFamily='body'
             {...rest}
           >
-            {children}
+            <Flex
+              direction='column'
+              justify='center'
+              pos='fixed'
+              top={0}
+              w='34.2%'
+              h={14}
+              px={6}
+              borderBottomWidth={1}
+              zIndex={999}
+              bg={colorMode === 'dark' ? 'gray.800' : 'white'}
+            >
+              <Link
+                d='flex'
+                alignItems='center'
+                as={ReachLink}
+                to={path || '/'}
+                _hover={{ textDecor: 'none' }}
+              >
+                {icon && <Icon as={BsArrowLeftShort} boxSize={6} />}
+
+                <Text fontWeight='bold' fontSize='xl' ml={path ? 5 : 0}>
+                  {pageTitle}
+                </Text>
+              </Link>
+              {post && (
+                <Text
+                  fontSize='xs'
+                  color={colorMode === 'dark' ? 'gray.400' : 'gray.500'}
+                  ml={12}
+                  mt={-2}
+                  fontWeight='bold'
+                >
+                  {post} {post > 1 ? 'posts' : 'post'}
+                </Text>
+              )}
+            </Flex>
+
+            <Box py={py || 20} px={px}>
+              {children}
+            </Box>
           </Box>
         </GridItem>
         <GridItem>

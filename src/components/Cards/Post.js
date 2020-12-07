@@ -27,6 +27,7 @@ const Post = ({ user, feed, image }) => {
   const { colorMode } = useColorMode();
   const { postLike, postUnlike, deletePost } = useAPI();
   const { handleModalClick } = useComponent();
+  const [liked, setLiked] = React.useState(false);
 
   const queryCache = useQueryCache();
 
@@ -44,8 +45,10 @@ const Post = ({ user, feed, image }) => {
 
   const likesCount = () => {
     if (feed.is_liked === false) {
+      setLiked(true);
       mutateLikePost({ post_id: feed?.id });
     } else {
+      setLiked(false);
       mutateUnlikeLikePost({ post_id: feed?.id });
     }
   };
@@ -243,6 +246,7 @@ const Post = ({ user, feed, image }) => {
         comments={feed?.comments_count}
         shares={feed?.shares_count}
         liked={feed?.is_liked}
+        postLike={liked}
         id={feed?.id}
       />
     </Box>

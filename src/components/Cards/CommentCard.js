@@ -135,18 +135,14 @@ const CommentCard = ({ comment, user, id, replies, pId }) => {
           <Collapse startingHeight={20} in={show}>
             <Flex align='start' justify='space-between'>
               <Text fontSize='sm'>{comment.body}</Text>
-              {replies && (
-                <Box
-                  fontSize='xs'
-                  as='button'
-                  role='button'
-                  onClick={() =>
-                    handleModalClick('post', null, pId, id, 'reply')
-                  }
-                >
-                  Reply
-                </Box>
-              )}
+              <Box
+                fontSize='xs'
+                as='button'
+                role='button'
+                onClick={() => handleModalClick('post', null, pId, id, 'reply')}
+              >
+                Reply
+              </Box>
             </Flex>
           </Collapse>
           <Text fontSize='xs' onClick={handleToggle} mt={1}>

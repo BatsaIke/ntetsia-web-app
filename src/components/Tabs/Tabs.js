@@ -1,10 +1,10 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { Box, Flex } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
 import Tab from './Tab';
 
-const MotionFlex = motion.custom(Flex);
+const MotionBox = motion.custom(Box);
 
 const Tabs = ({ children, width, borderWidth, px, pt }) => {
   const [activeTab, setActiveTab] = React.useState(children[0].props.label);
@@ -35,19 +35,15 @@ const Tabs = ({ children, width, borderWidth, px, pt }) => {
         })}
       </Flex>
 
-      <MotionFlex
+      <MotionBox
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 0.5 } }}
-        w={{ md: width }}
-        // h={{ md: height }}
+        w='100%'
+        p={6}
         mx='auto'
-        // px={px || 16}
-        // py={10}
         overflow='hidden'
         pt={pt}
-        bg='white'
         pos='relative'
-        borderWidth={borderWidth || 1}
         borderColor='gray.300'
         rounded='md'
       >
@@ -55,7 +51,7 @@ const Tabs = ({ children, width, borderWidth, px, pt }) => {
           if (child.props.label !== activeTab) return undefined;
           return child.props.children;
         })}
-      </MotionFlex>
+      </MotionBox>
     </Flex>
   );
 };

@@ -1,6 +1,6 @@
 import useAPI from 'context/apiContext';
 import useAuth from 'context/userContext';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 
 export const useProfile = () => {
   const { getProfile } = useAPI();
@@ -56,14 +56,39 @@ export const useFollowers = (id) => {
   return { userFollowers, loading };
 };
 
+export const usePaginatedFeeds = () => {
+  const { fetchPaginatedFeeds } = useAPI();
+  const {
+    status,
+    data,
+    isFetching,
+    isFetchingMore,
+    fetchMore,
+    canFetchMore,
+    error,
+  } = useInfiniteQuery('projects', fetchPaginatedFeeds, {
+    getFetchMore: (lastGroup, allGroups) => lastGroup.nextCursor,
+  });
+
+  return {
+    status,
+    data,
+    isFetching,
+    isFetchingMore,
+    fetchMore,
+    canFetchMore,
+    error,
+  };
+};
+
 export const useFeeds = () => {
   const { fetchFeeds } = useAPI();
   const { isLoading, error, data: feeds, isError } = useQuery(
     'feeds',
     () => fetchFeeds(),
     {
-      refetchOnWindowFocus: false,
-      initialStale: true,
+      // refetchOnWindowFocus: false,
+      // initialStale: true,
     }
   );
 

@@ -102,6 +102,15 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const fetchPaginatedFeeds = async ({ page = 1 }) => {
+    try {
+      const { data } = await api.get(`/feeds?page=${page}`);
+      return data;
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+
   const postLike = async (id) => {
     try {
       const res = await api.post('/posts/like', id);
@@ -185,6 +194,7 @@ export const ApiProvider = ({ children }) => {
         followers,
         postFeed,
         fetchFeeds,
+        fetchPaginatedFeeds,
         postLike,
         postUnlike,
         updatePost,

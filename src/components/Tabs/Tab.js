@@ -15,9 +15,6 @@ const Tab = ({ activeTab, label, onClick }) => {
       px={6}
       cursor='pointer'
       onClick={handleClick}
-      // bg={activeTab === label ? 'cf.400' : 'white'}
-      // borderWidth={1}
-      // borderColor={activeTab === label ? 'blue.500' : 'gray.400'}
       borderBottomWidth={activeTab === label ? 3 : 0}
       borderBottomColor={activeTab === label ? 'blue.500' : ''}
       color={
@@ -25,7 +22,7 @@ const Tab = ({ activeTab, label, onClick }) => {
           ? colorMode === 'dark'
             ? 'white'
             : 'gray.700'
-          : 'gray.300'
+          : 'gray.500'
       }
       fontWeight='bold'
     >

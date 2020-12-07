@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     async function loadUserFromCookies() {
-      const token = Cookies.get('token');
+      const token = Cookies.get('ntoken');
       const user = window.sessionStorage.getItem('user');
       if (token) {
         // console.log("Got a token in the cookies, let's see if it is valid");
@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }) => {
           isClosable: true,
         });
         if (token) {
-          Cookies.set('token', token.data.token, { expires: 60 });
+          Cookies.set('ntoken', token.data.token, { expires: 60 });
           const user = token.data;
           window.sessionStorage.setItem('user', JSON.stringify(user));
           setIsAuthenticated(user?.token);

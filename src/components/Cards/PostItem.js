@@ -5,7 +5,15 @@ import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import useComponent from 'context/componentContext';
 
-const PostItem = ({ likes, comments, shares, likesCount, liked, id }) => {
+const PostItem = ({
+  likes,
+  comments,
+  shares,
+  likesCount,
+  liked,
+  id,
+  postLike,
+}) => {
   const { handleModalClick } = useComponent();
 
   return (
@@ -16,9 +24,9 @@ const PostItem = ({ likes, comments, shares, likesCount, liked, id }) => {
           <Text>{likes}</Text>
           <Box as='button' role='button' px={2} py={2} onClick={likesCount}>
             <Icon
-              as={liked ? BsHeartFill : BsHeart}
-              color={liked ? 'red.600' : ''}
-              boxSize={liked ? 5 : 4}
+              as={postLike || liked ? BsHeartFill : BsHeart}
+              color={postLike || liked ? 'red.600' : ''}
+              boxSize={postLike || liked ? 5 : 4}
               mr={1}
             />{' '}
             Like

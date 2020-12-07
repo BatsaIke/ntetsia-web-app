@@ -1,11 +1,11 @@
-import { Box, Flex, Icon, Input, Text } from '@chakra-ui/react';
+import { Box, Flex, Icon, Input, Text, Image } from '@chakra-ui/react';
 import Button from 'components/Button';
 import IconButton from 'components/Button/IconButton';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import { Formik } from 'formik';
 import React from 'react';
-import { Emoji, Image } from 'theme/Icons';
+import { Emoji, Image as IconImage } from 'theme/Icons';
 import FormTextArea from './FormTextArea';
 
 const FormikForm = ({
@@ -16,6 +16,15 @@ const FormikForm = ({
   title,
   parentId,
 }) => {
+  const [file, setFile] = React.useState(null);
+
+  const handleImageChange = async (e) => {
+    const image = e.target.files[0];
+    setFile(image);
+    // const formData = new FormData();
+    // formData.append('image', file, file?.name);
+  };
+
   return (
     <Formik
       initialValues={{ body: initialData, parent_id: parentId }}
@@ -38,9 +47,10 @@ const FormikForm = ({
               as={Picker}
               set='apple'
               showPreview={false}
-              style={{ position: 'absolute', zIndex: 50, top: 380 }}
+              style={{ position: 'absolute', zIndex: 50, top: 350 }}
               onSelect={(emoji) => {
                 setFieldValue('body', values.body + emoji.native);
+                setShowEmoji(false);
               }}
               title=''
             />
@@ -60,34 +70,34 @@ const FormikForm = ({
               // touch={touched.body}
               // error={errors.body}
             />
+            <Image
+              src={file ? URL.createObjectURL(file) : null}
+              alt={file ? file.name : null}
+            />
           </Box>
 
           <Flex align='center' justify='space-between' py={1} px={3}>
             <Flex align='center'>
-              <Box as='label' color='white'>
-                <Flex
-                  align='center'
-                  rounded='2xl'
-                  bg='blue.300'
-                  as='button'
-                  role='button'
-                  type='button'
-                  aria-label='Image Button'
-                  _focus={{ outline: 'none' }}
-                  py={2}
-                  px={4}
-                >
-                  <Icon as={Image} boxSize={6} mr={1} />
-                  <Input type='file' d='none' />
-                  <Text>Photos</Text>
-                </Flex>
-              </Box>
+              <Flex
+                as='label'
+                align='center'
+                rounded='30px'
+                bg='blue.300'
+                _focus={{ outline: 'none' }}
+                py={2}
+                px={4}
+                cursor='pointer'
+              >
+                <Input type='file' d='none' onChange={handleImageChange} />
+                <Icon as={IconImage} boxSize={6} mr={1} />
+                <Text>Photos</Text>
+              </Flex>
 
               <Flex
                 align='center'
                 bg='red.300'
                 color='white'
-                rounded='2xl'
+                rounded='30px'
                 py={2}
                 px={4}
                 as='button'

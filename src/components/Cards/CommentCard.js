@@ -7,7 +7,7 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { AnimatePresence, motion } from 'framer-motion';
 import useAPI from 'context/apiContext';
 import moment from 'moment';
-import { useMutation, useQueryCache } from 'react-query';
+import { useMutation, useQueryCache, useQuery } from 'react-query';
 import useComponent from 'context/componentContext';
 
 const MotionBox = motion.custom(Box);
@@ -15,7 +15,7 @@ const MotionBox = motion.custom(Box);
 const CommentCard = ({ comment, user, id, replies, pId }) => {
   const [show, setShow] = React.useState(false);
   const handleToggle = () => setShow(!show);
-  const { deleteComment } = useAPI();
+  const { deleteComment, getReplies } = useAPI();
   const { handleModalClick } = useComponent();
 
   const queryCache = useQueryCache();
@@ -23,6 +23,13 @@ const CommentCard = ({ comment, user, id, replies, pId }) => {
   const [mutate] = useMutation(deleteComment, {
     onSuccess: () => queryCache.invalidateQueries('comments'),
   });
+
+  const { data, loading, error } = useQuery(['reply', id], () =>
+    getReplies(id)
+  );
+
+  console.log('comment', data);
+  console.log('id', id);
 
   return (
     <Box>
@@ -134,7 +141,9 @@ const CommentCard = ({ comment, user, id, replies, pId }) => {
         <Box mt={1} ml={10}>
           <Collapse startingHeight={20} in={show}>
             <Flex align='start' justify='space-between'>
-              <Text fontSize='sm'>{comment.body}</Text>
+              <Box w={85}>
+                <Text fontSize='sm'>{comment.body}</Text>
+              </Box>
               <Box
                 fontSize='xs'
                 as='button'
@@ -152,7 +161,7 @@ const CommentCard = ({ comment, user, id, replies, pId }) => {
       </Box>
 
       <Box ml={10} mt={1}>
-        {replies?.map((reply) => (
+        {data?.data?.map((reply) => (
           <CommentCard key={reply.id} comment={reply} user={reply.member} />
         ))}
       </Box>

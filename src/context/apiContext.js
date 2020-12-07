@@ -146,6 +146,15 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const getReplies = async (id) => {
+    try {
+      const { data } = await api.get(`/comments/${id}/replies`);
+      return data;
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   const getComment = async (id) => {
     try {
       const res = await api.get(`/posts/${id}/comments`);
@@ -199,6 +208,7 @@ export const ApiProvider = ({ children }) => {
         postUnlike,
         updatePost,
         deletePost,
+        getReplies,
         getComment,
         createComment,
         deleteComment,

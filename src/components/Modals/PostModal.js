@@ -40,6 +40,13 @@ const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
     }
   );
 
+  const [mutateCreateReply] = useMutation(
+    (values) => createComment(selectedId, values),
+    {
+      onSuccess: () => queryCache.invalidateQueries('reply'),
+    }
+  );
+
   const [mutateUpdateComment] = useMutation(
     (values) => updateComment(selectedId, values),
     {
@@ -56,10 +63,12 @@ const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
         await mutateUpdatePost(values);
       } else if (mode === 'post') {
         await mutateCreatePost(values);
-      } else if (mode === 'comment' || mode === 'reply') {
+      } else if (mode === 'comment') {
         await mutateCreateComment(values);
       } else if (mode === 'editComment') {
         await mutateUpdateComment(values);
+      } else if (mode === 'reply') {
+        await mutateCreateReply(values);
       }
       resetForm({});
       setStatus({ success: true });

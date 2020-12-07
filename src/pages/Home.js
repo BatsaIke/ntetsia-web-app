@@ -9,7 +9,7 @@ import Layout from 'container/Layout';
 import Button from 'components/Button';
 
 const Home = () => {
-  const [state, setState] = React.useState([]);
+  // const [state, setState] = React.useState([]);
   const { feeds, isLoading } = useFeeds();
 
   // React.useEffect(() => {
@@ -20,8 +20,6 @@ const Home = () => {
   const fetchMore = () => {
     return feeds.links.next;
   };
-
-  console.log('data', feeds);
 
   return (
     <Layout pageTitle='Home' px={6}>

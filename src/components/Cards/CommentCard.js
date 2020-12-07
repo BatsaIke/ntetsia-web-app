@@ -9,10 +9,11 @@ import useAPI from 'context/apiContext';
 import moment from 'moment';
 import { useMutation, useQueryCache, useQuery } from 'react-query';
 import useComponent from 'context/componentContext';
+import PostSkeleton from './PostSkeleton';
 
 const MotionBox = motion.custom(Box);
 
-const CommentCard = ({ comment, user, id, replies, pId }) => {
+const CommentCard = ({ comment, user, id, pId }) => {
   const [show, setShow] = React.useState(false);
   const handleToggle = () => setShow(!show);
   const { deleteComment, getReplies } = useAPI();
@@ -24,12 +25,7 @@ const CommentCard = ({ comment, user, id, replies, pId }) => {
     onSuccess: () => queryCache.invalidateQueries('comments'),
   });
 
-  const { data, loading, error } = useQuery(['reply', id], () =>
-    getReplies(id)
-  );
-
-  console.log('comment', data);
-  console.log('id', id);
+  const { data, isLoading } = useQuery(['reply', id], () => getReplies(id));
 
   return (
     <Box>
@@ -161,6 +157,12 @@ const CommentCard = ({ comment, user, id, replies, pId }) => {
       </Box>
 
       <Box ml={10} mt={1}>
+        {isLoading && (
+          <Box minW='100%'>
+            <PostSkeleton />
+            <PostSkeleton />
+          </Box>
+        )}
         {data?.data?.map((reply) => (
           <CommentCard key={reply.id} comment={reply} user={reply.member} />
         ))}

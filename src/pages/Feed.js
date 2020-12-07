@@ -31,7 +31,6 @@ const Feed = () => {
               id={comment.id}
               comment={comment}
               user={comment.member}
-              replies={comment.replies}
               pId={feed?.id}
             />
           ))}

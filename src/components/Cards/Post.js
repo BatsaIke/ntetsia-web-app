@@ -7,6 +7,7 @@ import {
   Text,
   Link,
   useColorMode,
+  Grid,
 } from '@chakra-ui/react';
 import { BsThreeDots } from 'react-icons/bs';
 import React from 'react';
@@ -235,7 +236,21 @@ const Post = ({ user, feed, image }) => {
 
           <Box mt={4}>
             <Text mt={3}>{feed?.body}</Text>
-            {image && <Image src={image} rounded='md' />}
+            <Grid
+              templateColumns={{
+                md: feed?.files.length > 1 && 'repeat(2, 1fr)',
+              }}
+              mt={2}
+            >
+              {feed?.files?.map((file) => (
+                <Image
+                  key={file.id}
+                  src={file.url}
+                  alt={file.filename}
+                  rounded='md'
+                />
+              ))}
+            </Grid>
           </Box>
         </Box>
       </Link>

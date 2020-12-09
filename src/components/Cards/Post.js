@@ -33,10 +33,6 @@ const Post = ({ user, feed, image }) => {
   const [liked, setLiked] = React.useState(false);
   const [isZoomed, setIsZoomed] = React.useState(false);
 
-  const handleImgLoad = React.useCallback(() => {
-    setIsZoomed(true);
-  }, []);
-
   const handleZoomChange = React.useCallback((shouldZoom) => {
     setIsZoomed(shouldZoom);
   }, []);
@@ -264,7 +260,6 @@ const Post = ({ user, feed, image }) => {
                   <Image
                     key={file.id}
                     src={file.url}
-                    onLoad={handleImgLoad}
                     alt={file.filename}
                     rounded='md'
                     h={isZoomed ? '100%' : 90}

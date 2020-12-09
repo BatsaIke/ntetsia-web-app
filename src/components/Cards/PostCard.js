@@ -30,10 +30,6 @@ const PostCard = ({ user, feed, image }) => {
   const { postLike, postUnlike, deletePost, handleModalClick } = useAPI();
   const [isZoomed, setIsZoomed] = React.useState(false);
 
-  const handleImgLoad = React.useCallback(() => {
-    setIsZoomed(true);
-  }, []);
-
   const handleZoomChange = React.useCallback((shouldZoom) => {
     setIsZoomed(shouldZoom);
   }, []);
@@ -235,7 +231,6 @@ const PostCard = ({ user, feed, image }) => {
                 h={isZoomed ? '100%' : 90}
                 objectFit='cover'
                 w='100%'
-                onLoad={handleImgLoad}
               />
             </ControlledZoom>
           ))}

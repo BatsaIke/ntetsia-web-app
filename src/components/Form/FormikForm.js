@@ -1,15 +1,12 @@
-import { Box, Flex, Icon, Input, Text, Image, Grid } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import Button from 'components/Button';
 import IconButton from 'components/Button/IconButton';
-import useAPI from 'context/apiContext';
 import useComponent from 'context/componentContext';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import { Formik } from 'formik';
 import React from 'react';
-import Dropzone from 'react-dropzone';
-import { BsX } from 'react-icons/bs';
-import { Emoji, Image as IconImage } from 'theme/Icons';
+import { Emoji } from 'theme/Icons';
 import FormTextArea from './FormTextArea';
 import ImageUpload from './ImageUpload';
 

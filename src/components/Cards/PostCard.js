@@ -10,6 +10,8 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 import { Link as ReachRouter } from 'react-router-dom';
+import { Controlled as ControlledZoom } from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 import { BsThreeDots } from 'react-icons/bs';
 import React from 'react';
 import { Menu } from '@headlessui/react';
@@ -26,6 +28,15 @@ const MotionBox = motion.custom(Box);
 const PostCard = ({ user, feed, image }) => {
   const { colorMode } = useColorMode();
   const { postLike, postUnlike, deletePost, handleModalClick } = useAPI();
+  const [isZoomed, setIsZoomed] = React.useState(false);
+
+  const handleImgLoad = React.useCallback(() => {
+    setIsZoomed(true);
+  }, []);
+
+  const handleZoomChange = React.useCallback((shouldZoom) => {
+    setIsZoomed(shouldZoom);
+  }, []);
 
   const queryCache = useQueryCache();
 
@@ -209,12 +220,23 @@ const PostCard = ({ user, feed, image }) => {
           mt={2}
         >
           {feed?.files?.map((file) => (
-            <Image
-              key={file.id}
-              src={file.url}
-              alt={file.filename}
-              rounded='md'
-            />
+            <ControlledZoom
+              isZoomed={isZoomed}
+              onZoomChange={handleZoomChange}
+              transitionDuration={500}
+              zoomMargin={150}
+              overlayBgColorEnd='rgba(0, 0, 0, 0.85)'
+            >
+              <Image
+                key={file.id}
+                src={file.url}
+                alt={file.filename}
+                rounded='md'
+                // h={90}
+                objectFit='cover'
+                w='100%'
+              />
+            </ControlledZoom>
           ))}
         </Grid>
       </Box>

@@ -6,20 +6,13 @@ import PostSkeleton from 'components/Cards/PostSkeleton';
 
 import { useFeeds } from 'hooks/useGlobalHooks';
 import Layout from 'container/Layout';
-import Button from 'components/Button';
 
 const Home = () => {
-  // const [state, setState] = React.useState([]);
   const { feeds, isLoading } = useFeeds();
 
-  // React.useEffect(() => {
-  //   setState(feeds);
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, []);
-
-  const fetchMore = () => {
-    return feeds.links.next;
-  };
+  // const fetchMore = () => {
+  //   return feeds.links.next;
+  // };
 
   return (
     <Layout pageTitle='Home' px={6}>
@@ -40,12 +33,6 @@ const Home = () => {
         {feeds?.data?.map((feed, i) => (
           <Post key={feed.id} feed={feed} user={feed?.member} />
         ))}
-
-        <Button
-          onClick={() => fetchMore}
-          // disabled={!canFetchMore || isFetchingMore}
-          title='Loading more...'
-        />
       </Box>
     </Layout>
   );

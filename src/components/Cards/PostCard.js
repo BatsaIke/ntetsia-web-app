@@ -232,9 +232,10 @@ const PostCard = ({ user, feed, image }) => {
                 src={file.url}
                 alt={file.filename}
                 rounded='md'
-                // h={90}
+                h={isZoomed ? '100%' : 90}
                 objectFit='cover'
                 w='100%'
+                onLoad={handleImgLoad}
               />
             </ControlledZoom>
           ))}

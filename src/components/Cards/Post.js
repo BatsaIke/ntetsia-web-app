@@ -264,6 +264,7 @@ const Post = ({ user, feed, image }) => {
                   <Image
                     key={file.id}
                     src={file.url}
+                    onLoad={handleImgLoad}
                     alt={file.filename}
                     rounded='md'
                     h={isZoomed ? '100%' : 90}

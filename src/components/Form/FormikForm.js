@@ -1,12 +1,17 @@
-import { Box, Flex, Icon, Input, Text, Image } from '@chakra-ui/react';
+import { Box, Flex, Icon, Input, Text, Image, Grid } from '@chakra-ui/react';
 import Button from 'components/Button';
 import IconButton from 'components/Button/IconButton';
+import useAPI from 'context/apiContext';
+import useComponent from 'context/componentContext';
 import { Picker } from 'emoji-mart';
 import 'emoji-mart/css/emoji-mart.css';
 import { Formik } from 'formik';
 import React from 'react';
+import Dropzone from 'react-dropzone';
+import { BsX } from 'react-icons/bs';
 import { Emoji, Image as IconImage } from 'theme/Icons';
 import FormTextArea from './FormTextArea';
+import ImageUpload from './ImageUpload';
 
 const FormikForm = ({
   onSubmit,
@@ -16,18 +21,12 @@ const FormikForm = ({
   title,
   parentId,
 }) => {
-  const [file, setFile] = React.useState(null);
-
-  const handleImageChange = async (e) => {
-    const image = e.target.files[0];
-    setFile(image);
-    // const formData = new FormData();
-    // formData.append('image', file, file?.name);
-  };
+  const [files, setFiles] = React.useState([]);
+  const { mode } = useComponent();
 
   return (
     <Formik
-      initialValues={{ body: initialData, parent_id: parentId }}
+      initialValues={{ body: initialData, parent_id: parentId, file_ids: [] }}
       // validationSchema={PostSchema}
       onSubmit={onSubmit}
     >
@@ -65,34 +64,23 @@ const FormikForm = ({
               name='body'
               px={1}
               resize='none'
-              h={{ md: 48 }}
+              // h={{ md: 48 }}
               autoFocus={true}
               // touch={touched.body}
               // error={errors.body}
             />
-            <Image
-              src={file ? URL.createObjectURL(file) : null}
-              alt={file ? file.name : null}
-            />
+            {mode === 'post' && (
+              <ImageUpload
+                files={files}
+                setFiles={setFiles}
+                setFieldValue={setFieldValue}
+                values={values.file_ids}
+              />
+            )}
           </Box>
 
-          <Flex align='center' justify='space-between' py={1} px={3}>
+          <Flex align='center' justify='space-between' py={1}>
             <Flex align='center'>
-              <Flex
-                as='label'
-                align='center'
-                rounded='30px'
-                bg='blue.300'
-                _focus={{ outline: 'none' }}
-                py={2}
-                px={4}
-                cursor='pointer'
-              >
-                <Input type='file' d='none' onChange={handleImageChange} />
-                <Icon as={IconImage} boxSize={6} mr={1} />
-                <Text>Photos</Text>
-              </Flex>
-
               <Flex
                 align='center'
                 bg='red.300'

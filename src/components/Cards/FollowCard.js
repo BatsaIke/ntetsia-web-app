@@ -9,7 +9,7 @@ import {
 import Button from 'components/Button';
 import React from 'react';
 
-const FollowCard = () => {
+const FollowCard = ({ data, onClick }) => {
   const { colorMode } = useColorMode();
 
   return (
@@ -19,12 +19,12 @@ const FollowCard = () => {
           <Avatar
             borderWidth={2}
             borderColor={colorMode === ' dark' ? 'gray.600' : 'gray.200'}
-            src='https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1600&q=80'
+            src={data?.profile_picture}
             size='md'
           />
           <Box ml={2} w={40}>
             <Text fontWeight='bold' isTruncated>
-              Felix Yeboah - Jefferson
+              {data?.first_name} {data?.last_name}
             </Text>
             <Text mt={-1} color='gray.400'>
               Developer
@@ -34,16 +34,17 @@ const FollowCard = () => {
 
         <Box>
           <Button
-            title='Follow'
+            title={data?.is_following ? 'Following' : 'Follow'}
             rounded='30px'
             borderWidth={2}
             borderColor='blue.500'
-            bg='transparent'
+            bg={data?.is_following ? 'blue.500' : 'transparent'}
             _hover={{ bg: 'transparent' }}
             _active={{ bg: 'transparent' }}
-            color='blue.500'
+            color={data?.is_following ? 'white' : 'blue.500'}
             mt={2}
             fontSize='sm'
+            onClick={onClick}
           />
         </Box>
       </Flex>

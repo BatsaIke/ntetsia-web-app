@@ -79,6 +79,7 @@ const Layout = ({ children, px, py, path, icon, pageTitle, post, ...rest }) => {
                 as={ReachLink}
                 to={path || '/'}
                 _hover={{ textDecor: 'none' }}
+                _focus={{ outline: 'none' }}
               >
                 {icon && <Icon as={BsArrowLeftShort} boxSize={6} />}
 

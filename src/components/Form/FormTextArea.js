@@ -22,7 +22,7 @@ const FormTextArea = ({
     <FormControl id={name} isRequired={isRequired} isInvalid={error && touch}>
       <FormLabel htmlFor={name}>{label}</FormLabel>
       <Textarea
-        h={12}
+        // h={12}
         name={name}
         ref={ref}
         rounded='none'

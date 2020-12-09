@@ -3,6 +3,7 @@ import {
   Box,
   Divider,
   Flex,
+  Grid,
   Icon,
   Image,
   Input,
@@ -11,6 +12,7 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import Button from 'components/Button';
+import FollowCard from 'components/Cards/FollowCard';
 import Post from 'components/Cards/Post';
 import PostSkeleton from 'components/Cards/PostSkeleton';
 import Tabs from 'components/Tabs/Tabs';
@@ -35,8 +37,6 @@ const Profile = () => {
   const { colorMode } = useColorMode();
   const queryCache = useQueryCache();
   const { user } = useProfile();
-  const { userFollowing } = useFollowing();
-  const { userFollowers } = useFollowers();
   const { handleModalClick } = useComponent();
   const { profilePicture, backgroundImage, follow, unfollow } = useAPI();
   const toast = useToast();
@@ -103,8 +103,11 @@ const Profile = () => {
     }
   };
 
+  const { userFollowing } = useFollowing(newUser?.id);
+  const { userFollowers } = useFollowers(newUser?.id);
+
   // console.log('new user', newUser);
-  console.log('feeds', feeds);
+  // console.log('feeds', feeds);
 
   return (
     <Layout
@@ -319,12 +322,22 @@ const Profile = () => {
             ))}
           </Box>
           <Box label='Following'>
-            following
-            {/* {console.log('userFollowing', userFollowing)} */}
+            <Grid gap={4} p={6}>
+              {userFollowing?.data.map(
+                (item) =>
+                  !item?.is_self && <FollowCard key={item?.id} data={item} />
+              )}
+            </Grid>
           </Box>
           <Box label='Followers'>
-            followers
-            {/* {console.log('userFollowers', userFollowers)} */}
+            <Grid gap={4} p={6}>
+              {userFollowers?.data.map(
+                (item) =>
+                  !item?.is_self && (
+                    <FollowCard data={item} onClick={followUnfollow} />
+                  )
+              )}
+            </Grid>
           </Box>
           <Box label='Contributions'>contributions</Box>
         </Tabs>

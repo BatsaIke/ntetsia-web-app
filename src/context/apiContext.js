@@ -1,3 +1,4 @@
+import { useToast } from '@chakra-ui/react';
 import Axios from 'axios';
 import React from 'react';
 import api from 'utils/auth/api';
@@ -5,6 +6,8 @@ import api from 'utils/auth/api';
 const ApiContext = React.createContext({});
 
 export const ApiProvider = ({ children }) => {
+  const toast = useToast();
+
   const countriesList = async () => {
     return await Axios.get('https://restcountries.eu/rest/v2/all');
   };
@@ -13,7 +16,13 @@ export const ApiProvider = ({ children }) => {
     try {
       await api.post('/posts', payload);
     } catch (error) {
-      console.log(error.response);
+      toast({
+        title: 'Error occured.',
+        description: error.response.data.errors.body[0],
+        status: 'error',
+        duration: 9000,
+        isClosable: true,
+      });
     }
   };
 
@@ -57,6 +66,17 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const postImageUpload = async (payload) => {
+    try {
+      const res = await api.post('/docs/upload', payload, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+      return res;
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+
   const follow = async (payload) => {
     try {
       const res = await api.post('/members/follow', payload);
@@ -77,8 +97,8 @@ export const ApiProvider = ({ children }) => {
 
   const following = async (id) => {
     try {
-      const res = await api.post(`/members/${id}/following`);
-      return res;
+      const { data } = await api.get(`/members/${id}/following`);
+      return data;
     } catch (error) {
       console.log(error.response.data.message);
     }
@@ -86,8 +106,8 @@ export const ApiProvider = ({ children }) => {
 
   const followers = async (id) => {
     try {
-      const res = await api.post(`/members/${id}/followers`);
-      return res;
+      const { data } = await api.get(`/members/${id}/followers`);
+      return data;
     } catch (error) {
       console.log(error.response.data.message);
     }
@@ -197,6 +217,7 @@ export const ApiProvider = ({ children }) => {
         getPeople,
         profilePicture,
         backgroundImage,
+        postImageUpload,
         follow,
         unfollow,
         following,

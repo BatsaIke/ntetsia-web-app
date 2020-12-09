@@ -33,7 +33,7 @@ export const useOthersProfile = (id) => {
 export const useFollowing = (id) => {
   const { following } = useAPI();
   const { data: userFollowing, isLoading: loading } = useQuery(
-    ['profile', id],
+    ['following', id],
     () => following(id),
     {
       refetchOnWindowFocus: false,
@@ -46,7 +46,7 @@ export const useFollowing = (id) => {
 export const useFollowers = (id) => {
   const { followers } = useAPI();
   const { data: userFollowers, isLoading: loading } = useQuery(
-    ['profile', id],
+    ['followers', id],
     () => followers(id),
     {
       refetchOnWindowFocus: false,

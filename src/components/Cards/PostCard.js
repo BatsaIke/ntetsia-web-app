@@ -2,6 +2,7 @@ import {
   Avatar,
   Box,
   Flex,
+  Grid,
   Icon,
   Image,
   Link,
@@ -198,10 +199,24 @@ const PostCard = ({ user, feed, image }) => {
         </AnimatePresence>
       </Flex>
       <Box mt={4}>
-        {image && <Image src={image} rounded='md' />}
         <Text mt={3} fontSize='xl'>
           {feed?.body}
         </Text>
+        <Grid
+          templateColumns={{
+            md: feed?.files.length > 1 && 'repeat(2, 1fr)',
+          }}
+          mt={2}
+        >
+          {feed?.files?.map((file) => (
+            <Image
+              key={file.id}
+              src={file.url}
+              alt={file.filename}
+              rounded='md'
+            />
+          ))}
+        </Grid>
       </Box>
 
       <PostItem

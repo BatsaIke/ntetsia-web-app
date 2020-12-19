@@ -9,7 +9,6 @@ import {
 const FormInput = ({
   label,
   name,
-  value,
   error,
   touch,
   setFieldTouched,
@@ -28,6 +27,9 @@ const FormInput = ({
         ref={ref}
         rounded='none'
         borderWidth={2}
+        borderColor='gray.400'
+        _hover={{ borderColor: 'gray.600' }}
+        _focus={{ borderColor: 'gray.600' }}
         {...rest}
       />
       <FormErrorMessage fontSize='xs'>{error}</FormErrorMessage>

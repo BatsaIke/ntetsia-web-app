@@ -21,6 +21,7 @@ const Router = () => {
           component={Pages.Contribution}
         />
         <PrivateRoute exact path='/my-ideas' component={Pages.MyIdeas} />
+        <PrivateRoute exact path='/settings' component={Pages.Settings} />
       </Switch>
     </React.Suspense>
   );

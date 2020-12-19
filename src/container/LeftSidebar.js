@@ -3,11 +3,10 @@ import {
   Avatar,
   Box,
   Flex,
+  Grid,
   Icon,
   Image,
   Link,
-  SkeletonCircle,
-  SkeletonText,
   Text,
   useColorMode,
 } from '@chakra-ui/react';
@@ -23,7 +22,7 @@ import { useProfile } from 'hooks/useGlobalHooks';
 const LeftSidebar = () => {
   const { logout } = useAuth();
   const { colorMode, toggleColorMode } = useColorMode();
-  const { user, loading } = useProfile();
+  const { user } = useProfile();
 
   return (
     <Flex
@@ -32,8 +31,6 @@ const LeftSidebar = () => {
       bottom={0}
       h={{ lg: '100vh' }}
       zIndex={20}
-      pt={10}
-      pb={5}
       boxShadow=' sm'
       borderRightWidth={1}
       borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.200'}
@@ -42,110 +39,161 @@ const LeftSidebar = () => {
     >
       <Flex direction='column' justify='space-between'>
         <Box>
-          <Box mb={16}>
-            <Image
-              src={
-                colorMode === 'dark'
-                  ? require('../assets/images/logo.png').default
-                  : require('../assets/images/dark-logo.png').default
-              }
-            />
+          <Link
+            as={NavLink}
+            _hover={{ textDecor: 'none' }}
+            _focus={{ textDecor: 'none' }}
+            to='/profile'
+          >
+            <Box
+              pos='relative'
+              borderWidth={1}
+              borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.100'}
+              rounded='sm'
+            >
+              <Box h={24} w='100%'>
+                <Image
+                  h='100%'
+                  w='100%'
+                  objectFit='cover'
+                  src={user?.background_picture}
+                />
+              </Box>
+              <Flex pos='absolute' top={16} left={4}>
+                <Avatar
+                  src={user?.profile_picture}
+                  borderWidth={2}
+                  borderColor='gray.400'
+                />
+              </Flex>
+              <Box mt={4} fontWeight='bold' pr={4} py={2}>
+                <Text fontSize={{ md: 'lg' }}>
+                  {user?.first_name} {user?.last_name}
+                </Text>
+                <Box fontSize='sm' mt={-1}>
+                  <Text as='span'>{user?.occupation}</Text>
+                </Box>
+              </Box>
+            </Box>
+          </Link>
+
+          <Box pr={2} mt={6}>
+            <Grid templateColumns={{ md: 'repeat(2, 1fr)' }} gap={1}>
+              <Image
+                src='https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80'
+                rounded='sm'
+              />
+              <Image
+                src='https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80'
+                rounded='sm'
+              />
+              <Image
+                src='https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80'
+                rounded='sm'
+              />
+              <Image
+                src='https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80'
+                rounded='sm'
+              />
+            </Grid>
           </Box>
 
-          <Link
-            as={NavLink}
-            to='/'
-            d='block'
-            py={{ md: 3 }}
-            fontSize={{ md: 'xl' }}
-            fontWeight='bold'
-            _hover={{
-              textDecor: 'none',
-              bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-              rounded: '30px',
-              transition: 'background-color .3s ease-in-out',
-            }}
-            px={4}
-          >
-            <Icon as={CgFeed} boxSize={6} mr={3} /> Feeds
-          </Link>
-          <Link
-            as={NavLink}
-            to='/jobs'
-            d='block'
-            py={{ md: 3 }}
-            fontSize={{ md: 'xl' }}
-            fontWeight='bold'
-            _hover={{
-              textDecor: 'none',
-              bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-              rounded: '30px',
-              transition: 'background-color .3s ease-in-out',
-            }}
-            px={4}
-          >
-            <Icon as={GiSuitcase} boxSize={6} mr={3} />
-            Jobs
-          </Link>
-          <Link
-            as={NavLink}
-            to='/contribution'
-            d='block'
-            py={{ md: 3 }}
-            fontSize={{ md: 'xl' }}
-            fontWeight='bold'
-            _hover={{
-              textDecor: 'none',
-              bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-              rounded: '30px',
-              transition: 'background-color .3s ease-in-out',
-            }}
-            px={4}
-          >
-            <Icon as={GiReceiveMoney} boxSize={6} mr={3} />
-            Contribution
-          </Link>
-          <Link
-            as={NavLink}
-            to='/my-ideas'
-            d='block'
-            py={{ md: 3 }}
-            fontSize={{ md: 'xl' }}
-            fontWeight='bold'
-            _hover={{
-              textDecor: 'none',
-              bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-              rounded: '30px',
-              transition: 'background-color .3s ease-in-out',
-            }}
-            px={4}
-          >
-            <Icon as={IoIosBulb} boxSize={6} mr={3} />
-            My Ideas
-          </Link>
-          <Link
-            as={NavLink}
-            to='/'
-            d='block'
-            py={{ md: 3 }}
-            fontSize={{ md: 'xl' }}
-            fontWeight='bold'
-            _hover={{
-              textDecor: 'none',
-              bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-              rounded: '30px',
-              transition: 'background-color .3s ease-in-out',
-            }}
-            px={4}
-          >
-            <Icon as={BiCog} boxSize={6} mr={3} />
-            Settings
-          </Link>
+          <Box mt={6}>
+            <Link
+              as={NavLink}
+              to='/'
+              d='block'
+              py={{ md: 2 }}
+              fontSize={{ md: 'lg' }}
+              fontWeight='bold'
+              _hover={{
+                textDecor: 'none',
+                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
+                rounded: '30px',
+                transition: 'background-color .3s ease-in-out',
+              }}
+              px={4}
+            >
+              <Icon as={CgFeed} boxSize={6} mr={3} /> Feeds
+            </Link>
+            <Link
+              as={NavLink}
+              to='/jobs'
+              d='block'
+              py={{ md: 2 }}
+              fontSize={{ md: 'lg' }}
+              fontWeight='bold'
+              _hover={{
+                textDecor: 'none',
+                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
+                rounded: '30px',
+                transition: 'background-color .3s ease-in-out',
+              }}
+              px={4}
+            >
+              <Icon as={GiSuitcase} boxSize={6} mr={3} />
+              Jobs
+            </Link>
+            <Link
+              as={NavLink}
+              to='/contribution'
+              d='block'
+              py={{ md: 2 }}
+              fontSize={{ md: 'lg' }}
+              fontWeight='bold'
+              _hover={{
+                textDecor: 'none',
+                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
+                rounded: '30px',
+                transition: 'background-color .3s ease-in-out',
+              }}
+              px={4}
+            >
+              <Icon as={GiReceiveMoney} boxSize={6} mr={3} />
+              Contribution
+            </Link>
+            <Link
+              as={NavLink}
+              to='/my-ideas'
+              d='block'
+              py={{ md: 2 }}
+              fontSize={{ md: 'lg' }}
+              fontWeight='bold'
+              _hover={{
+                textDecor: 'none',
+                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
+                rounded: '30px',
+                transition: 'background-color .3s ease-in-out',
+              }}
+              px={4}
+            >
+              <Icon as={IoIosBulb} boxSize={6} mr={3} />
+              My Ideas
+            </Link>
+            <Link
+              as={NavLink}
+              to='/settings'
+              d='block'
+              py={{ md: 2 }}
+              fontSize={{ md: 'lg' }}
+              fontWeight='bold'
+              _hover={{
+                textDecor: 'none',
+                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
+                rounded: '30px',
+                transition: 'background-color .3s ease-in-out',
+              }}
+              px={4}
+            >
+              <Icon as={BiCog} boxSize={6} mr={3} />
+              Settings
+            </Link>
+          </Box>
 
           <Flex
             align='center'
-            py={{ md: 3 }}
-            fontSize={{ md: 'xl' }}
+            py={{ md: 2 }}
+            fontSize={{ md: 'lg' }}
             fontWeight='bold'
             px={4}
             onClick={toggleColorMode}
@@ -169,20 +217,7 @@ const LeftSidebar = () => {
         </Box>
 
         <Box>
-          <Link
-            as={NavLink}
-            _hover={{ textDecor: 'none' }}
-            _focus={{ textDecor: 'none' }}
-            px={4}
-            to='/profile'
-          >
-            {loading && (
-              <Flex align='center' padding='3' boxShadow='lg'>
-                <SkeletonCircle size='10' />
-                <SkeletonText mt='4' noOfLines={2} spacing='4' />
-              </Flex>
-            )}
-            <Flex mb={{ md: 2 }} h={12}>
+          {/* <Flex mb={{ md: 2 }} h={12}>
               <Avatar
                 borderWidth={2}
                 width={8}
@@ -191,20 +226,19 @@ const LeftSidebar = () => {
                 src={user?.profile_picture}
               />
               <Box ml={3} fontWeight='bold'>
-                <Text fontSize={{ md: 'xl' }}>
+                <Text fontSize={{ md: 'lg' }}>
                   {user?.first_name} {user?.last_name}
                 </Text>
                 <Box fontSize='sm'>
                   <Text as='span'>{user?.occupation}</Text>
                 </Box>
               </Box>
-            </Flex>
-          </Link>
+            </Flex> */}
 
           <Box
             d='block'
-            py={{ md: 3 }}
-            fontSize={{ md: 'xl' }}
+            py={{ md: 2 }}
+            fontSize={{ md: 'lg' }}
             fontWeight='bold'
             _hover={{
               bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',

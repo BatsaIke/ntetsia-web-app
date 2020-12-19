@@ -144,7 +144,9 @@ const CommentCard = ({ comment, user, id, pId }) => {
                 fontSize='xs'
                 as='button'
                 role='button'
-                onClick={() => handleModalClick('post', null, pId, id, 'reply')}
+                onClick={() =>
+                  handleModalClick('post', null, id, null, 'reply')
+                }
               >
                 Reply
               </Box>
@@ -157,15 +159,16 @@ const CommentCard = ({ comment, user, id, pId }) => {
       </Box>
 
       <Box ml={10} mt={1}>
-        {isLoading && (
+        {isLoading ? (
           <Box minW='100%'>
             <PostSkeleton />
             <PostSkeleton />
           </Box>
+        ) : (
+          data?.data?.map((reply) => (
+            <CommentCard key={reply.id} comment={reply} user={reply.member} />
+          ))
         )}
-        {data?.data?.map((reply) => (
-          <CommentCard key={reply.id} comment={reply} user={reply.member} />
-        ))}
       </Box>
     </Box>
   );

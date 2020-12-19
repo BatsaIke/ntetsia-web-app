@@ -18,14 +18,12 @@ const Feed = () => {
       <Box mb={14}>
         <PostCard user={feed?.member} feed={feed} />
 
-        {loading && (
+        {loading ? (
           <>
             <PostSkeleton />
           </>
-        )}
-
-        <Box>
-          {comments?.data?.data?.map((comment) => (
+        ) : (
+          comments?.data?.data?.map((comment) => (
             <CommentCard
               key={comment.id}
               id={comment.id}
@@ -33,8 +31,8 @@ const Feed = () => {
               user={comment.member}
               pId={feed?.id}
             />
-          ))}
-        </Box>
+          ))
+        )}
       </Box>
     </Layout>
   );

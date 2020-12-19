@@ -137,3 +137,41 @@ export const useFetchComment = (id) => {
     error,
   };
 };
+
+export const useFetchUserSchools = (id) => {
+  const { getUserSchools } = useAPI();
+  const { data: schools, isLoading, isError, error } = useQuery(
+    ['schools', id],
+    () => getUserSchools(id),
+    {
+      refetchOnWindowFocus: false,
+      initialStale: true,
+    }
+  );
+
+  return {
+    schools,
+    isLoading,
+    isError,
+    error,
+  };
+};
+
+export const useFetchUserWorks = (id) => {
+  const { getUserWorks } = useAPI();
+  const { data: works, isLoading, isError, error } = useQuery(
+    ['works', id],
+    () => getUserWorks(id),
+    {
+      refetchOnWindowFocus: false,
+      initialStale: true,
+    }
+  );
+
+  return {
+    works,
+    isLoading,
+    isError,
+    error,
+  };
+};

@@ -17,7 +17,13 @@ import FormikForm from 'components/Form/FormikForm';
 
 const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
   const { user } = useProfile();
-  const { postFeed, updatePost, createComment, updateComment } = useAPI();
+  const {
+    postFeed,
+    updatePost,
+    createComment,
+    updateComment,
+    commentReply,
+  } = useAPI();
   const { selectedData, selectedId, mode, state } = useComponent();
 
   const queryCache = useQueryCache();
@@ -41,7 +47,7 @@ const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
   );
 
   const [mutateCreateReply] = useMutation(
-    (values) => createComment(selectedId, values),
+    (values) => commentReply(selectedId, values),
     {
       onSuccess: () => queryCache.invalidateQueries('reply'),
     }
@@ -98,7 +104,7 @@ const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
             initialData={selectedData}
             showEmoji={showEmoji}
             setShowEmoji={setShowEmoji}
-            title='Save'
+            title='Update post'
             onSubmit={onSubmit}
           />
         );
@@ -108,7 +114,7 @@ const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
             initialData=''
             showEmoji={showEmoji}
             setShowEmoji={setShowEmoji}
-            title='Save'
+            title='Post comment'
             onSubmit={onSubmit}
           />
         );
@@ -118,7 +124,7 @@ const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
             initialData={selectedData}
             showEmoji={showEmoji}
             setShowEmoji={setShowEmoji}
-            title='Save'
+            title='Update Comment'
             onSubmit={onSubmit}
           />
         );
@@ -129,7 +135,7 @@ const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
             parentId={state}
             showEmoji={showEmoji}
             setShowEmoji={setShowEmoji}
-            title='Post'
+            title='Reply to comment'
             onSubmit={onSubmit}
           />
         );

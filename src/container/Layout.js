@@ -5,6 +5,7 @@ import {
   Grid,
   GridItem,
   Icon,
+  Image,
   Link,
   Text,
   useColorMode,
@@ -62,8 +63,9 @@ const Layout = ({ children, px, py, path, icon, pageTitle, post, ...rest }) => {
             {...rest}
           >
             <Flex
-              direction='column'
-              justify='center'
+              // direction='column'
+              justify='space-between'
+              align='center'
               pos='fixed'
               top={0}
               w='34.2%'
@@ -73,31 +75,42 @@ const Layout = ({ children, px, py, path, icon, pageTitle, post, ...rest }) => {
               zIndex={999}
               bg={colorMode === 'dark' ? 'gray.800' : 'white'}
             >
-              <Link
-                d='flex'
-                alignItems='center'
-                as={ReachLink}
-                to={path || '/'}
-                _hover={{ textDecor: 'none' }}
-                _focus={{ outline: 'none' }}
-              >
-                {icon && <Icon as={BsArrowLeftShort} boxSize={6} />}
-
-                <Text fontWeight='bold' fontSize='xl' ml={path ? 5 : 0}>
-                  {pageTitle}
-                </Text>
-              </Link>
-              {post && (
-                <Text
-                  fontSize='xs'
-                  color={colorMode === 'dark' ? 'gray.400' : 'gray.500'}
-                  ml={12}
-                  mt={-2}
-                  fontWeight='bold'
+              <Box>
+                <Link
+                  d='flex'
+                  alignItems='center'
+                  as={ReachLink}
+                  to={path || '/'}
+                  _hover={{ textDecor: 'none' }}
+                  _focus={{ outline: 'none' }}
                 >
-                  {post} {post > 1 ? 'posts' : 'post'}
-                </Text>
-              )}
+                  {icon && <Icon as={BsArrowLeftShort} boxSize={6} />}
+
+                  <Text fontWeight='bold' fontSize='xl' ml={path ? 5 : 0}>
+                    {pageTitle}
+                  </Text>
+                </Link>
+                {post && (
+                  <Text
+                    fontSize='xs'
+                    color={colorMode === 'dark' ? 'gray.400' : 'gray.500'}
+                    ml={12}
+                    mt={-2}
+                    fontWeight='bold'
+                  >
+                    {post} {post > 1 ? 'posts' : 'post'}
+                  </Text>
+                )}
+              </Box>
+
+              <Image
+                height={8}
+                src={
+                  colorMode === 'dark'
+                    ? require('../assets/images/logo.png').default
+                    : require('../assets/images/dark-logo.png').default
+                }
+              />
             </Flex>
 
             <Box py={py || 20} px={px}>

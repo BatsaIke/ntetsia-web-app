@@ -35,6 +35,33 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const patchUserProfile = async (payload) => {
+    try {
+      const { data } = await api.patch('/members/profile/update', payload);
+      return data.data;
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+
+  const getUserSchools = async (id) => {
+    try {
+      const { data } = await api.get(`/members/${id}/schools`);
+      return data.data;
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+
+  const getUserWorks = async (id) => {
+    try {
+      const { data } = await api.get(`/members/${id}/work-experiences`);
+      return data.data;
+    } catch (error) {
+      console.log(error.response.data.message);
+    }
+  };
+
   const getPeople = async () => {
     try {
       const { data } = await api.get(`/members/people`);
@@ -175,6 +202,15 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  const commentReply = async (id, payload) => {
+    try {
+      const { data } = await api.post(`/comments/${id}/reply`, payload);
+      return data;
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   const getComment = async (id) => {
     try {
       const res = await api.get(`/posts/${id}/comments`);
@@ -209,12 +245,33 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
+  //Schools
+  const createSchool = async (payload) => {
+    try {
+      await api.post('/schools', payload);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  //Schools
+  const createWorkExperiences = async (payload) => {
+    try {
+      await api.post('/work-experiences', payload);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
   return (
     <ApiContext.Provider
       value={{
         countriesList,
         getProfile,
+        getUserSchools,
+        getUserWorks,
         getPeople,
+        patchUserProfile,
         profilePicture,
         backgroundImage,
         postImageUpload,
@@ -230,10 +287,13 @@ export const ApiProvider = ({ children }) => {
         updatePost,
         deletePost,
         getReplies,
+        commentReply,
         getComment,
         createComment,
         deleteComment,
         updateComment,
+        createSchool,
+        createWorkExperiences,
       }}
     >
       {children}

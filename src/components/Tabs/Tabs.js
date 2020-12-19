@@ -6,14 +6,23 @@ import Tab from './Tab';
 
 const MotionBox = motion.custom(Box);
 
-const Tabs = ({ children, width, borderWidth, px, pt }) => {
+const Tabs = ({
+  children,
+  width,
+  borderWidth,
+  px,
+  pt,
+  direction = 'column',
+  display,
+}) => {
   const [activeTab, setActiveTab] = React.useState(children[0].props.label);
 
   const handleClickTabItem = React.useCallback((tab) => setActiveTab(tab), []);
 
   return (
-    <Flex direction='column' w='100%'>
+    <Flex direction={direction} w='100%'>
       <Flex
+        display={display}
         justify='space-between'
         as='ol'
         listStyleType='none'

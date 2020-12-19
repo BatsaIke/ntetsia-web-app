@@ -21,18 +21,18 @@ const Home = () => {
           <FeedBox />
         </Box>
 
-        {isLoading && (
+        {isLoading ? (
           <Box minW='100%'>
             <PostSkeleton />
             <PostSkeleton />
             <PostSkeleton />
             <PostSkeleton />
           </Box>
+        ) : (
+          feeds?.data?.map((feed, i) => (
+            <Post key={feed.id} feed={feed} user={feed?.member} />
+          ))
         )}
-
-        {feeds?.data?.map((feed, i) => (
-          <Post key={feed.id} feed={feed} user={feed?.member} />
-        ))}
       </Box>
     </Layout>
   );

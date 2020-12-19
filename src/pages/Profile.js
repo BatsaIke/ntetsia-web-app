@@ -4,6 +4,7 @@ import {
   Divider,
   Flex,
   Grid,
+  Heading,
   Icon,
   Image,
   Input,
@@ -11,6 +12,7 @@ import {
   useColorMode,
   useToast,
 } from '@chakra-ui/react';
+import moment from 'moment';
 import Button from 'components/Button';
 import FollowCard from 'components/Cards/FollowCard';
 import Post from 'components/Cards/Post';
@@ -21,6 +23,8 @@ import useAPI from 'context/apiContext';
 import useComponent from 'context/componentContext';
 import {
   useFeeds,
+  useFetchUserSchools,
+  useFetchUserWorks,
   useFollowers,
   useFollowing,
   useOthersProfile,
@@ -44,6 +48,9 @@ const Profile = () => {
   const { feeds, isLoading } = useFeeds();
 
   const newUser = location.pathname === '/profile' ? user : others;
+
+  const { schools } = useFetchUserSchools(newUser?.id);
+  const { works } = useFetchUserWorks(newUser?.id);
 
   const [uploadProfilePhoto] = useMutation(profilePicture, {
     onSuccess: () => queryCache.invalidateQueries('profile'),
@@ -106,8 +113,10 @@ const Profile = () => {
   const { userFollowing } = useFollowing(newUser?.id);
   const { userFollowers } = useFollowers(newUser?.id);
 
-  // console.log('new user', newUser);
+  console.log('new user', newUser);
   // console.log('feeds', feeds);
+  console.log('schools', schools);
+  console.log('works', works);
 
   return (
     <Layout
@@ -242,63 +251,7 @@ const Profile = () => {
                 {newUser?.occupation}
               </Text>
             </Box>
-            <Flex align='center' my={1}>
-              <Text mr={12} fontWeight='bold'>
-                {newUser?.following_count}{' '}
-                <Text
-                  as='span'
-                  color={colorMode === 'dark' ? 'gray.400' : 'gray.600'}
-                >
-                  Following
-                </Text>
-              </Text>
-              <Text fontWeight='bold'>
-                {newUser?.followers_count}{' '}
-                <Text
-                  as='span'
-                  color={colorMode === 'dark' ? 'gray.400' : 'gray.600'}
-                >
-                  {newUser?.followers_count > 1 ? 'Followers' : 'Follower'}
-                </Text>
-              </Text>
-            </Flex>
           </Flex>
-
-          <Divider
-            orientation='horizontal'
-            borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.200'}
-            my={4}
-          />
-
-          <Box mt={4} fontWeight='semibold'>
-            <Flex
-              fontWeight='bold'
-              color={colorMode === 'dark' ? 'gray.400' : 'gray.500'}
-            >
-              <Text mr={10}>
-                Referer ID:{' '}
-                <Text as='span' color='white'>
-                  {newUser?.referer_id}
-                </Text>
-              </Text>
-              <Text>
-                Email:{' '}
-                <Text as='span' color='white'>
-                  {newUser?.email}
-                </Text>
-              </Text>
-            </Flex>
-
-            <Flex align='center' fontWeight='semibold'>
-              <Text>City: {newUser?.city || 'No City'}</Text>
-              <Text mx={12}>Region: {newUser?.region || 'No Region'}</Text>
-              <Text>Country: {newUser?.country || 'No Country'}</Text>
-            </Flex>
-
-            <Box mt={6} fontWeight='normal'>
-              <Text>{newUser?.bio || 'You have no bio'}</Text>
-            </Box>
-          </Box>
         </Box>
 
         <Divider
@@ -308,7 +261,7 @@ const Profile = () => {
         />
 
         <Tabs>
-          <Box label='My Feeds'>
+          <Box label='Feeds'>
             {isLoading && (
               <Box minW='100%'>
                 <PostSkeleton />
@@ -321,7 +274,7 @@ const Profile = () => {
               <Post key={feed.id} feed={feed} user={feed?.member} />
             ))}
           </Box>
-          <Box label='Following'>
+          <Box label={`${newUser?.following_count} Following`}>
             <Grid gap={4} p={6}>
               {userFollowing?.data.map(
                 (item) =>
@@ -329,7 +282,7 @@ const Profile = () => {
               )}
             </Grid>
           </Box>
-          <Box label='Followers'>
+          <Box label={`${newUser?.followers_count} Followers`}>
             <Grid gap={4} p={6}>
               {userFollowers?.data.map(
                 (item) =>
@@ -339,7 +292,97 @@ const Profile = () => {
               )}
             </Grid>
           </Box>
-          <Box label='Contributions'>contributions</Box>
+          <Box label='About'>
+            <Box>
+              <Flex align='center'>
+                <Heading as='h6' w={40} fontSize={{ md: 'lg' }}>
+                  Biography
+                </Heading>
+                <Divider />
+              </Flex>
+              <Text>{newUser?.bio}</Text>
+            </Box>
+
+            <Box my={10}>
+              <Flex align='center'>
+                <Heading as='h6' w={90} fontSize={{ md: 'lg' }}>
+                  Educational Background
+                </Heading>
+                <Divider />
+              </Flex>
+              {schools?.map((school) => (
+                <Flex
+                  align='center'
+                  justify='space-between'
+                  key={school?.id}
+                  mt={6}
+                >
+                  <Box>
+                    <Text fontWeight={800} fontSize={{ md: 'lg' }}>
+                      {school?.school_name}
+                    </Text>
+                    <Text>Business Admin</Text>
+                  </Box>
+                  <Box textAlign='center'>
+                    <Text fontWeight={800} fontSize={{ md: 'lg' }}>
+                      Class of
+                    </Text>
+                    <Text>{school?.year_completed}</Text>
+                  </Box>
+                  <Box h={14} w={14}>
+                    <Image
+                      h='100%'
+                      w='100%'
+                      src='https://mmarimamma.co.uk/wp-content/uploads/2017/03/MMA-logo.png'
+                    />
+                  </Box>
+                </Flex>
+              ))}
+            </Box>
+
+            <Box>
+              <Flex align='center'>
+                <Heading as='h6' w={90} fontSize={{ md: 'lg' }}>
+                  Working Experience
+                </Heading>
+                <Divider />
+              </Flex>
+
+              {works?.map((work) => {
+                const from = moment(work?.from);
+                const to = moment(work?.to);
+                from.to(to);
+                console.log('from', from.format('Y'));
+                // console.log('to', to);
+
+                return (
+                  <Flex
+                    align='center'
+                    justify='space-between'
+                    key={work?.id}
+                    mt={6}
+                  >
+                    <Box h={14} w={14}>
+                      <Image
+                        h='100%'
+                        w='100%'
+                        src='https://mmarimamma.co.uk/wp-content/uploads/2017/03/MMA-logo.png'
+                      />
+                    </Box>
+                    <Box>
+                      <Text fontWeight={800} fontSize={{ md: 'lg' }}>
+                        {work?.company_name}
+                      </Text>
+                      <Text>{work?.position}</Text>
+                    </Box>
+                    <Box textAlign='center'>
+                      <Text>{moment(work?.to).diff(work.from)} year ago</Text>
+                    </Box>
+                  </Flex>
+                );
+              })}
+            </Box>
+          </Box>
         </Tabs>
       </Box>
     </Layout>

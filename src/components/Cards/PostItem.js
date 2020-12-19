@@ -4,6 +4,7 @@ import { BiComment } from 'react-icons/bi';
 import { BsHeart, BsHeartFill } from 'react-icons/bs';
 import { AiOutlineRetweet } from 'react-icons/ai';
 import useComponent from 'context/componentContext';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const PostItem = ({
   likes,
@@ -13,8 +14,11 @@ const PostItem = ({
   liked,
   id,
   postLike,
+  feed,
 }) => {
   const { handleModalClick } = useComponent();
+  const history = useHistory();
+  const { pathname } = useLocation();
 
   return (
     <Box>
@@ -38,7 +42,11 @@ const PostItem = ({
           as='button'
           role='button'
           aria-label='comment button'
-          onClick={() => handleModalClick('post', null, id, null, 'comment')}
+          onClick={
+            pathname === '/'
+              ? () => history.push({ pathname: `/feed/${id}`, state: feed })
+              : () => handleModalClick('post', null, id, null, 'comment')
+          }
         >
           <Text>{comments}</Text>
           <Box as='button' role='button' px={2} py={2}>

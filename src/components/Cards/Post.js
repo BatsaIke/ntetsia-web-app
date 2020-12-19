@@ -250,23 +250,24 @@ const Post = ({ user, feed, image }) => {
               mt={2}
             >
               {feed?.files?.map((file) => (
-                <ControlledZoom
-                  isZoomed={isZoomed}
-                  onZoomChange={handleZoomChange}
-                  transitionDuration={500}
-                  zoomMargin={150}
-                  overlayBgColorEnd='rgba(0, 0, 0, 0.85)'
-                >
-                  <Image
-                    key={file.id}
-                    src={file.url}
-                    alt={file.filename}
-                    rounded='md'
-                    h={isZoomed ? '100%' : 90}
-                    objectFit='cover'
-                    w='100%'
-                  />
-                </ControlledZoom>
+                <Box as='li' key={file.id} listStyleType='none'>
+                  <ControlledZoom
+                    isZoomed={isZoomed}
+                    onZoomChange={handleZoomChange}
+                    transitionDuration={450}
+                    zoomMargin={150}
+                    overlayBgColorEnd='rgba(0, 0, 0, 0.85)'
+                  >
+                    <Image
+                      src={file.url}
+                      alt={file.filename}
+                      rounded='md'
+                      h={isZoomed ? '100%' : 70}
+                      objectFit='cover'
+                      w='100%'
+                    />
+                  </ControlledZoom>
+                </Box>
               ))}
             </Grid>
           </Box>
@@ -281,6 +282,7 @@ const Post = ({ user, feed, image }) => {
         liked={feed?.is_liked}
         postLike={liked}
         id={feed?.id}
+        feed={feed}
       />
     </Box>
   );

@@ -11,8 +11,8 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { Link as ReachLink } from 'react-router-dom';
-import useAPI from 'context/apiContext';
-import { useMutation, useQueryCache } from 'react-query';
+// import useAPI from 'context/apiContext';
+// import { useMutation, useQueryCache } from 'react-query';
 import { useProfile } from 'hooks/useGlobalHooks';
 import DynamicSections from 'components/Dynamic';
 import {
@@ -24,74 +24,74 @@ import {
 } from 'react-icons/bi';
 
 const Settings = () => {
-  const { createSchool, createWorkExperiences, patchUserProfile } = useAPI();
-  const queryCache = useQueryCache();
+  // const { createSchool, createWorkExperiences, patchUserProfile } = useAPI();
+  // const queryCache = useQueryCache();
   const colorMode = useColorMode();
   const { user } = useProfile();
   const [tab, setTab] = React.useState('compA');
 
-  const [mutateCreateSchool] = useMutation((values) => createSchool(values), {
-    onSuccess: () => queryCache.invalidateQueries('schools'),
-  });
+  // const [mutateCreateSchool] = useMutation((values) => createSchool(values), {
+  //   onSuccess: () => queryCache.invalidateQueries('schools'),
+  // });
 
-  const [mutateCreateWorks] = useMutation(
-    (values) => createWorkExperiences(values),
-    {
-      onSuccess: () => queryCache.invalidateQueries('works'),
-    }
-  );
+  // const [mutateCreateWorks] = useMutation(
+  //   (values) => createWorkExperiences(values),
+  //   {
+  //     onSuccess: () => queryCache.invalidateQueries('works'),
+  //   }
+  // );
 
-  const [mutatePatchProfile] = useMutation(
-    (values) => patchUserProfile(values),
-    {
-      onSuccess: () => queryCache.invalidateQueries('profile'),
-    }
-  );
+  // const [mutatePatchProfile] = useMutation(
+  //   (values) => patchUserProfile(values),
+  //   {
+  //     onSuccess: () => queryCache.invalidateQueries('profile'),
+  //   }
+  // );
 
-  const onUserProfilePactch = async (
-    values,
-    { setSubmitting, setErrors, setStatus, resetForm }
-  ) => {
-    try {
-      mutatePatchProfile(values);
-      resetForm({});
-      setStatus({ success: true });
-    } catch (error) {
-      setStatus({ success: false });
-      setSubmitting(false);
-      setErrors({ submit: error.message });
-    }
-  };
+  // const onUserProfilePactch = async (
+  //   values,
+  //   { setSubmitting, setErrors, setStatus, resetForm }
+  // ) => {
+  //   try {
+  //     mutatePatchProfile(values);
+  //     resetForm({});
+  //     setStatus({ success: true });
+  //   } catch (error) {
+  //     setStatus({ success: false });
+  //     setSubmitting(false);
+  //     setErrors({ submit: error.message });
+  //   }
+  // };
 
-  const onSchoolsSubmit = async (
-    values,
-    { setSubmitting, setErrors, setStatus, resetForm }
-  ) => {
-    try {
-      mutateCreateSchool(values);
-      resetForm({});
-      setStatus({ success: true });
-    } catch (error) {
-      setStatus({ success: false });
-      setSubmitting(false);
-      setErrors({ submit: error.message });
-    }
-  };
+  // const onSchoolsSubmit = async (
+  //   values,
+  //   { setSubmitting, setErrors, setStatus, resetForm }
+  // ) => {
+  //   try {
+  //     mutateCreateSchool(values);
+  //     resetForm({});
+  //     setStatus({ success: true });
+  //   } catch (error) {
+  //     setStatus({ success: false });
+  //     setSubmitting(false);
+  //     setErrors({ submit: error.message });
+  //   }
+  // };
 
-  const onWorksSubmit = async (
-    values,
-    { setSubmitting, setErrors, setStatus, resetForm }
-  ) => {
-    try {
-      mutateCreateWorks(values);
-      resetForm({});
-      setStatus({ success: true });
-    } catch (error) {
-      setStatus({ success: false });
-      setSubmitting(false);
-      setErrors({ submit: error.message });
-    }
-  };
+  // const onWorksSubmit = async (
+  //   values,
+  //   { setSubmitting, setErrors, setStatus, resetForm }
+  // ) => {
+  //   try {
+  //     mutateCreateWorks(values);
+  //     resetForm({});
+  //     setStatus({ success: true });
+  //   } catch (error) {
+  //     setStatus({ success: false });
+  //     setSubmitting(false);
+  //     setErrors({ submit: error.message });
+  //   }
+  // };
 
   return (
     <Box>

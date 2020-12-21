@@ -1,9 +1,7 @@
 import React from 'react';
 import {
   Flex,
-  Heading,
   Text,
-  Grid,
   Box,
   Container,
   useColorMode,
@@ -13,10 +11,6 @@ import {
   Icon,
 } from '@chakra-ui/react';
 import { Link as ReachLink } from 'react-router-dom';
-import { Formik } from 'formik';
-import FormInput from 'components/Form/FormInput';
-import FormTextArea from 'components/Form/FormTextArea';
-import useComponent from 'context/componentContext';
 import useAPI from 'context/apiContext';
 import { useMutation, useQueryCache } from 'react-query';
 import { useProfile } from 'hooks/useGlobalHooks';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Flex, Heading, Text, Grid, Box } from '@chakra-ui/react';
+import { Heading, Text, Grid, Box } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import { useMutation, useQueryCache } from 'react-query';
 import { useProfile } from 'hooks/useGlobalHooks';

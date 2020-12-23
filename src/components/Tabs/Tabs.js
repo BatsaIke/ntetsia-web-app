@@ -22,7 +22,6 @@ const Tabs = ({
   return (
     <Flex direction={direction} w='100%'>
       <Flex
-        display={display}
         justify='space-between'
         as='ol'
         listStyleType='none'

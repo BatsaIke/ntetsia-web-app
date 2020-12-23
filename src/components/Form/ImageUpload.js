@@ -3,7 +3,6 @@ import useAPI from 'context/apiContext';
 import React from 'react';
 import { useDropzone } from 'react-dropzone';
 import { BsX } from 'react-icons/bs';
-
 const ImageUpload = ({ files, setFiles, setFieldValue, values }) => {
   const { postImageUpload } = useAPI();
 

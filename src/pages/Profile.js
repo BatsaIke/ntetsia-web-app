@@ -316,6 +316,8 @@ const Profile = () => {
                   justify='space-between'
                   key={school?.id}
                   mt={6}
+                  borderBottomWidth={1}
+                  pb={4}
                 >
                   <Box>
                     <Text fontWeight={800} fontSize={{ md: 'lg' }}>
@@ -361,6 +363,8 @@ const Profile = () => {
                     justify='space-between'
                     key={work?.id}
                     mt={6}
+                    borderBottomWidth={1}
+                    pb={4}
                   >
                     <Box h={14} w={14}>
                       <Image

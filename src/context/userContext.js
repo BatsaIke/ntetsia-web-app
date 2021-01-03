@@ -26,10 +26,8 @@ export const AuthProvider = ({ children }) => {
         // console.log("Got a token in the cookies, let's see if it is valid");
         api.defaults.headers.Authorization = `Bearer ${token}`;
         const data = JSON.parse(user);
-        console.log('data', user);
         setUser(data?.profile?.id);
         setIsAuthenticated(data?.token);
-        // console.log('Got user', res);
       }
       setLoading(false);
     }

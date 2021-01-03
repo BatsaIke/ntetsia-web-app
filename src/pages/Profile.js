@@ -20,7 +20,6 @@ import PostSkeleton from 'components/Cards/PostSkeleton';
 import Tabs from 'components/Tabs/Tabs';
 import Layout from 'container/Layout';
 import useAPI from 'context/apiContext';
-import useComponent from 'context/componentContext';
 import {
   useFeeds,
   useFetchUserSchools,
@@ -34,6 +33,7 @@ import React from 'react';
 import { BiCamera } from 'react-icons/bi';
 import { QueryClient, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
+import CoverImage from 'components/Cards/CoverImage';
 
 const Profile = () => {
   const { location } = useHistory();
@@ -41,8 +41,7 @@ const Profile = () => {
   const { colorMode } = useColorMode();
   const queryClient = new QueryClient();
   const { user } = useProfile();
-  const { handleModalClick } = useComponent();
-  const { profilePicture, backgroundImage, follow, unfollow } = useAPI();
+  const { profilePicture, follow, unfollow } = useAPI();
   const toast = useToast();
   const { user: others } = useOthersProfile(state?.member?.id);
   const { feeds, isLoading } = useFeeds();
@@ -56,31 +55,11 @@ const Profile = () => {
     onSuccess: () => queryClient.invalidateQueries('profile'),
   });
 
-  const uploadBackgroundPhoto = useMutation(backgroundImage, {
-    onSuccess: () => queryClient.invalidateQueries('profile'),
-  });
-
   const handleChange = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('image', file, file?.name);
     const res = await uploadProfilePhoto.mutateAsync(formData);
-    if (res.status === 200) {
-      toast({
-        description: res.data.message,
-        status: 'success',
-        duration: 9000,
-        isClosable: true,
-        position: 'top-right',
-      });
-    }
-  };
-
-  const handleUploadChange = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('image', file, file?.name);
-    const res = await uploadBackgroundPhoto.mutateAsync(formData);
     if (res.status === 200) {
       toast({
         description: res.data.message,
@@ -129,42 +108,7 @@ const Profile = () => {
       post={newUser?.posts_count}
     >
       <Box pos='relative'>
-        <Box h={56} pos='relative'>
-          <Image
-            h='100%'
-            w='100%'
-            objectFit='cover'
-            src={newUser?.background_picture}
-            alt={newUser?.first_name}
-          />
-          {newUser?.is_self && (
-            <Flex
-              as='label'
-              rounded='md'
-              align='center'
-              pos='absolute'
-              left={4}
-              top={4}
-              py={1}
-              px={3}
-              bg='white'
-              color='gray.800'
-              cursor='pointer'
-            >
-              <Input
-                d='none'
-                type='file'
-                name='profile'
-                id='profile'
-                onChange={handleUploadChange}
-              />
-              <Icon as={BiCamera} boxSize={5} />
-              <Text as='span' ml={2} fontSize='sm'>
-                Change background image
-              </Text>
-            </Flex>
-          )}
-        </Box>
+        <CoverImage />
 
         <Flex justify='space-between'>
           <Box mt={-16} ml={2} pos='relative'>

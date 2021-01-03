@@ -33,8 +33,6 @@ const FollowCard = ({ data }) => {
     }
   };
 
-  console.log('data', data);
-
   const FollowButton = (hovered) => (
     <Box>
       <Button

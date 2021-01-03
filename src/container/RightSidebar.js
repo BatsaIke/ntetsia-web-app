@@ -3,7 +3,9 @@ import {
   Box,
   Divider,
   Flex,
+  Grid,
   Heading,
+  Skeleton,
   Text,
   useColorMode,
 } from '@chakra-ui/react';
@@ -12,7 +14,7 @@ import { usePeople } from 'hooks/useGlobalHooks';
 
 const RightSidebar = () => {
   const { colorMode } = useColorMode();
-  const { people } = usePeople();
+  const { people, isLoading } = usePeople();
 
   console.log('people', people);
 
@@ -63,11 +65,20 @@ const RightSidebar = () => {
 
           <Divider orientation='horizontal' my={3} />
 
-          {people?.slice(0, 5).map((person) => {
-            if (person.is_following === false) {
-              return <FollowCard key={person.id} data={person} />;
-            }
-          })}
+          {isLoading ? (
+            <Grid gap={4}>
+              <Skeleton height='60px' />
+              <Skeleton height='60px' />
+              <Skeleton height='60px' />
+              <Skeleton height='60px' />
+            </Grid>
+          ) : (
+            people?.slice(0, 5).map((person) => {
+              if (person.is_following === false) {
+                return <FollowCard key={person.id} data={person} />;
+              }
+            })
+          )}
         </Box>
       </Flex>
     </Flex>

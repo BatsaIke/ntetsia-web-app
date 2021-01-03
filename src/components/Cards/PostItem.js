@@ -44,7 +44,7 @@ const PostItem = ({
           aria-label='comment button'
           onClick={
             pathname === '/'
-              ? () => history.push({ pathname: `/feed/${id}`, state: feed })
+              ? () => history.push({ pathname: `/comments/${id}`, state: feed })
               : () => handleModalClick('post', null, id, null, 'comment')
           }
         >

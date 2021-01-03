@@ -38,7 +38,7 @@ const LeftSidebar = () => {
       w='17.5rem'
       pl={10}
     >
-      <Flex direction='column' justify='space-between'>
+      <Flex direction='column' justify='space-between' pb={4}>
         <Box>
           <Link
             as={NavLink}
@@ -236,24 +236,6 @@ const LeftSidebar = () => {
         </Box>
 
         <Box>
-          {/* <Flex mb={{ md: 2 }} h={12}>
-              <Avatar
-                borderWidth={2}
-                width={8}
-                height={8}
-                borderColor='white'
-                src={user?.profile_picture}
-              />
-              <Box ml={3} fontWeight='bold'>
-                <Text fontSize={{ md: 'lg' }}>
-                  {user?.first_name} {user?.last_name}
-                </Text>
-                <Box fontSize='sm'>
-                  <Text as='span'>{user?.occupation}</Text>
-                </Box>
-              </Box>
-            </Flex> */}
-
           <Box
             d='block'
             py={{ md: 2 }}

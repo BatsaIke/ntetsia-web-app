@@ -254,10 +254,20 @@ export const ApiProvider = ({ children }) => {
     }
   };
 
-  //Schools
+  //Work Experiences
   const createWorkExperiences = async (payload) => {
     try {
       await api.post('/work-experiences', payload);
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  //Notifications
+  const getNotifications = async () => {
+    try {
+      const { data } = await api.get('/notifications');
+      return data;
     } catch (error) {
       console.log(error.response);
     }
@@ -294,6 +304,7 @@ export const ApiProvider = ({ children }) => {
         updateComment,
         createSchool,
         createWorkExperiences,
+        getNotifications,
       }}
     >
       {children}

@@ -7,7 +7,7 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { AnimatePresence, motion } from 'framer-motion';
 import useAPI from 'context/apiContext';
 import moment from 'moment';
-import { useMutation, useQueryCache, useQuery } from 'react-query';
+import { useMutation, useQueryCache, useQuery, QueryClient } from 'react-query';
 import useComponent from 'context/componentContext';
 import PostSkeleton from './PostSkeleton';
 
@@ -19,10 +19,10 @@ const CommentCard = ({ comment, user, id, pId }) => {
   const { deleteComment, getReplies } = useAPI();
   const { handleModalClick } = useComponent();
 
-  const queryCache = useQueryCache();
+  const queryClient = new QueryClient();
 
-  const [mutate] = useMutation(deleteComment, {
-    onSuccess: () => queryCache.invalidateQueries('comments'),
+  const mutate = useMutation(deleteComment, {
+    onSuccess: () => queryClient.invalidateQueries('comments'),
   });
 
   const { data, isLoading } = useQuery(['reply', id], () => getReplies(id));
@@ -116,7 +116,7 @@ const CommentCard = ({ comment, user, id, pId }) => {
                                 bg={active && 'gray.100'}
                                 d='block'
                                 cursor='pointer'
-                                onClick={() => mutate(id)}
+                                onClick={() => mutate.mutate(id)}
                                 fontSize='sm'
                               >
                                 <Icon as={BsTrash} boxSize={4} mr={2} />

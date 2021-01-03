@@ -203,7 +203,7 @@ const Post = ({ user, feed, image }) => {
       </AnimatePresence>
       <Link
         as={ReachLink}
-        to={{ pathname: `/feed/${feed?.id}`, state: feed }}
+        to={{ pathname: `/comments/${feed?.id}`, state: feed }}
         _hover={{
           textDecor: 'none',
           bg: colorMode === 'dark' ? 'gray.700' : 'gray.100',

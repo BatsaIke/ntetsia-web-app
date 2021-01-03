@@ -9,6 +9,7 @@ import {
   Image,
   Link,
   Icon,
+  Input,
 } from '@chakra-ui/react';
 import { Link as ReachLink } from 'react-router-dom';
 // import useAPI from 'context/apiContext';
@@ -22,6 +23,7 @@ import {
   BiColorFill,
   BiUser,
 } from 'react-icons/bi';
+import CoverImage from 'components/Cards/CoverImage';
 
 const Settings = () => {
   // const { createSchool, createWorkExperiences, patchUserProfile } = useAPI();
@@ -120,13 +122,13 @@ const Settings = () => {
           <Avatar src={user?.profile_picture} />
         </Flex>
       </Flex>
+      <CoverImage height={108} />
       <Container
         maxW={{ md: '6xl' }}
         bg='white'
         color='gray.800'
         rounded='md'
-        py={16}
-        my={24}
+        py={8}
       >
         <Flex>
           <Box w='20%' mr={{ md: '5%' }}>

@@ -175,3 +175,22 @@ export const useFetchUserWorks = (id) => {
     error,
   };
 };
+
+export const useNotifications = () => {
+  const { getNotifications } = useAPI();
+  const { data: notifications, isLoading, isError, error } = useQuery(
+    'notifications',
+    () => getNotifications(),
+    {
+      refetchOnWindowFocus: false,
+      initialStale: true,
+    }
+  );
+
+  return {
+    notifications,
+    isLoading,
+    isError,
+    error,
+  };
+};

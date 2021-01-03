@@ -9,7 +9,7 @@ const Router = () => {
     <React.Suspense fallback={<Text>Loading....</Text>}>
       <Switch>
         <PrivateRoute exact path='/' component={Pages.Home} />
-        <PrivateRoute exact path='/feed/:id' component={Pages.Feed} />
+        <PrivateRoute exact path='/comments/:id' component={Pages.Feed} />
         <Route exact path='/login' component={Pages.Login} />
         <Route exact path='/register' component={Pages.Register} />
         <Route exact path='/forgot-password' component={Pages.ForgotPassword} />

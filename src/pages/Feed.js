@@ -14,7 +14,7 @@ const Feed = () => {
   const { comments, isLoading: loading } = useFetchComment(feed?.id);
 
   return (
-    <Layout px={6} pageTitle='Feed' path='/' icon>
+    <Layout px={6} pageTitle='Comments' path='/' icon>
       <Box mb={14}>
         <PostCard user={feed?.member} feed={feed} />
 

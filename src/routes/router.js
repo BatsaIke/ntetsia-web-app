@@ -28,6 +28,11 @@ const Router = () => {
         />
         <PrivateRoute exact path='/my-ideas' component={Pages.MyIdeas} />
         <PrivateRoute exact path='/settings' component={Pages.Settings} />
+        <PrivateRoute
+          exact
+          path='/notifications'
+          component={Pages.Notifications}
+        />
       </Switch>
     </React.Suspense>
   );

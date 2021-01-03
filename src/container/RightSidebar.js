@@ -8,9 +8,13 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 import FollowCard from 'components/Cards/FollowCard';
+import { usePeople } from 'hooks/useGlobalHooks';
 
 const RightSidebar = () => {
   const { colorMode } = useColorMode();
+  const { people } = usePeople();
+
+  console.log('people', people);
 
   return (
     <Flex
@@ -59,10 +63,11 @@ const RightSidebar = () => {
 
           <Divider orientation='horizontal' my={3} />
 
-          <FollowCard />
-          <FollowCard />
-          <FollowCard />
-          <FollowCard />
+          {people?.slice(0, 5).map((person) => {
+            if (person.is_following === false) {
+              return <FollowCard key={person.id} data={person} />;
+            }
+          })}
         </Box>
       </Flex>
     </Flex>

@@ -205,7 +205,7 @@ const Profile = () => {
           {newUser?.is_self ? (
             <Box mr={4}>
               <Button
-                title='Edit profile'
+                title='My Ideas'
                 rounded='30px'
                 borderWidth={2}
                 borderColor='blue.500'
@@ -214,9 +214,6 @@ const Profile = () => {
                 _active={{ bg: 'transparent' }}
                 color='blue.500'
                 mt={2}
-                onClick={() =>
-                  handleModalClick('profile', newUser, newUser?.id)
-                }
               />
             </Box>
           ) : (
@@ -285,10 +282,7 @@ const Profile = () => {
           <Box label={`${newUser?.followers_count} Followers`}>
             <Grid gap={4} p={6}>
               {userFollowers?.data.map(
-                (item) =>
-                  !item?.is_self && (
-                    <FollowCard data={item} onClick={followUnfollow} />
-                  )
+                (item) => !item?.is_self && <FollowCard data={item} />
               )}
             </Grid>
           </Box>

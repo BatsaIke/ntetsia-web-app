@@ -18,6 +18,7 @@ import useAuth from 'context/userContext';
 import { HiOutlineLogout } from 'react-icons/hi';
 import { BiCog, BiMoon, BiSun } from 'react-icons/bi';
 import { useProfile } from 'hooks/useGlobalHooks';
+import { BsBell } from 'react-icons/bs';
 
 const LeftSidebar = () => {
   const { logout } = useAuth();
@@ -66,7 +67,7 @@ const LeftSidebar = () => {
                   borderColor='gray.400'
                 />
               </Flex>
-              <Box mt={4} fontWeight='bold' pr={4} py={2}>
+              <Box mt={4} fontWeight='bold' pl={4} py={2}>
                 <Text fontSize={{ md: 'lg' }}>
                   {user?.first_name} {user?.last_name}
                 </Text>
@@ -169,6 +170,24 @@ const LeftSidebar = () => {
             >
               <Icon as={IoIosBulb} boxSize={6} mr={3} />
               My Ideas
+            </Link>
+            <Link
+              as={NavLink}
+              to='/notifications'
+              d='block'
+              py={{ md: 2 }}
+              fontSize={{ md: 'lg' }}
+              fontWeight='bold'
+              _hover={{
+                textDecor: 'none',
+                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
+                rounded: '30px',
+                transition: 'background-color .3s ease-in-out',
+              }}
+              px={4}
+            >
+              <Icon as={BsBell} boxSize={6} mr={3} />
+              Notifications
             </Link>
             <Link
               as={NavLink}

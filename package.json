@@ -25,6 +25,7 @@
     "react-query": "^3.5.9",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "react-use": "^15.3.4",
     "web-vitals": "^1.0.1",
     "yup": "^0.32.8"
   },

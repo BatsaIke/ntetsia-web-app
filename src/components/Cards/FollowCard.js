@@ -7,10 +7,54 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 import Button from 'components/Button';
+import useAPI from 'context/apiContext';
 import React from 'react';
+import { QueryClient, useMutation } from 'react-query';
+import { useHover } from 'react-use';
 
-const FollowCard = ({ data, onClick }) => {
+const FollowCard = ({ data }) => {
   const { colorMode } = useColorMode();
+  const queryClient = new QueryClient();
+  const { follow, unfollow } = useAPI();
+
+  const mutateFollow = useMutation(follow, {
+    onSuccess: () => queryClient.invalidateQueries('follow'),
+  });
+
+  const mutateUnfollow = useMutation(unfollow, {
+    onSuccess: () => queryClient.invalidateQueries('unfollow'),
+  });
+
+  const followUnfollow = () => {
+    if (data.is_following === false) {
+      mutateFollow.mutate({ member_id: data?.id });
+    } else {
+      mutateUnfollow.mutate({ member_id: data?.id });
+    }
+  };
+
+  console.log('data', data);
+
+  const FollowButton = (hovered) => (
+    <Box>
+      <Button
+        title={
+          data?.is_following ? (hovered ? 'Unfollow' : 'Following') : 'Follow'
+        }
+        rounded='30px'
+        borderWidth={2}
+        borderColor='blue.500'
+        bg={data?.is_following ? 'blue.500' : 'transparent'}
+        _hover={{ bg: 'transparent', color: 'blue.500' }}
+        _active={{ bg: 'transparent', color: 'blue.500' }}
+        color={data?.is_following ? 'white' : 'blue.500'}
+        mt={2}
+        fontSize='sm'
+        onClick={followUnfollow}
+      />
+    </Box>
+  );
+  const [hoverable, hovered] = useHover(FollowButton);
 
   return (
     <Box>
@@ -32,21 +76,7 @@ const FollowCard = ({ data, onClick }) => {
           </Box>
         </Flex>
 
-        <Box>
-          <Button
-            title={data?.is_following ? 'Following' : 'Follow'}
-            rounded='30px'
-            borderWidth={2}
-            borderColor='blue.500'
-            bg={data?.is_following ? 'blue.500' : 'transparent'}
-            _hover={{ bg: 'transparent' }}
-            _active={{ bg: 'transparent' }}
-            color={data?.is_following ? 'white' : 'blue.500'}
-            mt={2}
-            fontSize='sm'
-            onClick={onClick}
-          />
-        </Box>
+        {hoverable}
       </Flex>
 
       <Divider orientation='horizontal' my={4} />

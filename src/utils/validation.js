@@ -52,6 +52,23 @@ export const SignInSchema = Yup.object().shape({
   password: Yup.string().required('Password is required!'),
 });
 
+export const RecoverPassword = Yup.object().shape({
+  email: Yup.string().email('Invalid email!').required('Email is required!'),
+});
+
+export const ResetPasswordSchema = Yup.object().shape({
+  email: Yup.string().email('Invalid email!').required('Email is required!'),
+  password: Yup.string()
+    .matches(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/, {
+      message:
+        ' Minimum 8 characters, at least one uppercase letter, one lowercase letter, one number and one special character',
+    })
+    .required('Password is Required!'),
+  password_confirmation: Yup.string()
+    .oneOf([Yup.ref('password'), null], 'Passwords do not match!')
+    .required('Password confirm is required!'),
+});
+
 export const PostSchema = Yup.object().shape({
   body: Yup.string().required('Body is required!'),
 });

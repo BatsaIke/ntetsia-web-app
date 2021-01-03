@@ -1,7 +1,7 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { useToast } from '@chakra-ui/react';
 import Cookies from 'js-cookie';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import api from 'utils/auth/api';
 
 //api here is an axios instance
@@ -11,6 +11,7 @@ const authContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const toast = useToast();
   let history = useHistory();
+  let match = useRouteMatch('/reset-password/:id');
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -38,11 +39,10 @@ export const AuthProvider = ({ children }) => {
       if (res.status === 200) {
         const token = res.data;
         toast({
-          position: 'top-right',
           description: res.data.message,
           status: 'success',
-          duration: 9000,
-          isClosable: true,
+          duration: 5000,
+          position: 'top-right',
         });
         if (token) {
           Cookies.set('ntoken', token.data.token, { expires: 60 });
@@ -57,8 +57,8 @@ export const AuthProvider = ({ children }) => {
       toast({
         description: error.response.data.errors.email[0],
         status: 'error',
-        duration: 9000,
-        isClosable: true,
+        duration: 5000,
+        position: 'top-right',
       });
     }
   };
@@ -71,8 +71,8 @@ export const AuthProvider = ({ children }) => {
           title: 'Sign up successful',
           description: res.data.message,
           status: 'success',
-          duration: 9000,
-          isClosable: true,
+          duration: 5000,
+          position: 'top-right',
         });
       }
     } catch (error) {
@@ -80,8 +80,8 @@ export const AuthProvider = ({ children }) => {
         title: 'Error occured.',
         description: error.response.data.errors.email[0],
         status: 'error',
-        duration: 9000,
-        isClosable: true,
+        duration: 5000,
+        position: 'top-right',
       });
     }
   };
@@ -94,6 +94,56 @@ export const AuthProvider = ({ children }) => {
     history.push('/login');
   };
 
+  const recoverPassword = async (params) => {
+    try {
+      const res = await api.post('/auth/recover-password', params);
+      if (res.status === 200) {
+        toast({
+          title: 'Password recovery successful',
+          description: res.data.message,
+          status: 'success',
+          duration: 5000,
+          position: 'top-right',
+        });
+        history.push(match);
+      }
+    } catch (error) {
+      toast({
+        title: 'Error occured.',
+        description: error.response.data.errors.email[0],
+        status: 'error',
+        duration: 5000,
+        position: 'top-right',
+      });
+    }
+  };
+
+  const resetPassword = async (params) => {
+    try {
+      const res = await api.post('/auth/reset-password', params);
+      console.log('reset', res);
+      if (res.status === 200) {
+        toast({
+          title: 'Sign up successful',
+          description: res.data.message,
+          status: 'success',
+          duration: 5000,
+          position: 'top-right',
+        });
+        history.push('/login');
+      }
+    } catch (error) {
+      console.log('error', error);
+      toast({
+        title: 'Error occured.',
+        description: error.response.data.errors.email[0],
+        status: 'error',
+        duration: 5000,
+        position: 'top-right',
+      });
+    }
+  };
+
   return (
     <authContext.Provider
       value={{
@@ -103,6 +153,8 @@ export const AuthProvider = ({ children }) => {
         loading,
         logout,
         signup,
+        recoverPassword,
+        resetPassword,
       }}
     >
       {children}

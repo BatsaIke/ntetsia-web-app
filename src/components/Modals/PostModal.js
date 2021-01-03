@@ -10,7 +10,7 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react';
 import { useProfile } from 'hooks/useGlobalHooks';
-import { useMutation, useQueryCache } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import useAPI from 'context/apiContext';
 import useComponent from 'context/componentContext';
 import FormikForm from 'components/Form/FormikForm';
@@ -26,37 +26,37 @@ const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
   } = useAPI();
   const { selectedData, selectedId, mode, state } = useComponent();
 
-  const queryCache = useQueryCache();
+  const queryClient = useQueryClient();
 
   const [mutateCreatePost] = useMutation(postFeed, {
-    onSuccess: () => queryCache.invalidateQueries('feeds'),
+    onSuccess: () => queryClient.invalidateQueries('feeds'),
   });
 
   const [mutateUpdatePost] = useMutation(
     (values) => updatePost(selectedId, values),
     {
-      onSuccess: () => queryCache.invalidateQueries('feeds'),
+      onSuccess: () => queryClient.invalidateQueries('feeds'),
     }
   );
 
   const [mutateCreateComment] = useMutation(
     (values) => createComment(selectedId, values),
     {
-      onSuccess: () => queryCache.invalidateQueries('comments'),
+      onSuccess: () => queryClient.invalidateQueries('comments'),
     }
   );
 
   const [mutateCreateReply] = useMutation(
     (values) => commentReply(selectedId, values),
     {
-      onSuccess: () => queryCache.invalidateQueries('reply'),
+      onSuccess: () => queryClient.invalidateQueries('reply'),
     }
   );
 
   const [mutateUpdateComment] = useMutation(
     (values) => updateComment(selectedId, values),
     {
-      onSuccess: () => queryCache.invalidateQueries('comments'),
+      onSuccess: () => queryClient.invalidateQueries('comments'),
     }
   );
 

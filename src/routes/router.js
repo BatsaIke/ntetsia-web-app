@@ -12,6 +12,12 @@ const Router = () => {
         <PrivateRoute exact path='/feed/:id' component={Pages.Feed} />
         <Route exact path='/login' component={Pages.Login} />
         <Route exact path='/register' component={Pages.Register} />
+        <Route exact path='/forgot-password' component={Pages.ForgotPassword} />
+        <Route
+          exact
+          path='/reset-password/:id'
+          component={Pages.ResetPassword}
+        />
         <PrivateRoute exact path='/profile/:id' component={Pages.Profile} />
         <PrivateRoute exact path='/profile' component={Pages.Profile} />
         <PrivateRoute exact path='/jobs' component={Pages.Jobs} />

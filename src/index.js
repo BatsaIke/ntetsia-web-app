@@ -2,20 +2,20 @@ import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
 import App from 'container/App';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { QueryCache, ReactQueryCacheProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import { theme } from 'theme/theme';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
-const queryCache = new QueryCache();
+const queryClient = new QueryClient();
 
 ReactDOM.render(
-  <ReactQueryCacheProvider queryCache={queryCache}>
+  <QueryClientProvider client={queryClient}>
     <ChakraProvider theme={theme}>
       <ColorModeScript initialColorMode='dark' />
       <App />
     </ChakraProvider>
-  </ReactQueryCacheProvider>,
+  </QueryClientProvider>,
   document.getElementById('root')
 );
 

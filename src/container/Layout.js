@@ -54,16 +54,17 @@ const Layout = ({ children, px, py, path, icon, pageTitle, post, ...rest }) => {
         <GridItem>
           <LeftSidebar />
         </GridItem>
-        <GridItem overflow='hidden' pos='relative' w='100%'>
+        <GridItem overflow='hidden'>
           <Box
             as='main'
             gridArea='main'
             overflow='hidden'
             fontFamily='body'
+            pos='relative'
+            w='100%'
             {...rest}
           >
             <Flex
-              // direction='column'
               justify='space-between'
               align='center'
               pos='fixed'

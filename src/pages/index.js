@@ -10,6 +10,8 @@ const Jobs = React.lazy(() => import('./Jobs'));
 const Contribution = React.lazy(() => import('./Contribution'));
 const MyIdeas = React.lazy(() => import('./MyIdeas'));
 const Settings = React.lazy(() => import('./Settings'));
+const ForgotPassword = React.lazy(() => import('./ForgotPassword'));
+const ResetPassword = React.lazy(() => import('./ResetPassword'));
 
 export const Pages = {
   Home,
@@ -21,4 +23,6 @@ export const Pages = {
   Contribution,
   MyIdeas,
   Settings,
+  ForgotPassword,
+  ResetPassword,
 };

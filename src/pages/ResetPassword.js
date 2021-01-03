@@ -16,20 +16,11 @@ import { ResetPasswordSchema } from 'utils/validation';
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 import useAuth from 'context/userContext';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
 
 const ResetPassword = () => {
   const { colorMode } = useColorMode();
   const { resetPassword } = useAuth();
   const [value, setValue] = React.useState('');
-
-  const location = useLocation();
-  const history = useHistory();
-  const params = useParams();
-
-  console.log('location', location);
-  console.log('history', history);
-  console.log('params', params);
 
   const onHandleChange = (value) => {
     setValue(value);

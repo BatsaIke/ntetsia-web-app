@@ -1,7 +1,7 @@
 import React from 'react';
 import { Heading, Text, Grid, Box } from '@chakra-ui/react';
 import { Formik } from 'formik';
-import { useMutation, useQueryCache } from 'react-query';
+import { QueryClient, useMutation } from 'react-query';
 import { useProfile } from 'hooks/useGlobalHooks';
 import useAPI from 'context/apiContext';
 import FormInput from 'components/Form/FormInput';
@@ -11,23 +11,18 @@ import Button from 'components/Button';
 const Profile = () => {
   const { user } = useProfile();
   const { patchUserProfile } = useAPI();
-  const queryCache = useQueryCache();
+  const queryClient = new QueryClient();
 
-  const [mutatePatchProfile] = useMutation(
-    (values) => patchUserProfile(values),
-    {
-      onSuccess: () => queryCache.invalidateQueries('profile'),
-    }
-  );
-
-  console.log('user', user);
+  const mutatePatchProfile = useMutation((values) => patchUserProfile(values), {
+    onSuccess: () => queryClient.invalidateQueries('profile'),
+  });
 
   const onUserProfilePactch = async (
     values,
     { setSubmitting, setErrors, setStatus, resetForm }
   ) => {
     try {
-      mutatePatchProfile(values);
+      await mutatePatchProfile.mutateAsync(values);
       resetForm({});
       setStatus({ success: true });
     } catch (error) {

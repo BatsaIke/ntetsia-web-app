@@ -19,7 +19,7 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { AnimatePresence, motion } from 'framer-motion';
 import useAPI from 'context/apiContext';
 import moment from 'moment';
-import { useMutation, useQueryCache } from 'react-query';
+import { QueryClient, useMutation } from 'react-query';
 import PostItem from './PostItem';
 import { Link as ReachLink } from 'react-router-dom';
 import useComponent from 'context/componentContext';
@@ -37,27 +37,27 @@ const Post = ({ user, feed, image }) => {
     setIsZoomed(shouldZoom);
   }, []);
 
-  const queryCache = useQueryCache();
+  const queryClient = new QueryClient();
 
-  const [mutateDeletePost] = useMutation(deletePost, {
-    onSuccess: () => queryCache.invalidateQueries('feeds'),
+  const mutateDeletePost = useMutation(deletePost, {
+    onSuccess: () => queryClient.invalidateQueries('feeds'),
   });
 
-  const [mutateLikePost] = useMutation(postLike, {
-    onSuccess: () => queryCache.invalidateQueries('feeds'),
+  const mutateLikePost = useMutation(postLike, {
+    onSuccess: () => queryClient.invalidateQueries('feeds'),
   });
 
-  const [mutateUnlikeLikePost] = useMutation(postUnlike, {
-    onSuccess: () => queryCache.invalidateQueries('feeds'),
+  const mutateUnlikeLikePost = useMutation(postUnlike, {
+    onSuccess: () => queryClient.invalidateQueries('feeds'),
   });
 
   const likesCount = () => {
     if (feed.is_liked === false) {
       setLiked(true);
-      mutateLikePost({ post_id: feed?.id });
+      mutateLikePost.mutate({ post_id: feed?.id });
     } else {
       setLiked(false);
-      mutateUnlikeLikePost({ post_id: feed?.id });
+      mutateUnlikeLikePost.mutate({ post_id: feed?.id });
     }
   };
 
@@ -187,7 +187,7 @@ const Post = ({ user, feed, image }) => {
                           bg={active && 'gray.100'}
                           d='block'
                           cursor='pointer'
-                          onClick={() => mutateDeletePost(feed?.id)}
+                          onClick={() => mutateDeletePost.mutate(feed?.id)}
                         >
                           <Icon as={BsTrash} boxSize={4} mr={2} />
                           Delete post

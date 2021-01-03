@@ -16,6 +16,8 @@ export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  console.log('use', user);
+
   useEffect(() => {
     async function loadUserFromCookies() {
       const token = Cookies.get('ntoken');
@@ -24,6 +26,7 @@ export const AuthProvider = ({ children }) => {
         // console.log("Got a token in the cookies, let's see if it is valid");
         api.defaults.headers.Authorization = `Bearer ${token}`;
         const data = JSON.parse(user);
+        console.log('data', user);
         setUser(data?.profile?.id);
         setIsAuthenticated(data?.token);
         // console.log('Got user', res);

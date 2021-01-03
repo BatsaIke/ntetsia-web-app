@@ -6,6 +6,8 @@ export const useProfile = () => {
   const { getProfile } = useAPI();
   const { user: id } = useAuth();
 
+  console.log('user', id);
+
   const { data: user, isLoading: loading } = useQuery(
     ['profile', id],
     () => getProfile(id),

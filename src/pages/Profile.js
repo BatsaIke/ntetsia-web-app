@@ -32,14 +32,14 @@ import {
 } from 'hooks/useGlobalHooks';
 import React from 'react';
 import { BiCamera } from 'react-icons/bi';
-import { useMutation, useQueryCache } from 'react-query';
+import { QueryClient, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 
 const Profile = () => {
   const { location } = useHistory();
   const state = location?.state;
   const { colorMode } = useColorMode();
-  const queryCache = useQueryCache();
+  const queryClient = new QueryClient();
   const { user } = useProfile();
   const { handleModalClick } = useComponent();
   const { profilePicture, backgroundImage, follow, unfollow } = useAPI();
@@ -52,19 +52,19 @@ const Profile = () => {
   const { schools } = useFetchUserSchools(newUser?.id);
   const { works } = useFetchUserWorks(newUser?.id);
 
-  const [uploadProfilePhoto] = useMutation(profilePicture, {
-    onSuccess: () => queryCache.invalidateQueries('profile'),
+  const uploadProfilePhoto = useMutation(profilePicture, {
+    onSuccess: () => queryClient.invalidateQueries('profile'),
   });
 
-  const [uploadBackgroundPhoto] = useMutation(backgroundImage, {
-    onSuccess: () => queryCache.invalidateQueries('profile'),
+  const uploadBackgroundPhoto = useMutation(backgroundImage, {
+    onSuccess: () => queryClient.invalidateQueries('profile'),
   });
 
   const handleChange = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('image', file, file?.name);
-    const res = await uploadProfilePhoto(formData);
+    const res = await uploadProfilePhoto.mutateAsync(formData);
     if (res.status === 200) {
       toast({
         description: res.data.message,
@@ -80,7 +80,7 @@ const Profile = () => {
     const file = e.target.files[0];
     const formData = new FormData();
     formData.append('image', file, file?.name);
-    const res = await uploadBackgroundPhoto(formData);
+    const res = await uploadBackgroundPhoto.mutateAsync(formData);
     if (res.status === 200) {
       toast({
         description: res.data.message,
@@ -94,19 +94,19 @@ const Profile = () => {
 
   const filteredFeeds = feeds?.data.filter((e) => e.is_owner === true);
 
-  const [mutateFollow] = useMutation(follow, {
-    onSuccess: () => queryCache.invalidateQueries('profile'),
+  const mutateFollow = useMutation(follow, {
+    onSuccess: () => queryClient.invalidateQueries('profile'),
   });
 
-  const [mutateUnfollow] = useMutation(unfollow, {
-    onSuccess: () => queryCache.invalidateQueries('profile'),
+  const mutateUnfollow = useMutation(unfollow, {
+    onSuccess: () => queryClient.invalidateQueries('profile'),
   });
 
   const followUnfollow = () => {
     if (newUser.is_following === false) {
-      mutateFollow({ member_id: newUser?.id });
+      mutateFollow.mutate({ member_id: newUser?.id });
     } else {
-      mutateUnfollow({ member_id: newUser?.id });
+      mutateUnfollow.mutate({ member_id: newUser?.id });
     }
   };
 

@@ -28,32 +28,32 @@ const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
 
   const queryClient = useQueryClient();
 
-  const [mutateCreatePost] = useMutation(postFeed, {
+  const mutateCreatePost = useMutation(postFeed, {
     onSuccess: () => queryClient.invalidateQueries('feeds'),
   });
 
-  const [mutateUpdatePost] = useMutation(
+  const mutateUpdatePost = useMutation(
     (values) => updatePost(selectedId, values),
     {
       onSuccess: () => queryClient.invalidateQueries('feeds'),
     }
   );
 
-  const [mutateCreateComment] = useMutation(
+  const mutateCreateComment = useMutation(
     (values) => createComment(selectedId, values),
     {
       onSuccess: () => queryClient.invalidateQueries('comments'),
     }
   );
 
-  const [mutateCreateReply] = useMutation(
+  const mutateCreateReply = useMutation(
     (values) => commentReply(selectedId, values),
     {
       onSuccess: () => queryClient.invalidateQueries('reply'),
     }
   );
 
-  const [mutateUpdateComment] = useMutation(
+  const mutateUpdateComment = useMutation(
     (values) => updateComment(selectedId, values),
     {
       onSuccess: () => queryClient.invalidateQueries('comments'),
@@ -66,15 +66,15 @@ const PostModal = ({ isOpen, onClose, showEmoji, setShowEmoji }) => {
   ) => {
     try {
       if (mode === 'edit') {
-        await mutateUpdatePost(values);
+        await mutateUpdatePost.mutateAsync(values);
       } else if (mode === 'post') {
-        await mutateCreatePost(values);
+        await mutateCreatePost.mutateAsync(values);
       } else if (mode === 'comment') {
-        await mutateCreateComment(values);
+        await mutateCreateComment.mutateAsync(values);
       } else if (mode === 'editComment') {
-        await mutateUpdateComment(values);
+        await mutateUpdateComment.mutateAsync(values);
       } else if (mode === 'reply') {
-        await mutateCreateReply(values);
+        await mutateCreateReply.mutateAsync(values);
       }
       resetForm({});
       setStatus({ success: true });

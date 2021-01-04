@@ -52,7 +52,7 @@ const FollowCard = ({ data }) => {
       />
     </Box>
   );
-  const [hoverable, hovered] = useHover(FollowButton);
+  const [hoverable] = useHover(FollowButton);
 
   return (
     <Box>

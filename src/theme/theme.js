@@ -44,6 +44,10 @@ export const theme = extendTheme({
       500: '#2C5282',
       600: '#2A4365',
     },
+    brandDark: {
+      500: '#111a2c',
+      600: '#0a101b',
+    },
   },
   space: {
     14: '3.5rem',

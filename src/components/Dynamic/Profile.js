@@ -1,5 +1,5 @@
 import React from 'react';
-import { Heading, Text, Grid, Box } from '@chakra-ui/react';
+import { Heading, Text, Grid, Box, Flex, Divider } from '@chakra-ui/react';
 import { Formik } from 'formik';
 import { QueryClient, useMutation } from 'react-query';
 import { useProfile } from 'hooks/useGlobalHooks';
@@ -7,6 +7,7 @@ import useAPI from 'context/apiContext';
 import FormInput from 'components/Form/FormInput';
 import FormTextArea from 'components/Form/FormTextArea';
 import Button from 'components/Button';
+import ProfileImage from 'components/Cards/ProfileImage';
 
 const Profile = () => {
   const { user } = useProfile();
@@ -34,14 +35,25 @@ const Profile = () => {
 
   return (
     <Box>
-      <Box direction='column' mb={16}>
-        <Heading as='h4' size='md'>
-          Profile
-        </Heading>
-        <Text fontSize='sm' color='gray.600'>
-          This information will be displayed publicly.
-        </Text>
-      </Box>
+      <Flex align='center' justify='space-between'>
+        <Box>
+          <Heading as='h4' size='xl'>
+            Profile
+          </Heading>
+          <Text fontSize='sm' color='gray.600'>
+            This information will be displayed publicly.
+          </Text>
+        </Box>
+
+        <ProfileImage user={user} mt={0} size='2xl' bottom={2} />
+      </Flex>
+
+      <Divider
+        orientation='vertical'
+        borderBottomWidth={1}
+        borderBottomColor='gray.300'
+        my={10}
+      />
 
       <Formik
         enableReinitialize
@@ -59,7 +71,6 @@ const Profile = () => {
       >
         {({ values, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
           <form onSubmit={handleSubmit}>
-            {console.log('values', values.first_name)}
             <Grid templateColumns='repeat(2, 1fr)' gap={4} mt={4}>
               <FormInput
                 label='First Name'

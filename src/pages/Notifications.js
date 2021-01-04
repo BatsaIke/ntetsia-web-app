@@ -16,14 +16,18 @@ import React from 'react';
 import { BiCog } from 'react-icons/bi';
 import { BsCheck, BsThreeDots } from 'react-icons/bs';
 import { IoMdClose } from 'react-icons/io';
-import { QueryClient } from 'react-query';
+// import { QueryClient, useMutation } from 'react-query';
 
 const MotionBox = motion.custom(Box);
 
 const Notifications = () => {
   const { notifications, isLoading } = useNotifications();
   const colorMode = useColorMode();
-  const queryClient = new QueryClient();
+  // const queryClient = new QueryClient();
+  // const mutateDeletePost = useMutation(deletePost, {
+  //   onSuccess: () => queryClient.invalidateQueries('feeds'),
+  // });
+
   console.log('notifications', notifications);
 
   return (

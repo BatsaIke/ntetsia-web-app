@@ -30,10 +30,10 @@ import {
   useProfile,
 } from 'hooks/useGlobalHooks';
 import React from 'react';
-import { BiCamera } from 'react-icons/bi';
 import { QueryClient, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import CoverImage from 'components/Cards/CoverImage';
+import ProfileImage from 'components/Cards/ProfileImage';
 
 const Profile = () => {
   const { location } = useHistory();
@@ -41,8 +41,7 @@ const Profile = () => {
   const { colorMode } = useColorMode();
   const queryClient = new QueryClient();
   const { user } = useProfile();
-  const { profilePicture, follow, unfollow } = useAPI();
-  const toast = useToast();
+  const { follow, unfollow } = useAPI();
   const { user: others } = useOthersProfile(state?.member?.id);
   const { feeds, isLoading } = useFeeds();
 
@@ -50,26 +49,6 @@ const Profile = () => {
 
   const { schools } = useFetchUserSchools(newUser?.id);
   const { works } = useFetchUserWorks(newUser?.id);
-
-  const uploadProfilePhoto = useMutation(profilePicture, {
-    onSuccess: () => queryClient.invalidateQueries('profile'),
-  });
-
-  const handleChange = async (e) => {
-    const file = e.target.files[0];
-    const formData = new FormData();
-    formData.append('image', file, file?.name);
-    const res = await uploadProfilePhoto.mutateAsync(formData);
-    if (res.status === 200) {
-      toast({
-        description: res.data.message,
-        status: 'success',
-        duration: 9000,
-        isClosable: true,
-        position: 'top-right',
-      });
-    }
-  };
 
   const filteredFeeds = feeds?.data.filter((e) => e.is_owner === true);
 
@@ -111,41 +90,7 @@ const Profile = () => {
         <CoverImage />
 
         <Flex justify='space-between'>
-          <Box mt={-16} ml={2} pos='relative'>
-            <Avatar
-              size='2xl'
-              borderWidth={4}
-              borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.200'}
-              src={newUser?.profile_picture}
-            />
-            {newUser?.is_self && (
-              <Flex
-                as='label'
-                align='center'
-                justify='center'
-                w={12}
-                h={13}
-                rounded='100%'
-                pos='absolute'
-                right={0}
-                bottom={6}
-                bg='white'
-                color='gray.800'
-                boxSize={8}
-                cursor='pointer'
-                shadow='md'
-              >
-                <Input
-                  d='none'
-                  type='file'
-                  name='image'
-                  id='profile'
-                  onChange={handleChange}
-                />
-                <Icon as={BiCamera} />
-              </Flex>
-            )}
-          </Box>
+          <ProfileImage user={newUser} />
           {newUser?.is_self ? (
             <Box mr={4}>
               <Button

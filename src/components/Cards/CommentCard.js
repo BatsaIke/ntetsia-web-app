@@ -7,7 +7,7 @@ import { HiOutlinePencilAlt } from 'react-icons/hi';
 import { AnimatePresence, motion } from 'framer-motion';
 import useAPI from 'context/apiContext';
 import moment from 'moment';
-import { useMutation, useQueryCache, useQuery, QueryClient } from 'react-query';
+import { useMutation, useQuery, QueryClient } from 'react-query';
 import useComponent from 'context/componentContext';
 import PostSkeleton from './PostSkeleton';
 

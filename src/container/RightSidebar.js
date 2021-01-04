@@ -73,11 +73,14 @@ const RightSidebar = () => {
               <Skeleton height='60px' />
             </Grid>
           ) : (
-            people?.slice(0, 5).map((person) => {
-              if (person.is_following === false) {
-                return <FollowCard key={person.id} data={person} />;
-              }
-            })
+            people
+              ?.slice(0, 5)
+              .map(
+                (person) =>
+                  person.is_following === false && (
+                    <FollowCard key={person.id} data={person} />
+                  )
+              )
           )}
         </Box>
       </Flex>

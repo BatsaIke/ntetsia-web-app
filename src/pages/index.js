@@ -1,5 +1,3 @@
-import React from 'react';
-
 //Pages
 // const Home = React.lazy(() => import('./Home'));
 // const Feed = React.lazy(() => import('./Feed'));

@@ -9,7 +9,6 @@ import {
   Image,
   Link,
   Icon,
-  Input,
 } from '@chakra-ui/react';
 import { Link as ReachLink } from 'react-router-dom';
 // import useAPI from 'context/apiContext';
@@ -161,6 +160,7 @@ const Settings = () => {
             >
               <Icon as={BiUser} mr={2} /> Education
             </Flex>
+
             <Flex
               align='center'
               bg={tab === 'compC' ? 'brand.dark' : 'none'}
@@ -175,6 +175,7 @@ const Settings = () => {
             >
               <Icon as={BiBriefcase} mr={2} /> Work Experience
             </Flex>
+
             <Flex
               align='center'
               bg={tab === 'compD' ? 'brand.dark' : 'none'}
@@ -189,6 +190,7 @@ const Settings = () => {
             >
               <Icon as={BiCog} mr={2} /> Account
             </Flex>
+
             <Flex
               align='center'
               bg={tab === 'compE' ? 'brand.dark' : 'none'}
@@ -203,6 +205,7 @@ const Settings = () => {
             >
               <Icon as={BiBell} mr={2} /> Notifications
             </Flex>
+
             <Flex
               align='center'
               bg={tab === 'compF' ? 'brand.dark' : 'none'}

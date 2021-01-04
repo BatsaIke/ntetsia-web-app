@@ -83,7 +83,7 @@ const Profile = () => {
       post={newUser?.posts_count}
     >
       <Box pos='relative'>
-        <CoverImage />
+        <CoverImage user={newUser} />
 
         <Flex justify='space-between'>
           <ProfileImage user={newUser} />

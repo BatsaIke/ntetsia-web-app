@@ -8,13 +8,11 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import useAPI from 'context/apiContext';
-import { useProfile } from 'hooks/useGlobalHooks';
 import React from 'react';
 import { BiCamera } from 'react-icons/bi';
 import { QueryClient, useMutation } from 'react-query';
 
-const CoverImage = ({ height = 56 }) => {
-  const { user } = useProfile();
+const CoverImage = ({ height = 56, user }) => {
   const { backgroundImage } = useAPI();
   const toast = useToast();
   const queryClient = new QueryClient();

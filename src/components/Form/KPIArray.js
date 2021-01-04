@@ -1,6 +1,6 @@
 import React from 'react';
 import { FieldArray } from 'formik';
-import { Box, Grid } from '@chakra-ui/react';
+import { Box } from '@chakra-ui/react';
 import PropTypes from 'prop-types';
 
 import ThirdPartyInput from './ThirdPartyInput';

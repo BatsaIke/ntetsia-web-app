@@ -1,16 +1,12 @@
 import {
-  Avatar,
   Box,
   Divider,
   Flex,
   Grid,
   Heading,
-  Icon,
   Image,
-  Input,
   Text,
   useColorMode,
-  useToast,
 } from '@chakra-ui/react';
 import moment from 'moment';
 import Button from 'components/Button';

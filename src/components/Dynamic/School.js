@@ -1,6 +1,5 @@
-import { Box, Divider, Flex, Grid, Heading, Text } from '@chakra-ui/react';
+import { Box, Divider, Flex, Heading, Text } from '@chakra-ui/react';
 import Button from 'components/Button';
-import FormInput from 'components/Form/FormInput';
 import KPIArray from 'components/Form/KPIArray';
 import { Formik } from 'formik';
 import React from 'react';

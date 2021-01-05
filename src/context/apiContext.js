@@ -257,7 +257,47 @@ export const ApiProvider = ({ children }) => {
   //Work Experiences
   const createWorkExperiences = async (payload) => {
     try {
-      await api.post('/work-experiences', payload);
+      const res = await api.post('/work-experiences', payload);
+      if (res.status === 200) {
+        toast({
+          description: res.data.message,
+          status: 'success',
+          duration: 3000,
+          position: 'top-right',
+        });
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const updateWorkExperiences = async (id, payload) => {
+    try {
+      const res = await api.patch(`/work-experiences/${id}`, payload);
+      if (res.status === 200) {
+        toast({
+          description: res.data.message,
+          status: 'success',
+          duration: 3000,
+          position: 'top-right',
+        });
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const deleteWorkExperiences = async (id) => {
+    try {
+      const res = await api.delete(`/work-experiences/${id}`);
+      if (res.status === 200) {
+        toast({
+          description: res.data.message,
+          status: 'success',
+          duration: 3000,
+          position: 'top-right',
+        });
+      }
     } catch (error) {
       console.log(error.response);
     }
@@ -304,6 +344,8 @@ export const ApiProvider = ({ children }) => {
         updateComment,
         createSchool,
         createWorkExperiences,
+        updateWorkExperiences,
+        deleteWorkExperiences,
         getNotifications,
       }}
     >

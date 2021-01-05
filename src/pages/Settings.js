@@ -23,13 +23,25 @@ import {
   BiUser,
 } from 'react-icons/bi';
 import CoverImage from 'components/Cards/CoverImage';
+import WorkModal from 'components/Modals/WorkModal';
+import useComponent from 'context/componentContext';
 
 const Settings = () => {
+  const { isOpen, onClose, modal } = useComponent();
   // const { createSchool, createWorkExperiences, patchUserProfile } = useAPI();
   // const queryCache = useQueryCache();
   const colorMode = useColorMode();
   const { user } = useProfile();
   const [tab, setTab] = React.useState('compA');
+
+  const getModal = (value) => {
+    switch (value) {
+      case 'work':
+        return <WorkModal isOpen={isOpen} onClose={onClose} />;
+      default:
+        return null;
+    }
+  };
 
   // const [mutateCreateSchool] = useMutation((values) => createSchool(values), {
   //   onSuccess: () => queryCache.invalidateQueries('schools'),
@@ -96,6 +108,7 @@ const Settings = () => {
 
   return (
     <Box>
+      {getModal(modal)}
       <Flex
         pos='fixed'
         top={0}

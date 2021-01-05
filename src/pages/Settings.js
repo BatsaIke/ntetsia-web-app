@@ -97,6 +97,11 @@ const Settings = () => {
   return (
     <Box>
       <Flex
+        pos='fixed'
+        top={0}
+        w='100%'
+        bg='white'
+        zIndex={50}
         align='center'
         justify='space-between'
         borderBottomWidth={1}

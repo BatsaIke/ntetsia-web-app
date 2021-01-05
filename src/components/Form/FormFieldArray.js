@@ -8,7 +8,7 @@ import { BsTrash } from 'react-icons/bs';
 import { IoIosAdd } from 'react-icons/io';
 import Button from 'components/Button';
 
-const KPIArray = ({
+const FormFieldArray = ({
   fieldName,
   fieldObj,
   values,
@@ -18,51 +18,57 @@ const KPIArray = ({
   handleBlur,
   label,
   title,
+  isSubmitting,
 }) => {
   return (
     <FieldArray name={fieldName}>
       {({ push, remove }) => (
         <>
-          <Box mb={4}>
+          <Box mb={4} borderBottomWidth={1} borderBottomColor='gray.300' pb={6}>
             {values?.map((value, i) => (
-              <ThirdPartyInput
-                key={i}
-                name={`${fieldName}.${i}.`}
-                reference={value}
-                label={label}
-                handleChange={handleChange}
-                handleBlur={handleBlur}
-                title={title}
-                errors={
-                  errors && errors.thirdPartyRef && errors.thirdPartyRef[i]
-                }
-                touched={
-                  touched && touched.thirdPartyRef && touched.thirdPartyRef[i]
-                }
-              />
+              <>
+                <ThirdPartyInput
+                  key={i}
+                  name={`${fieldName}.${i}.`}
+                  reference={value}
+                  label={label}
+                  handleChange={handleChange}
+                  handleBlur={handleBlur}
+                  title={title}
+                  // errors={`${errors} && ${errors.fieldName} && ${errors.fieldName[i]}`}
+                  // touched={`${touched} && ${touched.fieldName} && ${touched.fieldName[i]}`}
+                />
+                <Box mt={6}>
+                  <Button
+                    title={value?.id ? 'Save' : 'Submit'}
+                    rounded='30px'
+                    w={40}
+                    type='submit'
+                    isLoading={isSubmitting}
+                  />
+                </Box>
+              </>
             ))}
           </Box>
           <Box float='right' mt={6}>
             {values?.length > 1 && (
               <Button
-                startEnhancer={() => <BsTrash size={24} />}
+                leftIcon={<BsTrash size={20} />}
                 onClick={() => remove(values?.length - 1)}
                 title={`Remove ${label}`}
                 bgColor='#E53E3E'
                 color='#fff'
                 _hover={{ bg: '#E53E3E' }}
                 _active={{ bg: '#E53E3E' }}
-                type='button'
               />
             )}
 
             <Button
-              startEnhancer={() => <IoIosAdd size={24} />}
+              leftIcon={<IoIosAdd size={24} />}
               onClick={() => push(fieldObj)}
-              disabled={values?.length === 6}
+              isDisabled={values?.length === 6}
               title={`Add another ${label}`}
               marginLeft='10px'
-              type='button'
             />
           </Box>
         </>
@@ -71,7 +77,7 @@ const KPIArray = ({
   );
 };
 
-KPIArray.propTypes = {
+FormFieldArray.propTypes = {
   values: PropTypes.array.isRequired,
   fieldName: PropTypes.string.isRequired,
   fieldObj: PropTypes.object.isRequired,
@@ -81,4 +87,4 @@ KPIArray.propTypes = {
   touched: PropTypes.object.isRequired,
 };
 
-export default KPIArray;
+export default FormFieldArray;

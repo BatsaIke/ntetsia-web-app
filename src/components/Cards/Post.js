@@ -54,10 +54,10 @@ const Post = ({ user, feed, image }) => {
   const likesCount = () => {
     if (feed.is_liked === false) {
       setLiked(true);
-      mutateLikePost.mutate({ post_id: feed?.id });
+      mutateLikePost.mutateAsync({ post_id: feed?.id });
     } else {
       setLiked(false);
-      mutateUnlikeLikePost.mutate({ post_id: feed?.id });
+      mutateUnlikeLikePost.mutateAsync({ post_id: feed?.id });
     }
   };
 
@@ -187,7 +187,7 @@ const Post = ({ user, feed, image }) => {
                           bg={active && 'gray.100'}
                           d='block'
                           cursor='pointer'
-                          onClick={() => mutateDeletePost.mutate(feed?.id)}
+                          onClick={() => mutateDeletePost.mutateAsync(feed?.id)}
                         >
                           <Icon as={BsTrash} boxSize={4} mr={2} />
                           Delete post

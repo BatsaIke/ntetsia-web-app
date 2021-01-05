@@ -17,7 +17,7 @@ const ThirdPartyInput = ({
     switch (title) {
       case 'Schools':
         return (
-          <Grid templateColumns='repeat(2, 1fr)' gap={4} mt={4}>
+          <Grid templateColumns='repeat(2, 1fr)' gap={4} mt={6}>
             <FormInput
               type='text'
               id={`${name}school_name`}
@@ -28,8 +28,7 @@ const ThirdPartyInput = ({
               onBlur={handleBlur}
               error={errors && errors.school_name}
               touched={touched && touched.school_name}
-              inputType
-              value={reference}
+              value={reference.school_name}
             />
 
             <FormInput
@@ -42,8 +41,7 @@ const ThirdPartyInput = ({
               onBlur={handleBlur}
               error={errors && errors.year_admitted}
               touched={touched && touched.year_admitted}
-              inputType
-              value={reference}
+              value={reference.year_admitted}
             />
 
             <FormInput
@@ -56,71 +54,61 @@ const ThirdPartyInput = ({
               onBlur={handleBlur}
               error={errors && errors.year_completed}
               touched={touched && touched.year_completed}
-              inputType
-              value={reference}
+              value={reference.year_completed}
             />
           </Grid>
         );
       case 'Works':
         return (
-          <Grid templateColumns='repeat(2, 1fr)' gap={4} mt={4}>
+          <Grid templateColumns='repeat(2, 1fr)' gap={4} mt={6}>
             <FormInput
-              type='text'
-              id={`${name}item`}
-              name={`${name}item`}
-              placeholder='Item'
-              label='Item'
+              id={`${name}company_name`}
+              name={`${name}company_name`}
+              placeholder='Company name'
+              label='Company name'
               onChange={handleChange}
               onBlur={handleBlur}
-              error={errors && errors.item}
-              touched={touched && touched.item}
-              inputType
-              value={reference.item}
+              error={errors && errors.company_name}
+              touched={touched && touched.company_name}
+              value={reference.company_name}
             />
 
             <FormInput
-              type='number'
-              width='90px'
-              id={`${name}quantity`}
-              name={`${name}quantity`}
-              placeholder='Quantity'
-              label='Quantity'
+              id={`${name}position`}
+              name={`${name}position`}
+              placeholder='Position'
+              label='Position'
               onChange={handleChange}
               onBlur={handleBlur}
-              error={errors && errors.quantity}
-              touched={touched && touched.quantity}
-              inputType
-              value={reference.quantity}
+              error={errors && errors.position}
+              touched={touched && touched.position}
+              value={reference.position}
             />
 
             <FormInput
-              type='number'
-              width='90px'
-              id={`${name}quantity`}
-              name={`${name}quantity`}
-              placeholder='Quantity'
-              label='Quantity'
+              id={`${name}from`}
+              name={`${name}from`}
+              placeholder='Start Date'
+              label='Start Date'
               onChange={handleChange}
               onBlur={handleBlur}
-              error={errors && errors.quantity}
-              touched={touched && touched.quantity}
-              inputType
-              value={reference.quantity}
+              error={errors && errors.from}
+              touched={touched && touched.from}
+              value={reference.to}
+              type='year'
             />
 
             <FormInput
-              type='number'
-              width='90px'
-              id={`${name}quantity`}
-              name={`${name}quantity`}
-              placeholder='Quantity'
-              label='Quantity'
+              id={`${name}to`}
+              name={`${name}to`}
+              placeholder='End Date'
+              label='End Date'
               onChange={handleChange}
               onBlur={handleBlur}
-              error={errors && errors.quantity}
-              touched={touched && touched.quantity}
-              inputType
-              value={reference.quantity}
+              error={errors && errors.to}
+              touched={touched && touched.to}
+              value={reference.to}
+              type='year'
             />
           </Grid>
         );

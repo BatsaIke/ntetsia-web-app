@@ -20,8 +20,6 @@ const DeleteDialog = ({ isOpen, onClose }) => {
   const { deleteSchoolExperiences, deleteWorkExperiences } = useAPI();
   const queryClient = useQueryClient();
 
-  console.log('selectedId', selectedId);
-
   const mutateDeleteSchools = useMutation(deleteSchoolExperiences, {
     onSuccess: () => queryClient.invalidateQueries('schools'),
   });

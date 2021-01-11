@@ -12,7 +12,7 @@ const queryClient = new QueryClient();
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
     <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode='dark' />
+      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
       <App />
     </ChakraProvider>
   </QueryClientProvider>,

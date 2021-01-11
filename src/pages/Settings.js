@@ -31,7 +31,7 @@ const Settings = () => {
   const { isOpen, onClose, modal } = useComponent();
   // const { createSchool, createWorkExperiences, patchUserProfile } = useAPI();
   // const queryCache = useQueryCache();
-  const colorMode = useColorMode();
+  const { colorMode } = useColorMode();
   const { user } = useProfile();
   const [tab, setTab] = React.useState('compA');
 
@@ -46,69 +46,6 @@ const Settings = () => {
     }
   };
 
-  // const [mutateCreateSchool] = useMutation((values) => createSchool(values), {
-  //   onSuccess: () => queryCache.invalidateQueries('schools'),
-  // });
-
-  // const [mutateCreateWorks] = useMutation(
-  //   (values) => createWorkExperiences(values),
-  //   {
-  //     onSuccess: () => queryCache.invalidateQueries('works'),
-  //   }
-  // );
-
-  // const [mutatePatchProfile] = useMutation(
-  //   (values) => patchUserProfile(values),
-  //   {
-  //     onSuccess: () => queryCache.invalidateQueries('profile'),
-  //   }
-  // );
-
-  // const onUserProfilePactch = async (
-  //   values,
-  //   { setSubmitting, setErrors, setStatus, resetForm }
-  // ) => {
-  //   try {
-  //     mutatePatchProfile(values);
-  //     resetForm({});
-  //     setStatus({ success: true });
-  //   } catch (error) {
-  //     setStatus({ success: false });
-  //     setSubmitting(false);
-  //     setErrors({ submit: error.message });
-  //   }
-  // };
-
-  // const onSchoolsSubmit = async (
-  //   values,
-  //   { setSubmitting, setErrors, setStatus, resetForm }
-  // ) => {
-  //   try {
-  //     mutateCreateSchool(values);
-  //     resetForm({});
-  //     setStatus({ success: true });
-  //   } catch (error) {
-  //     setStatus({ success: false });
-  //     setSubmitting(false);
-  //     setErrors({ submit: error.message });
-  //   }
-  // };
-
-  // const onWorksSubmit = async (
-  //   values,
-  //   { setSubmitting, setErrors, setStatus, resetForm }
-  // ) => {
-  //   try {
-  //     mutateCreateWorks(values);
-  //     resetForm({});
-  //     setStatus({ success: true });
-  //   } catch (error) {
-  //     setStatus({ success: false });
-  //     setSubmitting(false);
-  //     setErrors({ submit: error.message });
-  //   }
-  // };
-
   return (
     <Box>
       {getModal(modal)}
@@ -116,7 +53,7 @@ const Settings = () => {
         pos='fixed'
         top={0}
         w='100%'
-        bg='white'
+        bg={colorMode === 'dark' ? 'gray.800' : 'white'}
         zIndex={50}
         align='center'
         justify='space-between'
@@ -136,13 +73,18 @@ const Settings = () => {
           />
         </Link>
         <Flex align='center'>
-          <Text fontWeight={800} mr={4} fontSize={{ md: 'lg' }}>
+          <Text
+            fontWeight={800}
+            mr={4}
+            fontSize={{ md: 'lg' }}
+            color={colorMode === 'dark' ? 'white' : 'gray.700'}
+          >
             {user?.first_name} {user?.last_name}
           </Text>
           <Avatar src={user?.profile_picture} />
         </Flex>
       </Flex>
-      <CoverImage height={108} />
+      <CoverImage user={user} height={108} />
       <Container
         maxW={{ md: '6xl' }}
         bg='white'

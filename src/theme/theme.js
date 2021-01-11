@@ -7,6 +7,11 @@ breakpoints.md = breakpoints[1];
 breakpoints.lg = breakpoints[2];
 breakpoints.xl = breakpoints[3];
 
+const config = {
+  initialColorMode: 'light',
+  useSystemColorMode: false,
+};
+
 export const theme = extendTheme({
   styles: {
     global: (props) => ({
@@ -19,6 +24,7 @@ export const theme = extendTheme({
       },
     }),
   },
+  config,
   ...breakpoints,
   fonts: {
     heading: '"Poppins" ,sans-serif',

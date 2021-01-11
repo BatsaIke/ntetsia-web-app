@@ -208,31 +208,6 @@ const LeftSidebar = () => {
               Settings
             </Link>
           </Box>
-
-          <Flex
-            align='center'
-            py={{ md: 2 }}
-            fontSize={{ md: 'lg' }}
-            fontWeight='bold'
-            px={4}
-            onClick={toggleColorMode}
-            cursor='pointer'
-            _hover={{
-              bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-              rounded: '30px',
-              transition: 'background-color .3s ease-in-out',
-            }}
-            as='button'
-            role='button'
-            aria-label='Theme button'
-          >
-            <Icon
-              as={colorMode === 'dark' ? BiSun : BiMoon}
-              boxSize={6}
-              mr={3}
-            />
-            {colorMode === 'dark' ? 'Light Mode' : 'Dark Mode'}
-          </Flex>
         </Box>
 
         <Box>

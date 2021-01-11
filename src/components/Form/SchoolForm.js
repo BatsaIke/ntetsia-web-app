@@ -4,39 +4,39 @@ import { Formik } from 'formik';
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 
-const WorkForm = ({ initialValues, onSubmit, onDelete, id, onClose, mode }) => {
+const SchoolForm = ({
+  initialValues,
+  onSubmit,
+  onDelete,
+  id,
+  onClose,
+  mode,
+}) => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ values, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
         <form onSubmit={handleSubmit}>
           <Grid gap={6}>
             <FormInput
-              label='Company Name'
-              value={values.company_name}
-              name='company_name'
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-            <FormInput
-              label='Position'
-              value={values.position}
-              name='position'
+              label='School'
+              value={values.school_name}
+              name='school_name'
               onChange={handleChange}
               onBlur={handleBlur}
             />
             <FormInput
               label='Start Date'
               type='year'
-              value={values.from}
-              name='from'
+              value={values.year_admitted}
+              name='year_admitted'
               onChange={handleChange}
               onBlur={handleBlur}
             />
             <FormInput
               label='End Date'
               type='year'
-              value={values.to}
-              name='to'
+              value={values.year_completed}
+              name='year_completed'
               onChange={handleChange}
               onBlur={handleBlur}
             />
@@ -85,4 +85,4 @@ const WorkForm = ({ initialValues, onSubmit, onDelete, id, onClose, mode }) => {
   );
 };
 
-export default WorkForm;
+export default SchoolForm;

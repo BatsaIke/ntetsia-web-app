@@ -248,7 +248,47 @@ export const ApiProvider = ({ children }) => {
   //Schools
   const createSchool = async (payload) => {
     try {
-      await api.post('/schools', payload);
+      const res = await api.post('/schools', payload);
+      if (res.status === 201) {
+        toast({
+          description: res.data.message,
+          status: 'success',
+          duration: 3000,
+          position: 'top-right',
+        });
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const updateSchoolExperiences = async (id, payload) => {
+    try {
+      const res = await api.patch(`/schools/${id}`, payload);
+      if (res.status === 200) {
+        toast({
+          description: res.data.message,
+          status: 'success',
+          duration: 3000,
+          position: 'top-right',
+        });
+      }
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
+
+  const deleteSchoolExperiences = async (id) => {
+    try {
+      const res = await api.delete(`/schools/${id}`);
+      if (res.status === 200) {
+        toast({
+          description: res.data.message,
+          status: 'success',
+          duration: 3000,
+          position: 'top-right',
+        });
+      }
     } catch (error) {
       console.log(error.response);
     }
@@ -343,6 +383,8 @@ export const ApiProvider = ({ children }) => {
         deleteComment,
         updateComment,
         createSchool,
+        updateSchoolExperiences,
+        deleteSchoolExperiences,
         createWorkExperiences,
         updateWorkExperiences,
         deleteWorkExperiences,

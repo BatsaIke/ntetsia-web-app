@@ -25,6 +25,7 @@ import {
 import CoverImage from 'components/Cards/CoverImage';
 import WorkModal from 'components/Modals/WorkModal';
 import useComponent from 'context/componentContext';
+import SchoolModal from 'components/Modals/SchoolModal';
 
 const Settings = () => {
   const { isOpen, onClose, modal } = useComponent();
@@ -38,6 +39,8 @@ const Settings = () => {
     switch (value) {
       case 'work':
         return <WorkModal isOpen={isOpen} onClose={onClose} />;
+      case 'school':
+        return <SchoolModal isOpen={isOpen} onClose={onClose} />;
       default:
         return null;
     }

@@ -10,6 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Button from 'components/Button';
+import DeleteDialog from 'components/Modals/DeleteDialog';
 import useComponent from 'context/componentContext';
 import { useFetchUserWorks, useProfile } from 'hooks/useGlobalHooks';
 import React from 'react';
@@ -17,13 +18,14 @@ import { BiPencil } from 'react-icons/bi';
 
 const Work = () => {
   const { user } = useProfile();
-  const { handleModalClick } = useComponent();
+  const { handleModalClick, open, close } = useComponent();
   const { works, isLoading } = useFetchUserWorks(user?.id);
 
   console.log('works', works);
 
   return (
     <Box>
+      <DeleteDialog isOpen={open} onClose={close} />
       <Flex justify='space-between'>
         <Box>
           <Heading as='h4' size='xl'>

@@ -16,13 +16,13 @@ import { GiSuitcase, GiReceiveMoney } from 'react-icons/gi';
 import { IoIosBulb } from 'react-icons/io';
 import useAuth from 'context/userContext';
 import { HiOutlineLogout } from 'react-icons/hi';
-import { BiCog, BiMoon, BiSun } from 'react-icons/bi';
+import { BiCog } from 'react-icons/bi';
 import { useProfile } from 'hooks/useGlobalHooks';
 import { BsBell } from 'react-icons/bs';
 
 const LeftSidebar = () => {
   const { logout } = useAuth();
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   const { user } = useProfile();
 
   return (

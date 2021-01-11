@@ -16,8 +16,6 @@ const RightSidebar = () => {
   const { colorMode } = useColorMode();
   const { people, isLoading } = usePeople();
 
-  console.log('people', people);
-
   return (
     <Flex
       as='aside'

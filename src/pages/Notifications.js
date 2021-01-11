@@ -28,8 +28,6 @@ const Notifications = () => {
   //   onSuccess: () => queryClient.invalidateQueries('feeds'),
   // });
 
-  console.log('notifications', notifications);
-
   return (
     <Layout pageTitle='Notifications'>
       <Box>

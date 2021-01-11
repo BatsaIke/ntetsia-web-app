@@ -67,11 +67,6 @@ const Profile = () => {
   const { userFollowing } = useFollowing(newUser?.id);
   const { userFollowers } = useFollowers(newUser?.id);
 
-  console.log('new user', newUser);
-  // console.log('feeds', feeds);
-  console.log('schools', schools);
-  console.log('works', works);
-
   return (
     <Layout
       pageTitle={`${newUser?.first_name || 'firstname'} ${

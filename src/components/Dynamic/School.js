@@ -10,6 +10,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import Button from 'components/Button';
+import DeleteDialog from 'components/Modals/DeleteDialog';
 import useComponent from 'context/componentContext';
 import { useFetchUserSchools, useProfile } from 'hooks/useGlobalHooks';
 import React from 'react';
@@ -17,13 +18,12 @@ import { BiPencil } from 'react-icons/bi';
 
 const School = () => {
   const { user } = useProfile();
-  const { handleModalClick } = useComponent();
+  const { handleModalClick, open, close } = useComponent();
   const { schools, isLoading } = useFetchUserSchools(user?.id);
-
-  console.log('schools', schools);
 
   return (
     <Box>
+      <DeleteDialog isOpen={open} onClose={close} />
       <Flex justify='space-between'>
         <Box>
           <Heading as='h4' size='xl'>

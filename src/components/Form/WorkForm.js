@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import FormInput from 'components/Form/FormInput';
 import Button from 'components/Button';
 
-const WorkForm = ({ initialValues, onSubmit, onDelete, id, onClose, mode }) => {
+const WorkForm = ({ initialValues, onSubmit, toggleDialog, onClose, mode }) => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
       {({ values, handleBlur, handleChange, handleSubmit, isSubmitting }) => (
@@ -54,7 +54,7 @@ const WorkForm = ({ initialValues, onSubmit, onDelete, id, onClose, mode }) => {
                 _active={{ bg: 'transparent', color: 'red.500' }}
                 title='Delete'
                 onClick={() => {
-                  onDelete.mutateAsync(id);
+                  toggleDialog();
                   onClose();
                 }}
               />

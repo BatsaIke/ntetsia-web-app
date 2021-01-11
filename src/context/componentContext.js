@@ -18,6 +18,8 @@ export const ComponentProvider = ({ children }) => {
   const [currentIndex, setCurrentIndex] = React.useState(0);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [open, setOpen] = React.useState(false);
+  const close = () => setOpen(false);
 
   const handleClick = (name) => {
     setPages(name);
@@ -27,6 +29,10 @@ export const ComponentProvider = ({ children }) => {
     setCurrentIndex((prevState) => {
       return (steps.length + prevState + direction) % steps.length;
     });
+  };
+
+  const toggleDialog = () => {
+    setOpen(true);
   };
 
   const handleModalClick = (name, value, id, pId, mode) => {
@@ -56,6 +62,9 @@ export const ComponentProvider = ({ children }) => {
         mode,
         currentIndex,
         handleStepClick,
+        toggleDialog,
+        open,
+        close,
       }}
     >
       {children}

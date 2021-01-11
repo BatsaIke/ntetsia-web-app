@@ -13,12 +13,8 @@ import { useMutation, useQueryClient } from 'react-query';
 import useAPI from 'context/apiContext';
 
 const WorkModal = ({ isOpen, onClose }) => {
-  const { selectedData, selectedId, mode } = useComponent();
-  const {
-    createWorkExperiences,
-    updateWorkExperiences,
-    deleteWorkExperiences,
-  } = useAPI();
+  const { selectedData, selectedId, mode, toggleDialog } = useComponent();
+  const { createWorkExperiences, updateWorkExperiences } = useAPI();
 
   const queryClient = useQueryClient();
 
@@ -35,10 +31,6 @@ const WorkModal = ({ isOpen, onClose }) => {
       onSuccess: () => queryClient.invalidateQueries('works'),
     }
   );
-
-  const mutateDeleteWorks = useMutation(deleteWorkExperiences, {
-    onSuccess: () => queryClient.invalidateQueries('works'),
-  });
 
   const initialValues = {
     company_name: '',
@@ -76,8 +68,7 @@ const WorkModal = ({ isOpen, onClose }) => {
           <WorkForm
             initialValues={selectedData}
             onSubmit={onSubmit}
-            onDelete={mutateDeleteWorks}
-            id={selectedId}
+            toggleDialog={toggleDialog}
             onClose={onClose}
             mode={mode}
           />
@@ -91,7 +82,7 @@ const WorkModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add new Work Experience</ModalHeader>
+        <ModalHeader>Add new or update Work Experience</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{getData(mode)}</ModalBody>
       </ModalContent>

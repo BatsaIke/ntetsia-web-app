@@ -7,10 +7,9 @@ import Button from 'components/Button';
 const SchoolForm = ({
   initialValues,
   onSubmit,
-  onDelete,
-  id,
   onClose,
   mode,
+  toggleDialog,
 }) => {
   return (
     <Formik initialValues={initialValues} onSubmit={onSubmit}>
@@ -54,7 +53,7 @@ const SchoolForm = ({
                 _active={{ bg: 'transparent', color: 'red.500' }}
                 title='Delete'
                 onClick={() => {
-                  onDelete.mutateAsync(id);
+                  toggleDialog();
                   onClose();
                 }}
               />

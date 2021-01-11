@@ -13,12 +13,8 @@ import useAPI from 'context/apiContext';
 import SchoolForm from 'components/Form/SchoolForm';
 
 const SchoolModal = ({ isOpen, onClose }) => {
-  const { selectedData, selectedId, mode } = useComponent();
-  const {
-    createSchool,
-    updateSchoolExperiences,
-    deleteSchoolExperiences,
-  } = useAPI();
+  const { selectedData, selectedId, mode, toggleDialog } = useComponent();
+  const { createSchool, updateSchoolExperiences } = useAPI();
 
   const queryClient = useQueryClient();
 
@@ -32,10 +28,6 @@ const SchoolModal = ({ isOpen, onClose }) => {
       onSuccess: () => queryClient.invalidateQueries('schools'),
     }
   );
-
-  const mutateDeleteSchools = useMutation(deleteSchoolExperiences, {
-    onSuccess: () => queryClient.invalidateQueries('schools'),
-  });
 
   const initialValues = {
     school_name: '',
@@ -72,9 +64,8 @@ const SchoolModal = ({ isOpen, onClose }) => {
           <SchoolForm
             initialValues={selectedData}
             onSubmit={onSubmit}
-            onDelete={mutateDeleteSchools}
-            id={selectedId}
             onClose={onClose}
+            toggleDialog={toggleDialog}
             mode={mode}
           />
         );
@@ -87,7 +78,7 @@ const SchoolModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add new Work Experience</ModalHeader>
+        <ModalHeader>Add new or update School</ModalHeader>
         <ModalCloseButton />
         <ModalBody>{getData(mode)}</ModalBody>
       </ModalContent>

@@ -4,6 +4,7 @@ import {
   Flex,
   Grid,
   Heading,
+  Icon,
   Image,
   Text,
   useColorMode,
@@ -30,6 +31,8 @@ import { QueryClient, useMutation } from 'react-query';
 import { useHistory } from 'react-router-dom';
 import CoverImage from 'components/Cards/CoverImage';
 import ProfileImage from 'components/Cards/ProfileImage';
+import { BiPencil } from 'react-icons/bi';
+import useComponent from 'context/componentContext';
 
 const Profile = () => {
   const { location } = useHistory();
@@ -40,6 +43,7 @@ const Profile = () => {
   const { follow, unfollow } = useAPI();
   const { user: others } = useOthersProfile(state?.member?.id);
   const { feeds, isLoading } = useFeeds();
+  const { handleModalClick } = useComponent();
 
   const newUser = location.pathname === '/profile' ? user : others;
 
@@ -128,6 +132,25 @@ const Profile = () => {
                 {newUser?.occupation}
               </Text>
             </Box>
+
+            {newUser?.is_self && (
+              <Box
+                as='button'
+                role='button'
+                w={8}
+                h={8}
+                color='gray.500'
+                _hover={{
+                  rounded: '100%',
+                  bg: 'gray.200',
+                  transitionDuration: '200ms',
+                  color: 'gray.600',
+                }}
+                onClick={() => handleModalClick('profile', user, user.id)}
+              >
+                <Icon as={BiPencil} boxSize={6} />
+              </Box>
+            )}
           </Flex>
         </Box>
 

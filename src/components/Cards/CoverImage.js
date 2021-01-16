@@ -1,15 +1,7 @@
-import {
-  Box,
-  Flex,
-  Icon,
-  Image,
-  Input,
-  Text,
-  useToast,
-} from '@chakra-ui/react';
+import { Box, Flex, Icon, Image, Input, useToast } from '@chakra-ui/react';
 import useAPI from 'context/apiContext';
 import React from 'react';
-import { BiCamera } from 'react-icons/bi';
+import { BiPencil } from 'react-icons/bi';
 import { QueryClient, useMutation } from 'react-query';
 
 const CoverImage = ({ height = 56, user }) => {
@@ -49,13 +41,20 @@ const CoverImage = ({ height = 56, user }) => {
       {user?.is_self && (
         <Flex
           as='label'
-          rounded='md'
+          rounded='100%'
           align='center'
+          justify='center'
           pos='absolute'
           left={4}
           top={4}
-          py={1}
-          px={3}
+          h={10}
+          w={10}
+          _hover={{
+            rounded: '100%',
+            bg: 'gray.200',
+            transitionDuration: '200ms',
+            color: 'gray.600',
+          }}
           bg='white'
           color='gray.800'
           cursor='pointer'
@@ -67,10 +66,7 @@ const CoverImage = ({ height = 56, user }) => {
             id='profile'
             onChange={handleUploadChange}
           />
-          <Icon as={BiCamera} boxSize={5} />
-          <Text as='span' ml={2} fontSize='sm'>
-            Change background image
-          </Text>
+          <Icon as={BiPencil} boxSize={5} />
         </Flex>
       )}
     </Box>

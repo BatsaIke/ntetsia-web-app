@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import useAPI from 'context/apiContext';
 import React from 'react';
-import { BiCamera } from 'react-icons/bi';
+import { BiPencil } from 'react-icons/bi';
 import { QueryClient, useMutation } from 'react-query';
 
 const ProfileImage = ({ user, mt = -16, size = '2xl', bottom = 6 }) => {
@@ -62,6 +62,12 @@ const ProfileImage = ({ user, mt = -16, size = '2xl', bottom = 6 }) => {
           boxSize={8}
           cursor='pointer'
           shadow='md'
+          _hover={{
+            rounded: '100%',
+            bg: 'gray.200',
+            transitionDuration: '200ms',
+            color: 'gray.600',
+          }}
         >
           <Input
             d='none'
@@ -70,7 +76,7 @@ const ProfileImage = ({ user, mt = -16, size = '2xl', bottom = 6 }) => {
             id='profile'
             onChange={handleChange}
           />
-          <Icon as={BiCamera} />
+          <Icon as={BiPencil} />
         </Flex>
       )}
     </Box>

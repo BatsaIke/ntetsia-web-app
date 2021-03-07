@@ -11,7 +11,7 @@ import React from 'react';
 import { BiMoon, BiSun } from 'react-icons/bi';
 
 const Theme = () => {
-  const { toggleColorMode } = useColorMode()
+  const { toggleColorMode } = useColorMode();
 
   return (
     <Box>

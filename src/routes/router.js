@@ -13,6 +13,7 @@ const Router = () => {
         <Route exact path='/login' component={Pages.Login} />
         <Route exact path='/register' component={Pages.Register} />
         <Route exact path='/forgot-password' component={Pages.ForgotPassword} />
+        <Route exact path='/payment' component={Pages.Payment} />
         <Route
           exact
           path='/reset-password/:id'

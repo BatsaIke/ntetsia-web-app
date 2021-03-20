@@ -24,6 +24,7 @@ import Settings from './Settings';
 import ForgotPassword from './ForgotPassword';
 import ResetPassword from './ResetPassword';
 import Notifications from './Notifications';
+import Payment from './Payment';
 
 export const Pages = {
   Home,
@@ -35,6 +36,7 @@ export const Pages = {
   Contribution,
   MyIdeas,
   Settings,
+  Payment,
   ForgotPassword,
   ResetPassword,
   Notifications,

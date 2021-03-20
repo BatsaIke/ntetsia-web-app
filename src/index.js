@@ -3,18 +3,26 @@ import App from 'container/App';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import { Client as Styletron } from 'styletron-engine-atomic';
+import { Provider as StyletronProvider } from 'styletron-react';
+import { LightTheme, BaseProvider, styled } from 'baseui';
 import { theme } from 'theme/theme';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 
 const queryClient = new QueryClient();
+const engine = new Styletron();
 
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
-    <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-      <App />
-    </ChakraProvider>
+    <StyletronProvider value={engine}>
+      <BaseProvider theme={LightTheme}>
+        <ChakraProvider theme={theme}>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <App />
+        </ChakraProvider>
+      </BaseProvider>
+    </StyletronProvider>
   </QueryClientProvider>,
   document.getElementById('root')
 );

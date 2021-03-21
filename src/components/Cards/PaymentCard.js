@@ -19,6 +19,8 @@ const PaymentCard = ({ image, title, selected, onClick }) => {
         <Image
           w={{ md: 16 }}
           h={{ md: 10 }}
+          rounded='md'
+          objectFit='cover'
           src={require(`../../assets/images/${image}`).default}
         />
         <Heading

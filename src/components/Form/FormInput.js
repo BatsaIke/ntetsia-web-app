@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import {
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 
 const FormInput = ({
   label,
@@ -18,21 +18,21 @@ const FormInput = ({
 }) => {
   return (
     <FormControl id={name} isRequired={isRequired} isInvalid={error && touch}>
-      <FormLabel htmlFor={name} fontSize='sm'>
+      <FormLabel htmlFor={name} fontSize="sm">
         {label}
       </FormLabel>
       <Input
         h={12}
         name={name}
         ref={ref}
-        rounded='none'
+        rounded="none"
         borderWidth={2}
-        borderColor='gray.400'
-        _hover={{ borderColor: 'gray.600' }}
-        _focus={{ borderColor: 'gray.600' }}
+        borderColor="gray.400"
+        _hover={{ borderColor: "none" }}
+        _focus={{ borderColor: "none" }}
         {...rest}
       />
-      <FormErrorMessage fontSize='xs'>{error}</FormErrorMessage>
+      <FormErrorMessage fontSize="xs">{error}</FormErrorMessage>
     </FormControl>
   );
 };

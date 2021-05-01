@@ -1,7 +1,7 @@
-import { useToast } from '@chakra-ui/react';
-import Axios from 'axios';
-import React from 'react';
-import api from 'utils/auth/api';
+import { useToast } from "@chakra-ui/react";
+import Axios from "axios";
+import React from "react";
+import api from "utils/auth/api";
 
 const ApiContext = React.createContext({});
 
@@ -9,17 +9,17 @@ export const ApiProvider = ({ children }) => {
   const toast = useToast();
 
   const countriesList = async () => {
-    return await Axios.get('https://restcountries.eu/rest/v2/all');
+    return await Axios.get("https://restcountries.eu/rest/v2/all");
   };
 
   const postFeed = async (payload) => {
     try {
-      await api.post('/posts', payload);
+      await api.post("/posts", payload);
     } catch (error) {
       toast({
-        title: 'Error occured.',
+        title: "Error occured.",
         description: error.response.data.errors.body[0],
-        status: 'error',
+        status: "error",
         duration: 9000,
         isClosable: true,
       });
@@ -37,7 +37,7 @@ export const ApiProvider = ({ children }) => {
 
   const patchUserProfile = async (payload) => {
     try {
-      const { data } = await api.patch('/members/profile/update', payload);
+      const { data } = await api.patch("/members/profile/update", payload);
       return data.data;
     } catch (error) {
       console.log(error.response.data.message);
@@ -73,8 +73,8 @@ export const ApiProvider = ({ children }) => {
 
   const profilePicture = async (payload) => {
     try {
-      const res = await api.post('/members/upload/profile-image', payload, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const res = await api.post("/members/upload/profile-image", payload, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       return res;
     } catch (error) {
@@ -84,8 +84,8 @@ export const ApiProvider = ({ children }) => {
 
   const backgroundImage = async (payload) => {
     try {
-      const res = await api.post('/members/upload/background-image', payload, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const res = await api.post("/members/upload/background-image", payload, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       return res;
     } catch (error) {
@@ -95,8 +95,8 @@ export const ApiProvider = ({ children }) => {
 
   const postImageUpload = async (payload) => {
     try {
-      const res = await api.post('/docs/upload', payload, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const res = await api.post("/docs/upload", payload, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       return res;
     } catch (error) {
@@ -106,7 +106,7 @@ export const ApiProvider = ({ children }) => {
 
   const follow = async (payload) => {
     try {
-      const res = await api.post('/members/follow', payload);
+      const res = await api.post("/members/follow", payload);
       return res;
     } catch (error) {
       console.log(error.response.data.message);
@@ -115,7 +115,7 @@ export const ApiProvider = ({ children }) => {
 
   const unfollow = async (payload) => {
     try {
-      const res = await api.post('/members/unfollow', payload);
+      const res = await api.post("/members/unfollow", payload);
       return res;
     } catch (error) {
       console.log(error.response.data.message);
@@ -142,16 +142,18 @@ export const ApiProvider = ({ children }) => {
 
   const fetchFeeds = async () => {
     try {
-      const { data } = await api.get('/feeds');
+      const { data } = await api.get("/feeds");
+      // console.log("data", data);
       return data;
     } catch (error) {
       console.log(error.response.data.message);
     }
   };
 
-  const fetchPaginatedFeeds = async ({ page = 1 }) => {
+  const fetchPaginatedFeeds = async ({ pageParam = 1 }) => {
     try {
-      const { data } = await api.get(`/feeds?page=${page}`);
+      const { data } = await api.get(`/feeds?page=${pageParam}`);
+      // console.log("page", data);
       return data;
     } catch (error) {
       console.log(error.response.data.message);
@@ -160,7 +162,7 @@ export const ApiProvider = ({ children }) => {
 
   const postLike = async (id) => {
     try {
-      const res = await api.post('/posts/like', id);
+      const res = await api.post("/posts/like", id);
       return res;
     } catch (error) {
       console.log(error.response);
@@ -169,7 +171,7 @@ export const ApiProvider = ({ children }) => {
 
   const postUnlike = async (id) => {
     try {
-      const res = await api.post('/posts/unlike', id);
+      const res = await api.post("/posts/unlike", id);
       return res;
     } catch (error) {
       console.log(error.response);
@@ -248,13 +250,13 @@ export const ApiProvider = ({ children }) => {
   //Schools
   const createSchool = async (payload) => {
     try {
-      const res = await api.post('/schools', payload);
+      const res = await api.post("/schools", payload);
       if (res.status === 201) {
         toast({
           description: res.data.message,
-          status: 'success',
+          status: "success",
           duration: 3000,
-          position: 'top-right',
+          position: "top-right",
         });
       }
     } catch (error) {
@@ -268,9 +270,9 @@ export const ApiProvider = ({ children }) => {
       if (res.status === 200) {
         toast({
           description: res.data.message,
-          status: 'success',
+          status: "success",
           duration: 3000,
-          position: 'top-right',
+          position: "top-right",
         });
       }
     } catch (error) {
@@ -284,9 +286,9 @@ export const ApiProvider = ({ children }) => {
       if (res.status === 200) {
         toast({
           description: res.data.message,
-          status: 'success',
+          status: "success",
           duration: 3000,
-          position: 'top-right',
+          position: "top-right",
         });
       }
     } catch (error) {
@@ -297,13 +299,13 @@ export const ApiProvider = ({ children }) => {
   //Work Experiences
   const createWorkExperiences = async (payload) => {
     try {
-      const res = await api.post('/work-experiences', payload);
+      const res = await api.post("/work-experiences", payload);
       if (res.status === 200) {
         toast({
           description: res.data.message,
-          status: 'success',
+          status: "success",
           duration: 3000,
-          position: 'top-right',
+          position: "top-right",
         });
       }
     } catch (error) {
@@ -317,9 +319,9 @@ export const ApiProvider = ({ children }) => {
       if (res.status === 200) {
         toast({
           description: res.data.message,
-          status: 'success',
+          status: "success",
           duration: 3000,
-          position: 'top-right',
+          position: "top-right",
         });
       }
     } catch (error) {
@@ -333,9 +335,9 @@ export const ApiProvider = ({ children }) => {
       if (res.status === 200) {
         toast({
           description: res.data.message,
-          status: 'success',
+          status: "success",
           duration: 3000,
-          position: 'top-right',
+          position: "top-right",
         });
       }
     } catch (error) {
@@ -346,7 +348,7 @@ export const ApiProvider = ({ children }) => {
   //Notifications
   const getNotifications = async () => {
     try {
-      const { data } = await api.get('/notifications');
+      const { data } = await api.get("/notifications");
       return data;
     } catch (error) {
       console.log(error.response);

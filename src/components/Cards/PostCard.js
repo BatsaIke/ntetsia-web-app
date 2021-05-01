@@ -10,7 +10,6 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { Link as ReachRouter } from "react-router-dom";
-import "react-medium-image-zoom/dist/styles.css";
 import { BsThreeDots } from "react-icons/bs";
 import React from "react";
 import { Menu } from "@headlessui/react";

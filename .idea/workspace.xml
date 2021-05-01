@@ -4,22 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e87456b9-d4c2-45d9-b21d-0a668d55325a" name="Default Changelist" comment="updated left sidebar">
+    <list default="true" id="e87456b9-d4c2-45d9-b21d-0a668d55325a" name="Default Changelist" comment="updated">
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Black.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Bold.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Light.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Medium.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Thin.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera-GR.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/container/LeftSidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/container/LeftSidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/container/RightSidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/container/RightSidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Notifications.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Settings.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Cards/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cards/Post.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +96,7 @@
       <workItem from="1619733748051" duration="289000" />
       <workItem from="1619868521450" duration="161000" />
       <workItem from="1619875449010" duration="307000" />
-      <workItem from="1619878482080" duration="10099000" />
+      <workItem from="1619878482080" duration="10371000" />
     </task>
     <task id="LOCAL-00001" summary="added new fonts">
       <created>1619898727128</created>
@@ -232,7 +224,56 @@
       <option name="project" value="LOCAL" />
       <updated>1619899353976</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="updated left sidebar">
+      <created>1619899391739</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899391739</updated>
+    </task>
+    <task id="LOCAL-00020" summary="removed custom from motion after update">
+      <created>1619899415619</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899415619</updated>
+    </task>
+    <task id="LOCAL-00021" summary="updated home feeds fetch">
+      <created>1619899434217</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899434217</updated>
+    </task>
+    <task id="LOCAL-00022" summary="commented out z index">
+      <created>1619899457074</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899457074</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fixed settings page">
+      <created>1619899471598</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899471598</updated>
+    </task>
+    <task id="LOCAL-00024" summary="replaced old fetching with new feeds fetch">
+      <created>1619899493992</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899493992</updated>
+    </task>
+    <task id="LOCAL-00025" summary="updated">
+      <created>1619899502741</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899502741</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -269,7 +310,13 @@
     <MESSAGE value="updated comment card" />
     <MESSAGE value="updated form input" />
     <MESSAGE value="updated left sidebar" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated left sidebar" />
+    <MESSAGE value="removed custom from motion after update" />
+    <MESSAGE value="updated home feeds fetch" />
+    <MESSAGE value="commented out z index" />
+    <MESSAGE value="fixed settings page" />
+    <MESSAGE value="replaced old fetching with new feeds fetch" />
+    <MESSAGE value="updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

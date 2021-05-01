@@ -12,7 +12,6 @@ import {
 import { BsThreeDots } from "react-icons/bs";
 import React from "react";
 import { Menu } from "@headlessui/react";
-import "react-medium-image-zoom/dist/styles.css";
 import { BsBookmark, BsArchive, BsTrash } from "react-icons/bs";
 import { HiOutlinePencilAlt } from "react-icons/hi";
 import { AnimatePresence, motion } from "framer-motion";

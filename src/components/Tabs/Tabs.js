@@ -1,32 +1,24 @@
-import React from 'react';
-import { Box, Flex } from '@chakra-ui/react';
-import PropTypes from 'prop-types';
-import { motion } from 'framer-motion';
-import Tab from './Tab';
+import React from "react";
+import { Box, Flex } from "@chakra-ui/react";
+import PropTypes from "prop-types";
+import { motion } from "framer-motion";
+import Tab from "./Tab";
 
-const MotionBox = motion.custom(Box);
+const MotionBox = motion(Box);
 
-const Tabs = ({
-  children,
-  width,
-  borderWidth,
-  px,
-  pt,
-  direction = 'column',
-  display,
-}) => {
+const Tabs = ({ children, pt, direction = "column" }) => {
   const [activeTab, setActiveTab] = React.useState(children[0].props.label);
 
   const handleClickTabItem = React.useCallback((tab) => setActiveTab(tab), []);
 
   return (
-    <Flex direction={direction} w='100%'>
+    <Flex direction={direction} w="100%">
       <Flex
-        justify='space-between'
-        as='ol'
-        listStyleType='none'
-        w='100%'
-        mx='auto'
+        justify="space-between"
+        as="ol"
+        listStyleType="none"
+        w="100%"
+        mx="auto"
         borderBottomWidth={1}
       >
         {children.map((child) => {
@@ -46,14 +38,14 @@ const Tabs = ({
       <MotionBox
         initial={{ opacity: 0 }}
         animate={{ opacity: 1, transition: { duration: 0.5 } }}
-        w='100%'
+        w="100%"
         p={6}
-        mx='auto'
-        overflow='hidden'
+        mx="auto"
+        overflow="hidden"
         pt={pt}
-        pos='relative'
-        borderColor='gray.300'
-        rounded='md'
+        pos="relative"
+        borderColor="gray.300"
+        rounded="md"
       >
         {children.map((child) => {
           if (child.props.label !== activeTab) return undefined;

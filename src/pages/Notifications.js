@@ -18,7 +18,7 @@ import { BsCheck, BsThreeDots } from 'react-icons/bs';
 import { IoMdClose } from 'react-icons/io';
 // import { QueryClient, useMutation } from 'react-query';
 
-const MotionBox = motion.custom(Box);
+const MotionBox = motion(Box);
 
 const Notifications = () => {
   const { notifications, isLoading } = useNotifications();

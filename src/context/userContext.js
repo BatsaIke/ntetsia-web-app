@@ -1,8 +1,8 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
-import { useToast } from '@chakra-ui/react';
-import Cookies from 'js-cookie';
-import { useHistory, useRouteMatch } from 'react-router-dom';
-import api from 'utils/auth/api';
+import React, { createContext, useState, useContext, useEffect } from "react";
+import { useToast } from "@chakra-ui/react";
+import Cookies from "js-cookie";
+import { useHistory, useRouteMatch } from "react-router-dom";
+import api from "utils/auth/api";
 
 //api here is an axios instance
 
@@ -11,17 +11,15 @@ const authContext = createContext({});
 export const AuthProvider = ({ children }) => {
   const toast = useToast();
   let history = useHistory();
-  let match = useRouteMatch('/reset-password/:id');
+  let match = useRouteMatch("/reset-password/:id");
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log('use', user);
-
   useEffect(() => {
     async function loadUserFromCookies() {
-      const token = Cookies.get('ntoken');
-      const user = window.sessionStorage.getItem('user');
+      const token = Cookies.get("ntoken");
+      const user = window.sessionStorage.getItem("user");
       if (token) {
         // console.log("Got a token in the cookies, let's see if it is valid");
         api.defaults.headers.Authorization = `Bearer ${token}`;
@@ -36,111 +34,111 @@ export const AuthProvider = ({ children }) => {
 
   const signin = async (params) => {
     try {
-      const res = await api.post('/login', params);
+      const res = await api.post("/login", params);
       if (res.status === 200) {
         const token = res.data;
         toast({
           description: res.data.message,
-          status: 'success',
+          status: "success",
           duration: 5000,
-          position: 'top-right',
+          position: "top-right",
         });
         if (token) {
-          Cookies.set('ntoken', token.data.token, { expires: 60 });
+          Cookies.set("ntoken", token.data.token, { expires: 60 });
           const user = token.data;
-          window.sessionStorage.setItem('user', JSON.stringify(user));
+          window.sessionStorage.setItem("user", JSON.stringify(user));
           setIsAuthenticated(user?.token);
-          history.push('/');
+          history.push("/");
           window.location.reload();
         }
       }
     } catch (error) {
       toast({
         description: error.response.data.errors.email[0],
-        status: 'error',
+        status: "error",
         duration: 5000,
-        position: 'top-right',
+        position: "top-right",
       });
     }
   };
 
   const signup = async (params) => {
     try {
-      const res = await api.post('/register', params);
+      const res = await api.post("/register", params);
       if (res.status === 200) {
         toast({
-          title: 'Sign up successful',
+          title: "Sign up successful",
           description: res.data.message,
-          status: 'success',
+          status: "success",
           duration: 5000,
-          position: 'top-right',
+          position: "top-right",
         });
       }
     } catch (error) {
       toast({
-        title: 'Error occured.',
+        title: "Error occured.",
         description: error.response.data.errors.email[0],
-        status: 'error',
+        status: "error",
         duration: 5000,
-        position: 'top-right',
+        position: "top-right",
       });
     }
   };
 
   const logout = () => {
-    Cookies.remove('token');
-    window.sessionStorage.removeItem('user');
+    Cookies.remove("token");
+    window.sessionStorage.removeItem("user");
     setUser(null);
     delete api.defaults.headers.Authorization;
-    history.push('/login');
+    history.push("/login");
   };
 
   const recoverPassword = async (params) => {
     try {
-      const res = await api.post('/auth/recover-password', params);
+      const res = await api.post("/auth/recover-password", params);
       if (res.status === 200) {
         toast({
-          title: 'Password recovery successful',
+          title: "Password recovery successful",
           description: res.data.message,
-          status: 'success',
+          status: "success",
           duration: 5000,
-          position: 'top-right',
+          position: "top-right",
         });
         history.push(match);
       }
     } catch (error) {
       toast({
-        title: 'Error occured.',
+        title: "Error occured.",
         description: error.response.data.errors.email[0],
-        status: 'error',
+        status: "error",
         duration: 5000,
-        position: 'top-right',
+        position: "top-right",
       });
     }
   };
 
   const resetPassword = async (params) => {
     try {
-      const res = await api.post('/auth/reset-password', params);
-      console.log('reset', res);
+      const res = await api.post("/auth/reset-password", params);
+      console.log("reset", res);
       if (res.status === 200) {
         toast({
-          title: 'Sign up successful',
+          title: "Sign up successful",
           description: res.data.message,
-          status: 'success',
+          status: "success",
           duration: 5000,
-          position: 'top-right',
+          position: "top-right",
         });
-        history.push('/login');
+        history.push("/login");
       }
     } catch (error) {
-      console.log('error', error);
+      console.log("error", error);
       toast({
-        title: 'Error occured.',
+        title: "Error occured.",
         description: error.response.data.errors.email[0],
-        status: 'error',
+        status: "error",
         duration: 5000,
-        position: 'top-right',
+        position: "top-right",
       });
     }
   };
@@ -164,7 +162,5 @@ export const AuthProvider = ({ children }) => {
 };
 
 export default function useAuth() {
-  const context = useContext(authContext);
-
-  return context;
+  return useContext(authContext);
 }

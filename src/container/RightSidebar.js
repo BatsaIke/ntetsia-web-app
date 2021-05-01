@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Box,
   Divider,
@@ -8,9 +8,9 @@ import {
   Skeleton,
   Text,
   useColorMode,
-} from '@chakra-ui/react';
-import FollowCard from 'components/Cards/FollowCard';
-import { usePeople } from 'hooks/useGlobalHooks';
+} from "@chakra-ui/react";
+import FollowCard from "components/Cards/FollowCard";
+import { usePeople } from "hooks/useGlobalHooks";
 
 const RightSidebar = () => {
   const { colorMode } = useColorMode();
@@ -18,28 +18,25 @@ const RightSidebar = () => {
 
   return (
     <Flex
-      as='aside'
-      pos='fixed'
+      as="aside"
+      pos="fixed"
       bottom={0}
-      h={{ lg: '100vh' }}
-      zIndex={20}
+      h={{ lg: "100vh" }}
+      // zIndex={20}
       pt={10}
       pb={5}
-      boxShadow=' sm'
-      pl={{ md: 5 }}
-      borderLeftWidth={1}
-      borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.200'}
+      boxShadow="sm"
       w={85}
     >
-      <Flex direction='column'>
+      <Flex direction="column">
         <Box
-          bg={colorMode === 'dark' ? 'gray.700' : 'gray.100'}
+          bg={colorMode === "dark" ? "gray.700" : "gray.100"}
           p={6}
           w={85}
-          rounded='md'
-          shadow='sm'
+          rounded="md"
+          shadow="sm"
         >
-          <Heading as='h5' size='md'>
+          <Heading as="h5" size="md">
             Advertisement Board
           </Heading>
 
@@ -50,25 +47,25 @@ const RightSidebar = () => {
         </Box>
 
         <Box
-          bg={colorMode === 'dark' ? 'gray.700' : 'gray.100'}
+          bg={colorMode === "dark" ? "gray.700" : "gray.100"}
           p={6}
           w={85}
-          rounded='md'
+          rounded="md"
           mt={8}
-          shadow='sm'
+          shadow="sm"
         >
-          <Heading as='h5' size='md'>
+          <Heading as="h5" size="md">
             Who to follow
           </Heading>
 
-          <Divider orientation='horizontal' my={3} />
+          <Divider orientation="horizontal" my={3} />
 
           {isLoading ? (
             <Grid gap={4}>
-              <Skeleton height='60px' />
-              <Skeleton height='60px' />
-              <Skeleton height='60px' />
-              <Skeleton height='60px' />
+              <Skeleton height="60px" />
+              <Skeleton height="60px" />
+              <Skeleton height="60px" />
+              <Skeleton height="60px" />
             </Grid>
           ) : (
             people

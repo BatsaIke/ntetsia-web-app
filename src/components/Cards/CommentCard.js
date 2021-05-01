@@ -1,19 +1,19 @@
-import { Avatar, Box, Collapse, Flex, Icon, Text } from '@chakra-ui/react';
-import { BsThreeDots } from 'react-icons/bs';
-import React from 'react';
-import { Menu } from '@headlessui/react';
-import { BsTrash } from 'react-icons/bs';
-import { HiOutlinePencilAlt } from 'react-icons/hi';
-import { AnimatePresence, motion } from 'framer-motion';
-import useAPI from 'context/apiContext';
-import moment from 'moment';
-import { useMutation, useQuery, QueryClient } from 'react-query';
-import useComponent from 'context/componentContext';
-import PostSkeleton from './PostSkeleton';
+import { Avatar, Box, Collapse, Flex, Icon, Text } from "@chakra-ui/react";
+import { BsThreeDots } from "react-icons/bs";
+import React from "react";
+import { Menu } from "@headlessui/react";
+import { BsTrash } from "react-icons/bs";
+import { HiOutlinePencilAlt } from "react-icons/hi";
+import { AnimatePresence, motion } from "framer-motion";
+import useAPI from "context/apiContext";
+import moment from "moment";
+import { useMutation, useQuery, QueryClient } from "react-query";
+import useComponent from "context/componentContext";
+import PostSkeleton from "./PostSkeleton";
 
-const MotionBox = motion.custom(Box);
+const MotionBox = motion(Box);
 
-const CommentCard = ({ comment, user, id, pId }) => {
+const CommentCard = ({ comment, user, id }) => {
   const [show, setShow] = React.useState(false);
   const handleToggle = () => setShow(!show);
   const { deleteComment, getReplies } = useAPI();
@@ -22,24 +22,24 @@ const CommentCard = ({ comment, user, id, pId }) => {
   const queryClient = new QueryClient();
 
   const mutate = useMutation(deleteComment, {
-    onSuccess: () => queryClient.invalidateQueries('comments'),
+    onSuccess: () => queryClient.invalidateQueries("comments"),
   });
 
-  const { data, isLoading } = useQuery(['reply', id], () => getReplies(id));
+  const { data, isLoading } = useQuery(["reply", id], () => getReplies(id));
 
   return (
     <Box>
-      <Box p={3} rounded='md' my={2} borderWidth={1} pos='relative'>
-        <Flex align='center' justify='space-between'>
-          <Flex align='center'>
-            <Avatar src={user?.profile_picture} size='sm' mr={2} />
-            <Text fontSize='md' fontWeight={800}>
+      <Box p={3} rounded="md" my={2} borderWidth={1} pos="relative">
+        <Flex align="center" justify="space-between">
+          <Flex align="center">
+            <Avatar src={user?.profile_picture} size="sm" mr={2} />
+            <Text fontSize="md" fontWeight={800}>
               {user?.first_name} {user?.last_name}
             </Text>
           </Flex>
 
-          <Flex align='center'>
-            <Text fontSize='xs' mr={2}>
+          <Flex align="center">
+            <Text fontSize="xs" mr={2}>
               {moment(comment.created_at).fromNow()}
             </Text>
             <AnimatePresence>
@@ -49,8 +49,8 @@ const CommentCard = ({ comment, user, id, pId }) => {
                     <Box>
                       <Menu.Button
                         as={Box}
-                        _focus={{ outline: 'none' }}
-                        cursor='pointer'
+                        _focus={{ outline: "none" }}
+                        cursor="pointer"
                       >
                         <Icon as={BsThreeDots} />
                       </Menu.Button>
@@ -64,14 +64,14 @@ const CommentCard = ({ comment, user, id, pId }) => {
                             transition: { duration: 0.3 },
                           }}
                           exit={{ opacity: 0 }}
-                          pos='absolute'
-                          bg='white'
+                          pos="absolute"
+                          bg="white"
                           w={48}
                           right={4}
-                          rounded='sm'
+                          rounded="sm"
                           mt={-4}
-                          color='gray.600'
-                          shadow='md'
+                          color="gray.600"
+                          shadow="md"
                           zIndex={10}
                         >
                           <Menu.Item>
@@ -79,26 +79,26 @@ const CommentCard = ({ comment, user, id, pId }) => {
                               <Box
                                 py={2}
                                 px={6}
-                                _hover={{ textDecor: 'none' }}
-                                bg={active && 'gray.100'}
-                                d='block'
-                                cursor='pointer'
+                                _hover={{ textDecor: "none" }}
+                                bg={active && "gray.100"}
+                                d="block"
+                                cursor="pointer"
                                 onClick={() =>
                                   handleModalClick(
-                                    'post',
+                                    "post",
                                     comment.body,
                                     comment.id,
                                     null,
-                                    'editComment'
+                                    "editComment"
                                   )
                                 }
-                                fontSize='sm'
+                                fontSize="sm"
                               >
                                 <Icon
                                   as={HiOutlinePencilAlt}
                                   boxSize={4}
                                   mr={2}
-                                />{' '}
+                                />{" "}
                                 Edit Comment
                               </Box>
                             )}
@@ -109,15 +109,15 @@ const CommentCard = ({ comment, user, id, pId }) => {
                                 py={2}
                                 px={6}
                                 _hover={{
-                                  textDecor: 'none',
-                                  bg: 'red.600',
-                                  color: 'white',
+                                  textDecor: "none",
+                                  bg: "red.600",
+                                  color: "white",
                                 }}
-                                bg={active && 'gray.100'}
-                                d='block'
-                                cursor='pointer'
+                                bg={active && "gray.100"}
+                                d="block"
+                                cursor="pointer"
                                 onClick={() => mutate.mutate(id)}
-                                fontSize='sm'
+                                fontSize="sm"
                               >
                                 <Icon as={BsTrash} boxSize={4} mr={2} />
                                 Delete Comment
@@ -136,31 +136,31 @@ const CommentCard = ({ comment, user, id, pId }) => {
 
         <Box mt={1} ml={10}>
           <Collapse startingHeight={20} in={show}>
-            <Flex align='start' justify='space-between'>
+            <Flex align="start" justify="space-between">
               <Box w={85}>
-                <Text fontSize='sm'>{comment.body}</Text>
+                <Text fontSize="sm">{comment.body}</Text>
               </Box>
               <Box
-                fontSize='xs'
-                as='button'
-                role='button'
+                fontSize="xs"
+                as="button"
+                role="button"
                 onClick={() =>
-                  handleModalClick('post', null, id, null, 'reply')
+                  handleModalClick("post", null, id, null, "reply")
                 }
               >
                 Reply
               </Box>
             </Flex>
           </Collapse>
-          <Text fontSize='xs' onClick={handleToggle} mt={1}>
-            Show {show ? 'Less' : 'More'}
+          <Text fontSize="xs" onClick={handleToggle} mt={1}>
+            Show {show ? "Less" : "More"}
           </Text>
         </Box>
       </Box>
 
       <Box ml={10} mt={1}>
         {isLoading ? (
-          <Box minW='100%'>
+          <Box minW="100%">
             <PostSkeleton />
             <PostSkeleton />
           </Box>

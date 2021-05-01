@@ -12,24 +12,26 @@
 // const ResetPassword = React.lazy(() => import('./ResetPassword'));
 
 //Pages
-import Home from './Home';
-import Feed from './Feed';
-import Login from './Login';
-import Register from './Register';
-import Profile from './Profile';
-import Jobs from './Jobs';
-import Contribution from './Contribution';
-import MyIdeas from './MyIdeas';
-import Settings from './Settings';
-import ForgotPassword from './ForgotPassword';
-import ResetPassword from './ResetPassword';
-import Notifications from './Notifications';
-import Payment from './Payment';
+import Home from "./Home";
+import Feed from "./Feed";
+import Login from "./Login";
+import Logout from "./Logout";
+import Register from "./Register";
+import Profile from "./Profile";
+import Jobs from "./Jobs";
+import Contribution from "./Contribution";
+import MyIdeas from "./MyIdeas";
+import Settings from "./Settings";
+import ForgotPassword from "./ForgotPassword";
+import ResetPassword from "./ResetPassword";
+import Notifications from "./Notifications";
+import Payment from "./Payment";
 
 export const Pages = {
   Home,
   Feed,
   Login,
+  Logout,
   Register,
   Profile,
   Jobs,

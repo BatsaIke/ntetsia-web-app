@@ -39,11 +39,3 @@
   src: url('./assets/fonts/Gilroy-Bold.otf') format('otf');
 }
 
-@font-face {
-  font-family: 'CeraGR';
-  font-style: normal;
-  font-display: swap;
-  font-weight: 700;
-  src: url('./assets/fonts/Cera-GR.woff') format('woff');
-}
-

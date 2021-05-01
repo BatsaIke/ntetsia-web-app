@@ -4,40 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e87456b9-d4c2-45d9-b21d-0a668d55325a" name="Default Changelist" comment="added a new hook to fetch feeds">
+    <list default="true" id="e87456b9-d4c2-45d9-b21d-0a668d55325a" name="Default Changelist" comment="updated left sidebar">
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Black.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Bold.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Light.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Medium.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Thin.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera-GR.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Modals/PostImageModal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/useFeeds.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Cards/CommentCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cards/CommentCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Cards/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cards/Post.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Cards/PostCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cards/PostCard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Cards/PostItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cards/PostItem.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Form/FormInput.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form/FormInput.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Form/Select.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Form/Select.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/MultiForm/Category.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/MultiForm/Category.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tabs/Tab.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tabs/Tab.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Tabs/Tabs.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tabs/Tabs.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/container/LeftSidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/container/LeftSidebar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/container/RightSidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/container/RightSidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/apiContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/apiContext.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/context/userContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/userContext.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Notifications.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Notifications.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/Settings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Settings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/router.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/router.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/theme/theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/theme/theme.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +104,7 @@
       <workItem from="1619733748051" duration="289000" />
       <workItem from="1619868521450" duration="161000" />
       <workItem from="1619875449010" duration="307000" />
-      <workItem from="1619878482080" duration="9645000" />
+      <workItem from="1619878482080" duration="10099000" />
     </task>
     <task id="LOCAL-00001" summary="added new fonts">
       <created>1619898727128</created>
@@ -159,7 +141,98 @@
       <option name="project" value="LOCAL" />
       <updated>1619898834439</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added a new hook to fetch feeds">
+      <created>1619898938472</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1619898938472</updated>
+    </task>
+    <task id="LOCAL-00007" summary="added a new hook to fetch feeds">
+      <created>1619898948845</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1619898948845</updated>
+    </task>
+    <task id="LOCAL-00008" summary="updated category card background color and button coolors">
+      <created>1619898977461</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1619898977461</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added new page">
+      <created>1619899002278</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899002278</updated>
+    </task>
+    <task id="LOCAL-00010" summary="updated font family">
+      <created>1619899032993</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899032993</updated>
+    </task>
+    <task id="LOCAL-00011" summary="updated font family">
+      <created>1619899053965</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899053965</updated>
+    </task>
+    <task id="LOCAL-00012" summary="removed console log from file">
+      <created>1619899135330</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899135330</updated>
+    </task>
+    <task id="LOCAL-00013" summary="updated theme file">
+      <created>1619899170151</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899170151</updated>
+    </task>
+    <task id="LOCAL-00014" summary="added new modal for image">
+      <created>1619899261697</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899261697</updated>
+    </task>
+    <task id="LOCAL-00015" summary="updated post components">
+      <created>1619899287410</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899287410</updated>
+    </task>
+    <task id="LOCAL-00016" summary="updated file">
+      <created>1619899323866</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899323866</updated>
+    </task>
+    <task id="LOCAL-00017" summary="updated comment card">
+      <created>1619899341088</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899341088</updated>
+    </task>
+    <task id="LOCAL-00018" summary="updated form input">
+      <created>1619899353976</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899353976</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -185,7 +258,18 @@
     <MESSAGE value="changed background color of card to black" />
     <MESSAGE value="updated fetch hook" />
     <MESSAGE value="added a new hook to fetch feeds" />
-    <option name="LAST_COMMIT_MESSAGE" value="added a new hook to fetch feeds" />
+    <MESSAGE value="updated category card background color and button coolors" />
+    <MESSAGE value="added new page" />
+    <MESSAGE value="updated font family" />
+    <MESSAGE value="removed console log from file" />
+    <MESSAGE value="updated theme file" />
+    <MESSAGE value="added new modal for image" />
+    <MESSAGE value="updated post components" />
+    <MESSAGE value="updated file" />
+    <MESSAGE value="updated comment card" />
+    <MESSAGE value="updated form input" />
+    <MESSAGE value="updated left sidebar" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated left sidebar" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

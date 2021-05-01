@@ -1,14 +1,15 @@
-import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
-import App from 'container/App';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { QueryClient, QueryClientProvider } from 'react-query';
-import { Client as Styletron } from 'styletron-engine-atomic';
-import { Provider as StyletronProvider } from 'styletron-react';
-import { LightTheme, BaseProvider, styled } from 'baseui';
-import { theme } from 'theme/theme';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
+import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
+import App from "container/App";
+import React from "react";
+import ReactDOM from "react-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { Client as Styletron } from "styletron-engine-atomic";
+import { Provider as StyletronProvider } from "styletron-react";
+import { LightTheme, BaseProvider } from "baseui";
+import { theme } from "theme/theme";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
 
 const queryClient = new QueryClient();
 const engine = new Styletron();
@@ -18,13 +19,14 @@ ReactDOM.render(
     <StyletronProvider value={engine}>
       <BaseProvider theme={LightTheme}>
         <ChakraProvider theme={theme}>
-          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
+          <ColorModeScript initialColorMode={theme.config.useSystemColorMode} />
           <App />
         </ChakraProvider>
       </BaseProvider>
     </StyletronProvider>
+    <ReactQueryDevtools initialIsOpen={false} />
   </QueryClientProvider>,
-  document.getElementById('root')
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

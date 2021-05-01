@@ -8,31 +8,32 @@ import {
   Image,
   Text,
   useColorMode,
-} from '@chakra-ui/react';
-import moment from 'moment';
-import Button from 'components/Button';
-import FollowCard from 'components/Cards/FollowCard';
-import Post from 'components/Cards/Post';
-import PostSkeleton from 'components/Cards/PostSkeleton';
-import Tabs from 'components/Tabs/Tabs';
-import Layout from 'container/Layout';
-import useAPI from 'context/apiContext';
+} from "@chakra-ui/react";
+import moment from "moment";
+import Button from "components/Button";
+import FollowCard from "components/Cards/FollowCard";
+import Post from "components/Cards/Post";
+import PostSkeleton from "components/Cards/PostSkeleton";
+import Tabs from "components/Tabs/Tabs";
+import Layout from "container/Layout";
+import useAPI from "context/apiContext";
 import {
-  useFeeds,
   useFetchUserSchools,
   useFetchUserWorks,
   useFollowers,
   useFollowing,
   useOthersProfile,
   useProfile,
-} from 'hooks/useGlobalHooks';
-import React from 'react';
-import { QueryClient, useMutation } from 'react-query';
-import { useHistory } from 'react-router-dom';
-import CoverImage from 'components/Cards/CoverImage';
-import ProfileImage from 'components/Cards/ProfileImage';
-import { BiPencil } from 'react-icons/bi';
-import useComponent from 'context/componentContext';
+} from "hooks/useGlobalHooks";
+import React from "react";
+import { QueryClient, useMutation } from "react-query";
+import { useHistory } from "react-router-dom";
+import CoverImage from "components/Cards/CoverImage";
+import ProfileImage from "components/Cards/ProfileImage";
+import { BiPencil } from "react-icons/bi";
+import useComponent from "context/componentContext";
+import useFeed from "hooks/useFeeds";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 const Profile = () => {
   const { location } = useHistory();
@@ -42,22 +43,22 @@ const Profile = () => {
   const { user } = useProfile();
   const { follow, unfollow } = useAPI();
   const { user: others } = useOthersProfile(state?.member?.id);
-  const { feeds, isLoading } = useFeeds();
   const { handleModalClick } = useComponent();
+  const { feedsData, page, setPage } = useFeed();
 
-  const newUser = location.pathname === '/profile' ? user : others;
+  const newUser = location.pathname === "/profile" ? user : others;
 
   const { schools } = useFetchUserSchools(newUser?.id);
   const { works } = useFetchUserWorks(newUser?.id);
 
-  const filteredFeeds = feeds?.data.filter((e) => e.is_owner === true);
+  const filteredFeeds = feedsData.filter((e) => e.is_owner === true);
 
   const mutateFollow = useMutation(follow, {
-    onSuccess: () => queryClient.invalidateQueries('profile'),
+    onSuccess: () => queryClient.invalidateQueries("profile"),
   });
 
   const mutateUnfollow = useMutation(unfollow, {
-    onSuccess: () => queryClient.invalidateQueries('profile'),
+    onSuccess: () => queryClient.invalidateQueries("profile"),
   });
 
   const followUnfollow = () => {
@@ -73,48 +74,48 @@ const Profile = () => {
 
   return (
     <Layout
-      pageTitle={`${newUser?.first_name || 'firstname'} ${
-        newUser?.last_name || 'lastname'
+      pageTitle={`${newUser?.first_name || "firstname"} ${
+        newUser?.last_name || "lastname"
       }`}
-      path='/'
+      path="/"
       icon
       py={12}
       post={newUser?.posts_count}
     >
-      <Box pos='relative'>
+      <Box pos="relative">
         <CoverImage user={newUser} />
 
-        <Flex justify='space-between'>
+        <Flex justify="space-between">
           <ProfileImage user={newUser} />
           {newUser?.is_self ? (
             <Box mr={4}>
               <Button
-                title='My Ideas'
-                rounded='30px'
+                title="My Ideas"
+                rounded="30px"
                 borderWidth={2}
-                borderColor='blue.500'
-                bg='transparent'
-                _hover={{ bg: 'transparent' }}
-                _active={{ bg: 'transparent' }}
-                color='blue.500'
+                borderColor="blue.500"
+                bg="transparent"
+                _hover={{ bg: "transparent" }}
+                _active={{ bg: "transparent" }}
+                color="blue.500"
                 mt={2}
               />
             </Box>
           ) : (
             <Box mr={4}>
               <Button
-                title={newUser?.is_following ? 'Following' : 'Follow'}
-                rounded='30px'
+                title={newUser?.is_following ? "Following" : "Follow"}
+                rounded="30px"
                 borderWidth={2}
-                borderColor='blue.500'
-                bg={newUser?.is_following ? 'blue.500' : 'transparent'}
+                borderColor="blue.500"
+                bg={newUser?.is_following ? "blue.500" : "transparent"}
                 _hover={{
-                  bg: newUser?.is_following ? 'blue.500' : 'transparent',
+                  bg: newUser?.is_following ? "blue.500" : "transparent",
                 }}
                 _active={{
-                  bg: newUser?.is_following ? 'blue.500' : 'transparent',
+                  bg: newUser?.is_following ? "blue.500" : "transparent",
                 }}
-                color={newUser?.is_following ? 'white' : 'blue.500'}
+                color={newUser?.is_following ? "white" : "blue.500"}
                 mt={2}
                 onClick={followUnfollow}
               />
@@ -123,30 +124,30 @@ const Profile = () => {
         </Flex>
 
         <Box px={4}>
-          <Flex mt={4} justify='space-between'>
+          <Flex mt={4} justify="space-between">
             <Box>
-              <Text as='span' fontWeight='bold' fontSize='2xl'>
+              <Text as="span" fontWeight="bold" fontSize="2xl">
                 {newUser?.first_name} {newUser?.last_name}
               </Text>
-              <Text color='gray.500' mt={-2}>
+              <Text color="gray.500" mt={-2}>
                 {newUser?.occupation}
               </Text>
             </Box>
 
             {newUser?.is_self && (
               <Box
-                as='button'
-                role='button'
+                as="button"
+                role="button"
                 w={8}
                 h={8}
-                color='gray.500'
+                color="gray.500"
                 _hover={{
-                  rounded: '100%',
-                  bg: 'gray.200',
-                  transitionDuration: '200ms',
-                  color: 'gray.600',
+                  rounded: "100%",
+                  bg: "gray.200",
+                  transitionDuration: "200ms",
+                  color: "gray.600",
                 }}
-                onClick={() => handleModalClick('profile', user, user.id)}
+                onClick={() => handleModalClick("profile", user, user.id)}
               >
                 <Icon as={BiPencil} boxSize={6} />
               </Box>
@@ -155,24 +156,30 @@ const Profile = () => {
         </Box>
 
         <Divider
-          orientation='horizontal'
-          borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.200'}
+          orientation="horizontal"
+          borderColor={colorMode === "dark" ? "gray.600" : "gray.200"}
           my={4}
         />
 
         <Tabs>
-          <Box label='Feeds'>
-            {isLoading && (
-              <Box minW='100%'>
-                <PostSkeleton />
-                <PostSkeleton />
-                <PostSkeleton />
-                <PostSkeleton />
-              </Box>
-            )}
-            {filteredFeeds?.map((feed) => (
-              <Post key={feed.id} feed={feed} user={feed?.member} />
-            ))}
+          <Box label="Feeds">
+            <InfiniteScroll
+              next={() => setPage(page + 1)}
+              hasMore={true}
+              dataLength={filteredFeeds.length}
+              loader={
+                <Box minW="100%">
+                  <PostSkeleton />
+                  <PostSkeleton />
+                  <PostSkeleton />
+                  <PostSkeleton />
+                </Box>
+              }
+            >
+              {filteredFeeds.map((feed) => (
+                <Post key={feed.id} feed={feed} user={feed?.member} />
+              ))}
+            </InfiniteScroll>
           </Box>
           <Box label={`${newUser?.following_count} Following`}>
             <Grid gap={4} p={6}>
@@ -189,10 +196,10 @@ const Profile = () => {
               )}
             </Grid>
           </Box>
-          <Box label='About'>
+          <Box label="About">
             <Box>
-              <Flex align='center'>
-                <Heading as='h6' w={40} fontSize={{ md: 'lg' }}>
+              <Flex align="center">
+                <Heading as="h6" w={40} fontSize={{ md: "lg" }}>
                   Biography
                 </Heading>
                 <Divider />
@@ -201,38 +208,38 @@ const Profile = () => {
             </Box>
 
             <Box my={10}>
-              <Flex align='center'>
-                <Heading as='h6' w={90} fontSize={{ md: 'lg' }}>
+              <Flex align="center">
+                <Heading as="h6" w={90} fontSize={{ md: "lg" }}>
                   Educational Background
                 </Heading>
                 <Divider />
               </Flex>
               {schools?.map((school) => (
                 <Flex
-                  align='center'
-                  justify='space-between'
+                  align="center"
+                  justify="space-between"
                   key={school?.id}
                   mt={6}
                   borderBottomWidth={1}
                   pb={4}
                 >
                   <Box>
-                    <Text fontWeight={800} fontSize={{ md: 'lg' }}>
+                    <Text fontWeight={800} fontSize={{ md: "lg" }}>
                       {school?.school_name}
                     </Text>
                     <Text>Business Admin</Text>
                   </Box>
-                  <Box textAlign='center'>
-                    <Text fontWeight={800} fontSize={{ md: 'lg' }}>
+                  <Box textAlign="center">
+                    <Text fontWeight={800} fontSize={{ md: "lg" }}>
                       Class of
                     </Text>
                     <Text>{school?.year_completed}</Text>
                   </Box>
                   <Box h={14} w={14}>
                     <Image
-                      h='100%'
-                      w='100%'
-                      src='https://mmarimamma.co.uk/wp-content/uploads/2017/03/MMA-logo.png'
+                      h="100%"
+                      w="100%"
+                      src="https://mmarimamma.co.uk/wp-content/uploads/2017/03/MMA-logo.png"
                     />
                   </Box>
                 </Flex>
@@ -240,8 +247,8 @@ const Profile = () => {
             </Box>
 
             <Box>
-              <Flex align='center'>
-                <Heading as='h6' w={90} fontSize={{ md: 'lg' }}>
+              <Flex align="center">
+                <Heading as="h6" w={90} fontSize={{ md: "lg" }}>
                   Working Experience
                 </Heading>
                 <Divider />
@@ -251,13 +258,13 @@ const Profile = () => {
                 const from = moment(work?.from);
                 const to = moment(work?.to);
                 from.to(to);
-                console.log('from', from.format('Y'));
+                console.log("from", from.format("Y"));
                 // console.log('to', to);
 
                 return (
                   <Flex
-                    align='center'
-                    justify='space-between'
+                    align="center"
+                    justify="space-between"
                     key={work?.id}
                     mt={6}
                     borderBottomWidth={1}
@@ -265,18 +272,18 @@ const Profile = () => {
                   >
                     <Box h={14} w={14}>
                       <Image
-                        h='100%'
-                        w='100%'
-                        src='https://mmarimamma.co.uk/wp-content/uploads/2017/03/MMA-logo.png'
+                        h="100%"
+                        w="100%"
+                        src="https://mmarimamma.co.uk/wp-content/uploads/2017/03/MMA-logo.png"
                       />
                     </Box>
                     <Box>
-                      <Text fontWeight={800} fontSize={{ md: 'lg' }}>
+                      <Text fontWeight={800} fontSize={{ md: "lg" }}>
                         {work?.company_name}
                       </Text>
                       <Text>{work?.position}</Text>
                     </Box>
-                    <Box textAlign='center'>
+                    <Box textAlign="center">
                       <Text>{moment(work?.to).diff(work.from)} year ago</Text>
                     </Box>
                   </Flex>

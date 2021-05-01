@@ -1,13 +1,13 @@
-import useAPI from 'context/apiContext';
-import useAuth from 'context/userContext';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import useAPI from "context/apiContext";
+import useAuth from "context/userContext";
+import { useInfiniteQuery, useQuery } from "react-query";
 
 export const useProfile = () => {
   const { getProfile } = useAPI();
   const { user: id } = useAuth();
 
   const { data: user, isLoading: loading } = useQuery(
-    ['profile', id],
+    ["profile", id],
     () => getProfile(id),
     {
       refetchOnWindowFocus: false,
@@ -20,7 +20,7 @@ export const useProfile = () => {
 export const useOthersProfile = (id) => {
   const { getProfile } = useAPI();
   const { data: user, isLoading: loading } = useQuery(
-    ['profile', id],
+    ["profile", id],
     () => getProfile(id),
     {
       refetchOnWindowFocus: false,
@@ -33,7 +33,7 @@ export const useOthersProfile = (id) => {
 export const useFollowing = (id) => {
   const { following } = useAPI();
   const { data: userFollowing, isLoading: loading } = useQuery(
-    ['following', id],
+    ["following", id],
     () => following(id),
     {
       refetchOnWindowFocus: false,
@@ -46,7 +46,7 @@ export const useFollowing = (id) => {
 export const useFollowers = (id) => {
   const { followers } = useAPI();
   const { data: userFollowers, isLoading: loading } = useQuery(
-    ['followers', id],
+    ["followers", id],
     () => followers(id),
     {
       refetchOnWindowFocus: false,
@@ -59,33 +59,33 @@ export const useFollowers = (id) => {
 export const usePaginatedFeeds = () => {
   const { fetchPaginatedFeeds } = useAPI();
   const {
-    status,
     data,
-    isFetching,
-    isFetchingMore,
-    fetchMore,
-    canFetchMore,
     error,
-  } = useInfiniteQuery('projects', fetchPaginatedFeeds, {
-    getFetchMore: (lastGroup, allGroups) => lastGroup.nextCursor,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
+  } = useInfiniteQuery("feed", fetchPaginatedFeeds, {
+    getNextPageParam: (lastPage, allPages) => lastPage,
   });
 
   return {
-    status,
     data,
-    isFetching,
-    isFetchingMore,
-    fetchMore,
-    canFetchMore,
     error,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+    status,
   };
 };
 
 export const useFeeds = () => {
   const { fetchFeeds } = useAPI();
   const { isLoading, error, data: feeds, isError } = useQuery(
-    'feeds',
-    () => fetchFeeds(),
+    "feeds",
+    fetchFeeds,
     {
       // refetchOnWindowFocus: false,
       // initialStale: true,
@@ -103,7 +103,7 @@ export const useFeeds = () => {
 export const usePeople = () => {
   const { getPeople } = useAPI();
   const { isLoading, error, data: people, isError } = useQuery(
-    'people',
+    "people",
     () => getPeople(),
     {
       refetchOnWindowFocus: false,
@@ -122,7 +122,7 @@ export const usePeople = () => {
 export const useFetchComment = (id) => {
   const { getComment } = useAPI();
   const { data: comments, isLoading, isError, error } = useQuery(
-    ['comments', id],
+    ["comments", id],
     () => getComment(id),
     {
       refetchOnWindowFocus: false,
@@ -141,7 +141,7 @@ export const useFetchComment = (id) => {
 export const useFetchUserSchools = (id) => {
   const { getUserSchools } = useAPI();
   const { data: schools, isLoading, isError, error } = useQuery(
-    ['schools', id],
+    ["schools", id],
     () => getUserSchools(id),
     {
       refetchOnWindowFocus: false,
@@ -160,7 +160,7 @@ export const useFetchUserSchools = (id) => {
 export const useFetchUserWorks = (id) => {
   const { getUserWorks } = useAPI();
   const { data: works, isLoading, isError, error } = useQuery(
-    ['works', id],
+    ["works", id],
     () => getUserWorks(id),
     {
       refetchOnWindowFocus: false,
@@ -179,7 +179,7 @@ export const useFetchUserWorks = (id) => {
 export const useNotifications = () => {
   const { getNotifications } = useAPI();
   const { data: notifications, isLoading, isError, error } = useQuery(
-    'notifications',
+    "notifications",
     () => getNotifications(),
     {
       refetchOnWindowFocus: false,

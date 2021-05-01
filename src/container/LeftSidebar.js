@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Avatar,
   Box,
@@ -9,92 +9,87 @@ import {
   Link,
   Text,
   useColorMode,
-} from '@chakra-ui/react';
-import { NavLink } from 'react-router-dom';
-import { CgFeed } from 'react-icons/cg';
-import { GiSuitcase, GiReceiveMoney } from 'react-icons/gi';
-import { IoIosBulb } from 'react-icons/io';
-import useAuth from 'context/userContext';
-import { HiOutlineLogout } from 'react-icons/hi';
-import { BiCog } from 'react-icons/bi';
-import { useProfile } from 'hooks/useGlobalHooks';
-import { BsBell } from 'react-icons/bs';
+} from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
+import { CgFeed } from "react-icons/cg";
+import { GiSuitcase, GiReceiveMoney } from "react-icons/gi";
+import { IoIosBulb } from "react-icons/io";
+import { HiOutlineLogout } from "react-icons/hi";
+import { BiCog } from "react-icons/bi";
+import { useProfile } from "hooks/useGlobalHooks";
+import { BsBell } from "react-icons/bs";
 
 const LeftSidebar = () => {
-  const { logout } = useAuth();
   const { colorMode } = useColorMode();
   const { user } = useProfile();
 
   return (
     <Flex
-      as='aside'
-      pos='fixed'
+      as="aside"
+      pos="fixed"
       bottom={0}
-      h={{ lg: '100vh' }}
-      zIndex={20}
-      boxShadow=' sm'
-      borderRightWidth={1}
-      borderColor={colorMode === 'dark' ? 'gray.600' : 'gray.200'}
-      w='17.5rem'
-      pl={10}
+      h={{ lg: "100vh" }}
+      // zIndex={20}
+      boxShadow="sm"
+      w="17.5rem"
     >
-      <Flex direction='column' justify='space-between' pb={4}>
+      <Flex direction="column" justify="space-between" pb={4}>
         <Box>
           <Link
             as={NavLink}
-            _hover={{ textDecor: 'none' }}
-            _focus={{ textDecor: 'none' }}
-            to='/profile'
+            _hover={{ textDecor: "none" }}
+            _focus={{ textDecor: "none" }}
+            to="/profile"
           >
             <Box
-              pos='relative'
+              pos="relative"
               borderWidth={1}
-              borderColor={colorMode === 'dark' ? 'gray.700' : 'gray.100'}
-              rounded='sm'
+              borderColor={colorMode === "dark" ? "gray.700" : "gray.100"}
+              rounded="sm"
             >
-              <Box h={24} w='100%'>
+              <Box h={24} w="100%">
                 <Image
-                  h='100%'
-                  w='100%'
-                  objectFit='cover'
+                  h="100%"
+                  w="100%"
+                  objectFit="cover"
                   src={user?.background_picture}
                 />
               </Box>
-              <Flex pos='absolute' top={16} left={4}>
+              <Flex pos="absolute" top={16} left={4}>
                 <Avatar
                   src={user?.profile_picture}
                   borderWidth={2}
-                  borderColor='gray.400'
+                  borderColor="gray.400"
                 />
               </Flex>
-              <Box mt={4} fontWeight='bold' pl={4} py={2}>
-                <Text fontSize={{ md: 'lg' }}>
+              <Box mt={4} fontWeight="bold" pl={4} py={2}>
+                <Text fontSize={{ md: "lg" }}>
                   {user?.first_name} {user?.last_name}
                 </Text>
-                <Box fontSize='sm' mt={-1}>
-                  <Text as='span'>{user?.occupation}</Text>
+                <Box fontSize="sm" mt={-1}>
+                  <Text as="span">{user?.occupation}</Text>
                 </Box>
               </Box>
             </Box>
           </Link>
 
           <Box pr={2} mt={6}>
-            <Grid templateColumns={{ md: 'repeat(2, 1fr)' }} gap={1}>
+            <Grid templateColumns={{ md: "repeat(2, 1fr)" }} gap={1}>
               <Image
-                src='https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80'
-                rounded='sm'
+                src="https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80"
+                rounded="sm"
               />
               <Image
-                src='https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80'
-                rounded='sm'
+                src="https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80"
+                rounded="sm"
               />
               <Image
-                src='https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80'
-                rounded='sm'
+                src="https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80"
+                rounded="sm"
               />
               <Image
-                src='https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80'
-                rounded='sm'
+                src="https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80"
+                rounded="sm"
               />
             </Grid>
           </Box>
@@ -102,16 +97,16 @@ const LeftSidebar = () => {
           <Box mt={6}>
             <Link
               as={NavLink}
-              to='/'
-              d='block'
+              to="/"
+              d="block"
               py={{ md: 2 }}
-              fontSize={{ md: 'lg' }}
-              fontWeight='bold'
+              fontSize={{ md: "lg" }}
+              fontWeight="bold"
               _hover={{
-                textDecor: 'none',
-                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-                rounded: '30px',
-                transition: 'background-color .3s ease-in-out',
+                textDecor: "none",
+                bg: colorMode === "dark" ? "gray.700" : "gray.200",
+                rounded: "30px",
+                transition: "background-color .3s ease-in-out",
               }}
               px={4}
             >
@@ -119,16 +114,16 @@ const LeftSidebar = () => {
             </Link>
             <Link
               as={NavLink}
-              to='/jobs'
-              d='block'
+              to="/jobs"
+              d="block"
               py={{ md: 2 }}
-              fontSize={{ md: 'lg' }}
-              fontWeight='bold'
+              fontSize={{ md: "lg" }}
+              fontWeight="bold"
               _hover={{
-                textDecor: 'none',
-                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-                rounded: '30px',
-                transition: 'background-color .3s ease-in-out',
+                textDecor: "none",
+                bg: colorMode === "dark" ? "gray.700" : "gray.200",
+                rounded: "30px",
+                transition: "background-color .3s ease-in-out",
               }}
               px={4}
             >
@@ -137,16 +132,16 @@ const LeftSidebar = () => {
             </Link>
             <Link
               as={NavLink}
-              to='/contribution'
-              d='block'
+              to="/contribution"
+              d="block"
               py={{ md: 2 }}
-              fontSize={{ md: 'lg' }}
-              fontWeight='bold'
+              fontSize={{ md: "lg" }}
+              fontWeight="bold"
               _hover={{
-                textDecor: 'none',
-                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-                rounded: '30px',
-                transition: 'background-color .3s ease-in-out',
+                textDecor: "none",
+                bg: colorMode === "dark" ? "gray.700" : "gray.200",
+                rounded: "30px",
+                transition: "background-color .3s ease-in-out",
               }}
               px={4}
             >
@@ -155,16 +150,16 @@ const LeftSidebar = () => {
             </Link>
             <Link
               as={NavLink}
-              to='/my-ideas'
-              d='block'
+              to="/my-ideas"
+              d="block"
               py={{ md: 2 }}
-              fontSize={{ md: 'lg' }}
-              fontWeight='bold'
+              fontSize={{ md: "lg" }}
+              fontWeight="bold"
               _hover={{
-                textDecor: 'none',
-                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-                rounded: '30px',
-                transition: 'background-color .3s ease-in-out',
+                textDecor: "none",
+                bg: colorMode === "dark" ? "gray.700" : "gray.200",
+                rounded: "30px",
+                transition: "background-color .3s ease-in-out",
               }}
               px={4}
             >
@@ -173,16 +168,16 @@ const LeftSidebar = () => {
             </Link>
             <Link
               as={NavLink}
-              to='/notifications'
-              d='block'
+              to="/notifications"
+              d="block"
               py={{ md: 2 }}
-              fontSize={{ md: 'lg' }}
-              fontWeight='bold'
+              fontSize={{ md: "lg" }}
+              fontWeight="bold"
               _hover={{
-                textDecor: 'none',
-                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-                rounded: '30px',
-                transition: 'background-color .3s ease-in-out',
+                textDecor: "none",
+                bg: colorMode === "dark" ? "gray.700" : "gray.200",
+                rounded: "30px",
+                transition: "background-color .3s ease-in-out",
               }}
               px={4}
             >
@@ -191,16 +186,16 @@ const LeftSidebar = () => {
             </Link>
             <Link
               as={NavLink}
-              to='/settings'
-              d='block'
+              to="/settings"
+              d="block"
               py={{ md: 2 }}
-              fontSize={{ md: 'lg' }}
-              fontWeight='bold'
+              fontSize={{ md: "lg" }}
+              fontWeight="bold"
               _hover={{
-                textDecor: 'none',
-                bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-                rounded: '30px',
-                transition: 'background-color .3s ease-in-out',
+                textDecor: "none",
+                bg: colorMode === "dark" ? "gray.700" : "gray.200",
+                rounded: "30px",
+                transition: "background-color .3s ease-in-out",
               }}
               px={4}
             >
@@ -211,25 +206,26 @@ const LeftSidebar = () => {
         </Box>
 
         <Box>
-          <Box
-            d='block'
-            py={{ md: 2 }}
-            fontSize={{ md: 'lg' }}
-            fontWeight='bold'
-            _hover={{
-              bg: colorMode === 'dark' ? 'gray.700' : 'gray.200',
-              rounded: '30px',
-              transition: 'background-color .3s ease-in-out',
-            }}
-            px={4}
-            as='button'
-            role='button'
-            aria-label='Logout button'
-            onClick={logout}
-          >
-            <Icon as={HiOutlineLogout} boxSize={6} mr={3} />
-            Logout
-          </Box>
+          <Link as={NavLink} to="/logout" _hover={{ textDecor: "none" }}>
+            <Box
+              d="block"
+              py={{ md: 2 }}
+              fontSize={{ md: "lg" }}
+              fontWeight="bold"
+              _hover={{
+                bg: colorMode === "dark" ? "gray.700" : "gray.200",
+                rounded: "30px",
+                transition: "background-color .3s ease-in-out",
+              }}
+              px={4}
+              as="button"
+              role="button"
+              aria-label="Logout button"
+            >
+              <Icon as={HiOutlineLogout} boxSize={6} mr={3} />
+              Logout
+            </Box>
+          </Link>
         </Box>
       </Flex>
     </Flex>

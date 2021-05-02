@@ -34,18 +34,22 @@ const LeftSidebar = () => {
       w="17.5rem"
     >
       <Flex direction="column" justify="space-between" pb={4}>
-        <Box>
+        <Box mt={3}>
           <Link
             as={NavLink}
             _hover={{ textDecor: "none" }}
             _focus={{ textDecor: "none" }}
             to="/profile"
           >
-            <Box
+            <Flex
+              align="center"
+              justify="center"
+              direction="column"
               pos="relative"
-              borderWidth={1}
-              borderColor={colorMode === "dark" ? "gray.700" : "gray.100"}
-              rounded="sm"
+              bg={colorMode === "dark" ? "black" : "gray.50"}
+              rounded="xl"
+              overflow="hidden"
+              filter="drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.1))"
             >
               <Box h={24} w="100%">
                 <Image
@@ -55,25 +59,38 @@ const LeftSidebar = () => {
                   src={user?.background_picture}
                 />
               </Box>
-              <Flex pos="absolute" top={16} left={4}>
+              <Flex pos="absolute" top={20}>
                 <Avatar
                   src={user?.profile_picture}
                   borderWidth={2}
                   borderColor="gray.400"
                 />
               </Flex>
-              <Box mt={4} fontWeight="bold" pl={4} py={2}>
-                <Text fontSize={{ md: "lg" }}>
+              <Box mt={4} pl={4} py={6} textAlign="center">
+                <Text fontSize={{ md: "md" }}>
                   {user?.first_name} {user?.last_name}
                 </Text>
-                <Box fontSize="sm" mt={-1}>
-                  <Text as="span">{user?.occupation}</Text>
+                <Box mt={-1}>
+                  <Text
+                    as="span"
+                    fontSize="sm"
+                    color={colorMode === "dark" ? "gray.400" : "gray.400"}
+                  >
+                    {user?.occupation}
+                  </Text>
                 </Box>
               </Box>
-            </Box>
+            </Flex>
           </Link>
 
-          <Box pr={2} mt={6}>
+          <Box
+            p={2}
+            mt={6}
+            bg={colorMode === "dark" ? "black" : "gray.50"}
+            rounded="xl"
+            overflow="hidden"
+            filter="drop-shadow(0px 2px 20px rgba(0, 0, 0, 0.1))"
+          >
             <Grid templateColumns={{ md: "repeat(2, 1fr)" }} gap={1}>
               <Image
                 src="https://images.unsplash.com/photo-1593642531955-b62e17bdaa9c?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2250&q=80"
@@ -100,8 +117,7 @@ const LeftSidebar = () => {
               to="/"
               d="block"
               py={{ md: 2 }}
-              fontSize={{ md: "lg" }}
-              fontWeight="bold"
+              fontSize={{ md: "md" }}
               _hover={{
                 textDecor: "none",
                 bg: colorMode === "dark" ? "gray.700" : "gray.200",
@@ -117,8 +133,7 @@ const LeftSidebar = () => {
               to="/jobs"
               d="block"
               py={{ md: 2 }}
-              fontSize={{ md: "lg" }}
-              fontWeight="bold"
+              fontSize={{ md: "md" }}
               _hover={{
                 textDecor: "none",
                 bg: colorMode === "dark" ? "gray.700" : "gray.200",
@@ -135,8 +150,7 @@ const LeftSidebar = () => {
               to="/contribution"
               d="block"
               py={{ md: 2 }}
-              fontSize={{ md: "lg" }}
-              fontWeight="bold"
+              fontSize={{ md: "md" }}
               _hover={{
                 textDecor: "none",
                 bg: colorMode === "dark" ? "gray.700" : "gray.200",
@@ -153,8 +167,7 @@ const LeftSidebar = () => {
               to="/my-ideas"
               d="block"
               py={{ md: 2 }}
-              fontSize={{ md: "lg" }}
-              fontWeight="bold"
+              fontSize={{ md: "md" }}
               _hover={{
                 textDecor: "none",
                 bg: colorMode === "dark" ? "gray.700" : "gray.200",
@@ -171,8 +184,7 @@ const LeftSidebar = () => {
               to="/notifications"
               d="block"
               py={{ md: 2 }}
-              fontSize={{ md: "lg" }}
-              fontWeight="bold"
+              fontSize={{ md: "md" }}
               _hover={{
                 textDecor: "none",
                 bg: colorMode === "dark" ? "gray.700" : "gray.200",
@@ -189,8 +201,7 @@ const LeftSidebar = () => {
               to="/settings"
               d="block"
               py={{ md: 2 }}
-              fontSize={{ md: "lg" }}
-              fontWeight="bold"
+              fontSize={{ md: "md" }}
               _hover={{
                 textDecor: "none",
                 bg: colorMode === "dark" ? "gray.700" : "gray.200",
@@ -210,8 +221,7 @@ const LeftSidebar = () => {
             <Box
               d="block"
               py={{ md: 2 }}
-              fontSize={{ md: "lg" }}
-              fontWeight="bold"
+              fontSize={{ md: "md" }}
               _hover={{
                 bg: colorMode === "dark" ? "gray.700" : "gray.200",
                 rounded: "30px",

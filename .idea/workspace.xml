@@ -4,14 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e87456b9-d4c2-45d9-b21d-0a668d55325a" name="Default Changelist" comment="updated">
+    <list default="true" id="e87456b9-d4c2-45d9-b21d-0a668d55325a" name="Default Changelist" comment="removed unused fonts import">
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Black.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Bold.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Light.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Medium.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera GR Thin.woff" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/assets/fonts/Cera-GR.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Cards/Post.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cards/Post.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Cards/PostCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cards/PostCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Cards/PostItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Cards/PostItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/container/LeftSidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/container/LeftSidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Feed.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Feed.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +100,9 @@
       <workItem from="1619733748051" duration="289000" />
       <workItem from="1619868521450" duration="161000" />
       <workItem from="1619875449010" duration="307000" />
-      <workItem from="1619878482080" duration="10371000" />
+      <workItem from="1619878482080" duration="10885000" />
+      <workItem from="1619914944454" duration="327000" />
+      <workItem from="1619952782936" duration="3087000" />
     </task>
     <task id="LOCAL-00001" summary="added new fonts">
       <created>1619898727128</created>
@@ -273,7 +279,28 @@
       <option name="project" value="LOCAL" />
       <updated>1619899502741</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="removed unused css">
+      <created>1619899686850</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899686850</updated>
+    </task>
+    <task id="LOCAL-00027" summary="removed unused css">
+      <created>1619899826842</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1619899826842</updated>
+    </task>
+    <task id="LOCAL-00028" summary="removed unused fonts import">
+      <created>1619900048534</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1619900048534</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,7 +343,9 @@
     <MESSAGE value="fixed settings page" />
     <MESSAGE value="replaced old fetching with new feeds fetch" />
     <MESSAGE value="updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="updated" />
+    <MESSAGE value="removed unused css" />
+    <MESSAGE value="removed unused fonts import" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed unused fonts import" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

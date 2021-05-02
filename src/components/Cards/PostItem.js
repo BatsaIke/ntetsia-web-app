@@ -3,14 +3,8 @@ import React from "react";
 import { BiComment } from "react-icons/bi";
 import { BsHeart, BsHeartFill } from "react-icons/bs";
 import { AiOutlineRetweet } from "react-icons/ai";
-import useComponent from "context/componentContext";
-import { useHistory, useLocation } from "react-router-dom";
 
-const PostItem = ({ likesCount, liked, id, postLike, feed }) => {
-  const { handleModalClick } = useComponent();
-  const history = useHistory();
-  const { pathname } = useLocation();
-
+const PostItem = ({ likesCount, liked, postLike }) => {
   return (
     <Box>
       <Divider orientation="horizontal" mt={2} />
@@ -32,11 +26,6 @@ const PostItem = ({ likesCount, liked, id, postLike, feed }) => {
           as="button"
           role="button"
           aria-label="comment button"
-          onClick={
-            pathname === "/"
-              ? () => history.push({ pathname: `/comments/${id}`, state: feed })
-              : () => handleModalClick("post", null, id, null, "comment")
-          }
         >
           <Box as="button" role="button" px={2} py={2}>
             <Icon as={BiComment} boxSize={4} mr={1} />

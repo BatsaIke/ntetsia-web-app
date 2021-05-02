@@ -258,8 +258,6 @@ const PostCard = ({ user, feed }) => {
         likesCount={likesCount}
         liked={feed?.is_liked}
         postLike={liked}
-        id={feed?.id}
-        feed={feed}
       />
     </Box>
   );

@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
           const user = token.data;
           window.sessionStorage.setItem("user", JSON.stringify(user));
           setIsAuthenticated(user?.token);
-          history.push("/");
+          history.push("/home");
           window.location.reload();
         }
       }
@@ -62,27 +62,32 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  // const signup = async (params) => {
+  //   try {
+  //     const res = await api.post("/register", params);
+  //     if (res.status === 200) {
+  //       toast({
+  //         title: "Sign up successful",
+  //         description: res.data.message,
+  //         status: "success",
+  //         duration: 5000,
+  //         position: "top-right",
+  //       });
+  //     }
+  //   } catch (error) {
+  //     toast({
+  //       title: "Error occured.",
+  //       description: error.response.data.errors.email[0],
+  //       status: "error",
+  //       duration: 5000,
+  //       position: "top-right",
+  //     });
+  //   }
+  // };
+
   const signup = async (params) => {
-    try {
-      const res = await api.post("/register", params);
-      if (res.status === 200) {
-        toast({
-          title: "Sign up successful",
-          description: res.data.message,
-          status: "success",
-          duration: 5000,
-          position: "top-right",
-        });
-      }
-    } catch (error) {
-      toast({
-        title: "Error occured.",
-        description: error.response.data.errors.email[0],
-        status: "error",
-        duration: 5000,
-        position: "top-right",
-      });
-    }
+   const res = await api.post("/register", params);
+   return res;
   };
 
   const logout = () => {
@@ -154,6 +159,7 @@ export const AuthProvider = ({ children }) => {
         signup,
         recoverPassword,
         resetPassword,
+        
       }}
     >
       {children}

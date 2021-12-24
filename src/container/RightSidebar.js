@@ -21,12 +21,25 @@ const RightSidebar = () => {
       as="aside"
       pos="fixed"
       bottom={0}
+      // right={}
+      
       h={{ lg: "100vh" }}
+      right={5}
       // zIndex={20}
+      bg="##f9f9f9"
       pt={10}
       pb={5}
       boxShadow="sm"
-      w={85}
+      w="25%"
+     overflowX="hidden"
+     overscrollBehaviorX="none"
+
+      rounded="none"
+      _hover={{
+        // textDecor: "none",
+        // bg: colorMode === "dark" ? "gray.700" : "gray.200",
+        overflow:"scroll"
+      }}
     >
       <Flex direction="column">
         <Box
@@ -47,7 +60,7 @@ const RightSidebar = () => {
         </Box>
 
         <Box
-          bg={colorMode === "dark" ? "gray.700" : "gray.100"}
+          bg={colorMode === "dark" ? "whiteAlpha.100" : "whiteAlpha.100"}
           p={6}
           w={85}
           rounded="md"
@@ -55,7 +68,7 @@ const RightSidebar = () => {
           shadow="sm"
         >
           <Heading as="h5" size="md">
-            Who to follow
+            Follow members
           </Heading>
 
           <Divider orientation="horizontal" my={3} />

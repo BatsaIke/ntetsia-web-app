@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 export const SignupSchema = Yup.object().shape({
-  // referer: Yup.string().required('Referer is required!'),
+//   //referer: Yup.string().required('Referer is required!'),
   first_name: Yup.string().required('First name is required!'),
   last_name: Yup.string().required('Last name is required!'),
   email: Yup.string().email('Invalid email!').required('Email is required!'),
@@ -9,7 +9,7 @@ export const SignupSchema = Yup.object().shape({
   country: Yup.string().required('Country is Required!'),
   phone: Yup.string()
     .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/, {
-      message: 'Invalid phone number, exclude country code!',
+      message: 'phone number must be 10 characters!',
     })
     .required('Phone number is required!'),
   password: Yup.string()
@@ -23,14 +23,27 @@ export const SignupSchema = Yup.object().shape({
     .required('Password confirm is required!'),
 });
 
+export const ReferalSchema = Yup.object().shape({
+  //code: Yup.string().required('Referer is required!')
+});
+
+export const MomoOtp = Yup.object().shape({
+  otp: Yup.string().required('enter your Otp code!')
+});
+
+export const smsVerificationSchema = Yup.object().shape({
+  code: Yup.string().required('check your phone for verification code')
+});
+
 export const SignupTrustForSchema = Yup.object().shape({
-  referer: Yup.string().required('Referer is required!'),
+ // referer: Yup.string().required('Referer is required!'),
   guarantor_id: Yup.string().required('Quarantor code is required!'),
   first_name: Yup.string().required('First name is required!'),
   last_name: Yup.string().required('Last name is required!'),
   email: Yup.string().email('Invalid email!').required('Email is required!'),
   dob: Yup.string().required('Date of birth is Required!'),
-  country: Yup.string().required('Country is Required!'),
+ // check:  Yup.string().required('Accept privacy policy Required!'),
+   country: Yup.string().required('Country is Required!'),
   phone: Yup.string()
     .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/, {
       message: 'Invalid phone number, exclude country code!',
@@ -72,3 +85,14 @@ export const ResetPasswordSchema = Yup.object().shape({
 export const PostSchema = Yup.object().shape({
   body: Yup.string().required('Body is required!'),
 });
+
+export const MomoSchema= Yup.object().shape({
+ // network: Yup.string().required('provider type is required'),
+   phone: Yup.string()
+   .max(10,"Phone number must be 10 characters only")
+   .matches(/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s./0-9]*$/, {
+     message: 'Invalid phone number!',
+   })
+   .required('Phone number is required!'),
+  
+})

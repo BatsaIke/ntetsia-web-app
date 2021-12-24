@@ -3,11 +3,8 @@ import {
   Box,
   Flex,
   Grid,
-  Heading,
   Link,
-  useColorMode,
   Text,
-  Image,
 } from "@chakra-ui/react";
 import { NavLink, Link as ReachLink } from "react-router-dom";
 import { Formik } from "formik";
@@ -15,9 +12,11 @@ import { SignInSchema } from "utils/validation";
 import FormInput from "components/Form/FormInput";
 import Button from "components/Button";
 import useAuth from "context/userContext";
+import Logo from "container/Logo";
+import PoweredBy from "container/PoweredBy";
+
 
 const LoginCard = () => {
-  const { colorMode } = useColorMode();
   const { signin } = useAuth();
 
   const onSubmit = async (
@@ -36,56 +35,32 @@ const LoginCard = () => {
   };
 
   return (
+
     <Flex
       direction="column"
-      align="center"
-      justify="center"
       h="100vh"
       w="100vw"
       overflow="hidden"
       textAlign="center"
+      mt={10}
     >
       <Flex
+
         justify="center"
         direction="column"
-        bg={colorMode === "dark" ? "black" : "gray.50"}
-        rounded="lg"
-        w={{ md: 108 }}
-        h={{ md: 120 }}
+        w="20%"
         mx="auto"
-        shadow="lg"
-        p={10}
       >
-        <Box mb={6}>
-          <Image
-            mx="auto"
-            src={
-              colorMode === "dark"
-                ? require("../../assets/images/logo.png").default
-                : require("../../assets/images/dark-logo.png").default
-            }
-          />
+        <Box mb={9}>
+          <Logo />
+
         </Box>
-        <Flex direction="column" mb={8} textAlign="center">
-          <Heading as="h3" fontWeight="bold" fontSize={{ md: "2xl" }}>
-            Sign in to your account
-          </Heading>
-          <Text>
-            New to Ntetsia?{" "}
-            <Link
-              as={NavLink}
-              to="/register"
-              _hover={{ textDecor: "none" }}
-              color="blue.400"
-            >
-              Create an account here
-            </Link>
-          </Text>
-        </Flex>
+
         <Formik
           initialValues={{ email: "", password: "" }}
           validationSchema={SignInSchema}
           onSubmit={onSubmit}
+
         >
           {({
             values,
@@ -96,10 +71,13 @@ const LoginCard = () => {
             errors,
             touched,
           }) => (
-            <form onSubmit={handleSubmit}>
-              <Grid gap={4}>
+            <form onSubmit={handleSubmit} >
+              <Grid gap={4}  >
                 <FormInput
-                  label="Email"
+                  textAlign='center'
+                  variant="flushed"
+                  borderBlockEndWidth='thin'
+                  borderBottomColor='black'
                   placeholder="Email"
                   name="email"
                   onChange={handleChange}
@@ -107,12 +85,16 @@ const LoginCard = () => {
                   error={errors.email}
                   touch={touched.email}
                   value={values.email}
-                  variant="filled"
+
                 />
 
+
                 <FormInput
-                  label="Password"
+                  textAlign='center'
+                  variant="flushed"
                   type="password"
+                  borderBlockEndWidth='thin'
+                  borderBottomColor='black'
                   placeholder="Password"
                   name="password"
                   onChange={handleChange}
@@ -120,7 +102,7 @@ const LoginCard = () => {
                   error={errors.password}
                   touch={touched.password}
                   value={values.password}
-                  variant="filled"
+
                 />
               </Grid>
 
@@ -132,26 +114,50 @@ const LoginCard = () => {
                 d="block"
                 mb={5}
               >
-                <Text>Forgot Password?</Text>
+                <Text textUnderlineOffset="unset" color="#5660F4">Forgot Password? </Text>
               </Link>
-
               <Button
                 type="submit"
                 isLoading={isSubmitting}
                 loadingText="Logging you in"
                 title="Sign In"
-                w="100%"
-                h={12}
-                bg="blue.600"
-                color="white"
+                w="40%"
+                bg="#EAE7FD"
+                color="#898989"
+                borderColor="#191191191"
                 _hover={{ bg: "blue.700" }}
-                _active={{ bg: "blue.700" }}
+                _active={{ bg: "#100213" }}
               />
+              <Flex direction="column" mb={8} textAlign="center">
+
+                <Text marginTop='10' color="#898989">I want to join</Text>
+                <Text bg="#EAE7FD"
+                  w="40%"
+                  h="8"
+                  alignSelf='center'
+                >
+                  <Link
+                    as={NavLink}
+                    to="/refer"
+                    _hover={{ textDecor: "none" }}
+                    color="#898989"
+                  >
+                    Join us
+                  </Link>
+                </Text>
+              </Flex>
             </form>
           )}
         </Formik>
       </Flex>
+      <PoweredBy />
     </Flex>
+
+
+
+
+
+
   );
 };
 

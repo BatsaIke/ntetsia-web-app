@@ -39,3 +39,134 @@
   src: url('./assets/fonts/Gilroy-Bold.otf') format('otf');
 }
 
+@font-face {
+  font-family: 'JackFrost';
+  src: local('JackFrost'), url('./assets/fonts/Jack\ Frost.otf') format('otf');
+}
+
+@font-face {
+  font-family: 'Montserratitalics';
+  src: local('Frost'), url(./assets/fonts/Montserrat/Montserrat-Italic.ttf) format('0tf');
+}
+
+@font-face {
+  font-family: 'MontserratBold';
+  src: local('Frost'), url(./assets/fonts/Montserrat/Montserrat-Bold.ttf) format('0tf');
+}
+@font-face {
+  font-family: 'AriaBlack';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url('./assets/fonts/ArialBlack.ttf') format('ttf');
+}
+
+@font-face {
+  font-family: 'Bahnschrift';
+  src: local('Bahnschrift'), url('./assets/fonts/Bahnschrift-Font-Family/BAHNSCHRIFT\ 1.TTF') format('ttf');;
+}
+  
+
+
+
+
+
+/* circle */
+.circle {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  background-color: transparent;
+  border-radius: 50%;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+
+  border: 2px solid rgb(5, 1, 24);
+ 
+  box-shadow: #000;
+  
+}
+
+.container {
+  height: 100vh; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+  
+}
+
+.container1 {
+  /* height: 100vh;  */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  
+}
+
+.image {
+  
+  -webkit-animation:spin 4s ;
+  -moz-animation:spin 4s ;
+  animation:spin 4s ;
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg);  } }
+
+
+
+.welcomeTxt{
+  margin-top: 5px;
+  font-family: "JackFrost";
+  color: #14045e;
+  font-weight: bold;
+  font-size: 22px;
+  margin-bottom: 0;
+  
+}
+
+.welcomeTxt2{
+  line-height: 0;
+  font-family: Montserratitalics;
+  margin-bottom: 15px;
+  font-size: 13px;
+  max-height: 50;
+
+  
+}
+
+.circl {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  border-radius: 50%;
+  border-width: 0.5px;
+  align-items: center;
+  align-self: center;
+  justify-content: center;
+  animation: dash 5s linear infinite;
+  border:5px dotted #646464; 
+  box-shadow: #000;
+  background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
+  background-size: 16px 4px, 16px 4px, 4px 16px, 4px 16px;
+  background-position: 0% 0%, 100% 100%, 0% 100%, 100% 0px;
+  -webkit-animation:spin 4s linear infinite;
+  -moz-animation:spin 4s linear infinite;
+  animation:spin 4s linear infinite;
+  margin-top: 8;
+
+  
+}
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+
+
+
+

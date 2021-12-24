@@ -1,6 +1,8 @@
+
 import React from 'react';
 import { PhoneInput, COUNTRIES } from 'baseui/phone-input';
-import { FormControl, FormLabel } from '@chakra-ui/react';
+import { FormControl} from '@chakra-ui/react';
+import {useStyletron} from 'baseui';
 
 const FormPhone = ({
   name,
@@ -8,37 +10,52 @@ const FormPhone = ({
   error,
   touch,
   setFieldValue,
+  setCountryCode,
   value,
+  ...rest
 }) => {
   const [country, setCountry] = React.useState(COUNTRIES.GH);
   const [text, setText] = React.useState('');
+  const [css,theme] = useStyletron();
 
   return (
     <FormControl id={name} isRequired={isRequired} isInvalid={error && touch}>
-      <FormLabel>Phone number</FormLabel>
       <PhoneInput
+
+
+className={css({
+  display: 'flex',
+  fontSize: '14px',
+  lineHeight: '1.25',
+})}
+        name={name}
+        value={value}
         country={country}
-        onCountryChange={({ option }) => setCountry(option)}
+        onCountryChange={({ option }) => {
+          //console.log("OPTIONS",option)
+          setCountryCode(option.dialCode)
+          setCountry(option)
+        }}
         text={text}
         onTextChange={(e) => {
-          setText(e.currentTarget.value);
+        setText(`${country.dialCode +e.currentTarget.value}`);
+          console.log(e);
           setFieldValue(name, `${country.dialCode}${e.currentTarget.value}`);
         }}
-        placeholder='5555555555'
+        placeholder='0200000099'
         overrides={{
           Root: {
-            style: {
-              backgroundColor: '#fff',
+            style: {              
               height: '30px',
             },
           },
           Input: {
             style: {
-              backgroundColor: '#fff',
               height: '30px',
             },
           },
         }}
+        {...rest}
       />
     </FormControl>
   );

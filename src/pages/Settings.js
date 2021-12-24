@@ -61,7 +61,7 @@ const Settings = () => {
         py={3}
         px={{ md: 14 }}
       >
-        <Link as={ReachLink} to="/">
+        <Link as={ReachLink} to="/home">
           <Image
             height={10}
             src={

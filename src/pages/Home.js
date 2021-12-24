@@ -11,18 +11,20 @@ import useFeeds from "hooks/useFeeds";
 const Home = () => {
   const { feedsData, page, setPage } = useFeeds();
   return (
-    <Layout pageTitle="Home" px={6}>
-      <Box mb={14} overflowY="scroll">
+    <Layout pageTitle="NTETSIA" px={6} color="blue.900"  >
+      <Box mb={14} >
         <Box mb={6}>
           <FeedBox />
         </Box>
 
         <InfiniteScroll
+        
+        overflowX="hidden"
           next={() => setPage(page + 1)}
           hasMore={true}
           dataLength={feedsData.length}
           loader={
-            <Box minW="100%">
+            <Box minW="100%"  >
               <PostSkeleton />
               <PostSkeleton />
               <PostSkeleton />

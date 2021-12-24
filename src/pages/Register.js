@@ -1,12 +1,10 @@
 import {
   Box,
   Flex,
-  Heading,
-  Image,
   Link,
   Text,
-  useColorMode,
   useDisclosure,
+
 } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 import React from "react";
@@ -16,48 +14,32 @@ import useComponent from "context/componentContext";
 import AuthModal from "components/Modals/AuthModal";
 import RegisterForm from "components/MultiForm/Register";
 import Category from "components/MultiForm/Category";
-
-const accountType = [
-  {
-    id: "STANDARD",
-    type: "Standard",
-    fee: 10,
-    currency: "GHS",
-  },
-  {
-    id: "PLATINUM",
-    type: "Platinum",
-    fee: 30,
-    currency: "GHS",
-  },
-  {
-    id: "GOLD",
-    type: "Gold",
-    fee: 50,
-    currency: "GHS",
-  },
-];
+import Logo from "../container/Logo";
+import PoweredBy from "container/PoweredBy";
+import Payment from "./Payment";
+import Verification from "./Verification";
 
 const Register = () => {
-  const { colorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { currentIndex, handleStepClick } = useComponent();
+  const { currentIndex, handleStepClick, handleClick } = useComponent();
   const [state, setState] = React.useState("Individual");
-  const [type, setType] = React.useState(accountType[0]);
 
-  console.log("type", type);
-  console.log("state", state);
+  const [type, setType] = React.useState(null);
 
   const getFormStep = (value) => {
     switch (value) {
       case 0:
         return <Category state={state} onChange={setState} />;
       case 1:
-        return <RegisterForm />;
+        return <RegisterForm fstate={handleStepClick} />;
       case 2:
+        return <Verification />;
+      case 3:
         return (
-          <AccountType state={type} onChange={setType} type={accountType} />
+          <AccountType onChange={setType} fstate={handleStepClick} />
         );
+      case 4:
+        return <Payment state={type} />
       default:
         return null;
     }
@@ -65,55 +47,22 @@ const Register = () => {
 
   return (
     <>
+
       <AuthModal isOpen={isOpen} onClose={onClose} />
-      <Flex
-        direction="column"
-        align="center"
-        justify="center"
-        h="100vh"
-        w="100vw"
-        overflow="hidden"
-      >
+
+      <Flex>
+
         <Flex
+          marginTop="10%"
+          direction="column"
           align="center"
           justify="center"
-          direction="column"
-          bg={colorMode === "dark" ? "black" : "gray.50"}
-          rounded="lg"
-          w={{ md: currentIndex === 1 ? 120 : 108 }}
-          overflowY="scroll"
-          mx="auto"
-          shadow="lg"
-          p={10}
+          h="100vh"
+          w="100vw"
+        // overflowY="scroll"
         >
-          <Box mb={6}>
-            <Image
-              src={
-                colorMode === "dark"
-                  ? require("../assets/images/logo.png").default
-                  : require("../assets/images/dark-logo.png").default
-              }
-            />
-          </Box>
-          <Flex direction="column" mb={8} textAlign="center">
-            <Heading as="h3" fontWeight="bold" fontSize={{ md: "2xl" }}>
-              Create an account with Ntetia
-            </Heading>
-            <Text>
-              Already a member?{" "}
-              <Link
-                as={NavLink}
-                to="/login"
-                _hover={{ textDecor: "none" }}
-                color="blue.400"
-              >
-                Login here
-              </Link>
-            </Text>
-          </Flex>
-
+          <Logo style={{ top: 0 }} />
           <Box>{getFormStep(currentIndex)}</Box>
-
           <Flex
             align="center"
             justify="center"
@@ -121,39 +70,48 @@ const Register = () => {
             d={currentIndex === 1 ? "none" : "flex"}
             mb={currentIndex === 1 ? 6 : ""}
           >
-            <Button
-              title="Previous"
-              rounded="30px"
-              w={32}
-              bg="gray.600"
-              color="white"
-              _hover={{ bg: "gray.700" }}
-              _active={{ bg: "gray.700" }}
-              mr={4}
-              isDisabled={currentIndex === 0}
-              onClick={currentIndex === 0 ? null : () => handleStepClick(-1)}
-            />
+
             <Button
               title="Continue"
-              rounded="30px"
+              rounded="0px"
               w={32}
               isDisabled={state === "In-Trust-For"}
               color="white"
-              bg="blue.600"
-              _hover={{ bg: "blue.700" }}
-              _active={{ bg: "blue.700" }}
+              bg="#ACA2F4"
+              _hover={{ bg: "#EAE7FD" }}
+              _active={{ bg: "#BEFEF2" }}
               onClick={
                 state === "Corporate"
                   ? onOpen
                   : state === "In-Trust-For"
-                  ? ""
-                  : () => handleStepClick(+1)
+                    ? ""
+                    : () => handleStepClick(+1)
               }
             />
           </Flex>
+          <Flex direction="column" mb={8} textAlign="center">
+
+            <Text color="#898989" >
+              Already a member?{" "}
+              <Link
+                as={NavLink}
+                to="/login"
+                //bg="#285DAF"
+                _hover={{ textDecor: "none" }}
+                color="#285DAF"
+              >
+                Login here
+              </Link>
+            </Text>
+          </Flex>
+
         </Flex>
+        <PoweredBy />
       </Flex>
+
+
     </>
+
   );
 };
 

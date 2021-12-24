@@ -1,7 +1,8 @@
 import { useDisclosure } from '@chakra-ui/react';
-import React from 'react';
+import React, { createContext } from 'react';
 const ComponentContext = React.createContext({});
 
+export const userContext= createContext(null)
 const getSteps = () => {
   return ['Package', 'Registration Details', 'Category', 'Payment'];
 };
@@ -16,7 +17,7 @@ export const ComponentProvider = ({ children }) => {
   const [state, setState] = React.useState('');
   const [mode, setMode] = React.useState('');
   const [currentIndex, setCurrentIndex] = React.useState(0);
-
+  const [data,setData] = React.useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [open, setOpen] = React.useState(false);
   const close = () => setOpen(false);
@@ -44,6 +45,8 @@ export const ComponentProvider = ({ children }) => {
     onOpen();
   };
 
+
+
   return (
     <ComponentContext.Provider
       value={{
@@ -52,10 +55,6 @@ export const ComponentProvider = ({ children }) => {
         isOpen,
         onOpen,
         onClose,
-        showEmoji,
-        setShowEmoji,
-        handleModalClick,
-        modal,
         selectedData,
         selectedId,
         state,
@@ -65,6 +64,7 @@ export const ComponentProvider = ({ children }) => {
         toggleDialog,
         open,
         close,
+        
       }}
     >
       {children}

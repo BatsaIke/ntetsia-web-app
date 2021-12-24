@@ -36,7 +36,7 @@ const Logout = () => {
           </Box>
 
           <Flex align="center" justify="space-between" mt={6}>
-            <Link as={ReachRouter} to="/">
+            <Link as={ReachRouter} to="/home">
               <Button
                 title="Cancel"
                 rounded="30px"

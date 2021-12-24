@@ -6,9 +6,11 @@ import {
   Input,
 } from "@chakra-ui/react";
 
+  
 const FormInput = ({
   label,
   name,
+  variant,
   error,
   touch,
   setFieldTouched,
@@ -19,15 +21,14 @@ const FormInput = ({
   return (
     <FormControl id={name} isRequired={isRequired} isInvalid={error && touch}>
       <FormLabel htmlFor={name} fontSize="sm">
-        {label}
       </FormLabel>
       <Input
         h={12}
         name={name}
+        variant={variant}
         ref={ref}
-        rounded="none"
-        borderWidth={2}
-        borderColor="gray.400"
+        fontFamily='Montserratitalics'
+       // rounded="none"
         _hover={{ borderColor: "none" }}
         _focus={{ borderColor: "none" }}
         {...rest}

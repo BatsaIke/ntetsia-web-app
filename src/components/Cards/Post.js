@@ -1,5 +1,6 @@
 import {
   Avatar,
+  AvatarGroup,
   Box,
   Flex,
   Icon,
@@ -56,6 +57,7 @@ const Post = ({ user, feed }) => {
 
   return (
     <Box
+      overscrollX="none"
       borderWidth={1}
       p={4}
       mb={6}
@@ -203,7 +205,7 @@ const Post = ({ user, feed }) => {
         }}
       >
         <Box>
-          <Flex align="center" justify="space-between" pos="relative">
+          <Flex align="center" justify="space-between" >
             <Flex align="center">
               <Link
                 as={ReachLink}
@@ -213,13 +215,16 @@ const Post = ({ user, feed }) => {
                 }}
               >
                 <Avatar
+                  float='left'
+                  align="left"
+                  marginLeft="0"
                   src={user?.profile_picture}
-                  size="md"
+                  size="lg"
                   borderWidth={2}
                   borderColor="gray.300"
                 />
               </Link>
-              <Box ml={4}>
+              <Box ml={4} >
                 <Text fontSize="md" fontWeight={800}>
                   {user?.first_name} {user?.last_name}
                 </Text>
@@ -234,13 +239,13 @@ const Post = ({ user, feed }) => {
             </Flex>
           </Flex>
 
-          <Box mt={4}>
-            <Text mt={3}>{feed?.body}</Text>
+          <Box mt={4} left={6} pos="relative" left={16}>
+            <Text w="90%" mt={3}>{feed?.body}</Text>
           </Box>
         </Box>
       </Link>
 
-      <Grid
+      <Grid position="relative" left={16}
         templateColumns={{
           md: feed?.files.length > 1 && "repeat(2, 1fr)",
         }}
@@ -262,16 +267,23 @@ const Post = ({ user, feed }) => {
               rounded="md"
               h={70}
               objectFit="cover"
-              w="100%"
+              w="90%"
             />
           </Box>
         ))}
       </Grid>
 
-      <Flex align="center" justify="space-between" pt={1} fontSize="sm">
-        <Text>
+      <Flex align="center" justify="space-between" pt={1} fontSize="sm" >
+        <Text pos="relative" left={16}>
           {feed?.likes_count} {feed?.likes_count > 1 ? "likes" : "like"}
         </Text>
+        <AvatarGroup size="sm" max={2} left={0} isTruncated  >
+          <Avatar name="Ryan Florence" src="https://bit.ly/ryan-florence" />
+          <Avatar name="Segun Adebayo" src="https://bit.ly/sage-adebayo" />
+          <Avatar name="Kent Dodds" src="https://bit.ly/kent-c-dodds" />
+          <Avatar name="Prosper Otemuyiwa" src="https://bit.ly/prosper-baba" />
+          <Avatar name="Christian Nwamba" src="https://bit.ly/code-beast" />
+        </AvatarGroup>
         <Flex>
           <Text>
             {feed?.comments_count}{" "}
@@ -283,7 +295,7 @@ const Post = ({ user, feed }) => {
         </Flex>
       </Flex>
 
-      <PostItem
+      <PostItem pos="relative" left={16}
         likesCount={likesCount}
         liked={feed?.is_liked}
         postLike={liked}

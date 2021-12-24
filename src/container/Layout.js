@@ -5,7 +5,6 @@ import {
   Grid,
   GridItem,
   Icon,
-  Image,
   Link,
   Text,
   useColorMode,
@@ -14,12 +13,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import LeftSidebar from "./LeftSidebar";
 import RightSidebar from "./RightSidebar";
+import LeftMenu from "./LeftMenu";
 import useComponent from "context/componentContext";
 import PostModal from "components/Modals/PostModal";
 import UpdateProfileModal from "components/Modals/updateProfileModal";
-import { BsArrowLeftShort } from "react-icons/bs";
+import { BsArrowLeftShort, BsSearch } from "react-icons/bs";
 import { Link as ReachLink } from "react-router-dom";
 import PostImageModal from "components/Modals/PostImageModal";
+import { CgSearch } from "react-icons/cg";
 
 const Layout = ({ children, px, py, path, icon, pageTitle, post, ...rest }) => {
   const { colorMode } = useColorMode();
@@ -46,26 +47,33 @@ const Layout = ({ children, px, py, path, icon, pageTitle, post, ...rest }) => {
   };
 
   return (
-    <Box color={colorMode === "dark" ? "white" : "gray.700"} h="100vh">
+    <Box color={colorMode === "dark" ? "white" : "gray.700"} h="100vh"  overflowX="hidden" >
       {getModal(modal)}
-      <Container maxW="7xl">
+      <Container maxW="8xl"  >
         <Grid
-          templateColumns="25% 50% 25%"
+    
+          templateColumns="7% 15% 55% 23%"
           pos="relative"
           fontFamily="body"
           fontSize={{ md: "md" }}
         >
-          <GridItem>
-            <LeftSidebar />
+    
+          <GridItem  >
+           <LeftMenu />
           </GridItem>
-          <GridItem overflowX="hidden" w="100%">
-            <Box as="main" gridArea="main" pos="relative" {...rest}>
+
+          <GridItem >
+           <LeftSidebar/>
+          </GridItem>
+
+          <GridItem overflowX="hidden" w="100%"  >
+            <Box as="main" gridArea="main" pos="relative" {...rest}  >
               <Flex
                 justify="space-between"
                 align="center"
                 pos="fixed"
                 top={0}
-                w="34%"
+                w='45%'
                 h={14}
                 px={6}
                 zIndex={999}
@@ -76,11 +84,11 @@ const Layout = ({ children, px, py, path, icon, pageTitle, post, ...rest }) => {
                     d="flex"
                     alignItems="center"
                     as={ReachLink}
-                    to={path || "/"}
+                    to={path || "/home"}
                     _hover={{ textDecor: "none" }}
                     _focus={{ outline: "none" }}
                   >
-                    {icon && <Icon as={BsArrowLeftShort} boxSize={6} />}
+                 {icon && <Icon as={BsArrowLeftShort} boxSize={6} />}
 
                     <Text fontWeight="bold" fontSize="xl" ml={path ? 5 : 0}>
                       {pageTitle}
@@ -99,14 +107,15 @@ const Layout = ({ children, px, py, path, icon, pageTitle, post, ...rest }) => {
                   )}
                 </Box>
 
-                <Image
+                  <Icon as={CgSearch} boxSize={8} color="blue.900" />
+                {/* <Image
                   height={8}
                   src={
                     colorMode === "dark"
                       ? require("../assets/images/logo.png").default
                       : require("../assets/images/dark-logo.png").default
                   }
-                />
+                /> */}
               </Flex>
 
               <Box py={py || 20} px={px}>
@@ -114,7 +123,7 @@ const Layout = ({ children, px, py, path, icon, pageTitle, post, ...rest }) => {
               </Box>
             </Box>
           </GridItem>
-          <GridItem>
+          <GridItem float="right">
             <RightSidebar />
           </GridItem>
         </Grid>

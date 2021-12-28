@@ -16,9 +16,10 @@ const Router = () => {
         <Route exact path="/login" component={Pages.Login} />
         <Route exact path="/register" component={Pages.Register} />
         <Route exact path="/verify" component={Pages.Verification} />
+        <Route exact path="/accounttype" component={Pages.AccountType} />
 
         <Route exact path="/forgot-password" component={Pages.ForgotPassword} />
-        <Route exact path="/payment" component={Pages.Payment} />
+        <Route exact path="/paymentpage" component={Pages.Payment} />
         <Route exact path="/home" component={Pages.Home} />
         <Route exact path="/refer" component={Pages.ReferalMethod} />
         <Route exact path="/contributionBelieve" component={Pages.Contribute} />

@@ -29,9 +29,6 @@ const RegisterForm = (props) => {
 
 
   useEffect(async() => {
-    console.log("DATA",data)
-    console.log(msg,"saa")
-
 }, []);
 
 
@@ -50,26 +47,9 @@ const RegisterForm = (props) => {
   const [phone, setPhone] = React.useState('')
 
   const handlePChange = (e) => {
-    console.log("GGGGWGWG", e);
-    console.log("dddd", phone)
-    //setPhone( value );
+   
     //setData(data.dialCode)
   }
-
-   
-
-
-  // const smsVerify=()=>{
-
-  //   try {
-  //        let data = smsVerification()
-  //       console.log("SMA",data);
-  //       setSMS(data)
-  //       } catch (error) {
-  //         console.log(error)
-  //       }
-
-  // }
   
 
   const processErrors = (errors) => {
@@ -89,7 +69,6 @@ const RegisterForm = (props) => {
     values,
     { setSubmitting, setErrors, setStatus, resetForm }
   ) => {
-    console.log("FROM VALUES", values)
     if (!allChecked && !alChecked) {
       toast({
         description: "Accept our privacy policy and constitution",
@@ -106,8 +85,7 @@ const RegisterForm = (props) => {
           s = values.country_code.substring(1) + s.substring(1)
           values.phone =s
         }
-        console.log(values.phone, "values.phone")
-        let res = await signup(values);
+          let res = await signup(values);
         if (res.status === 200) {
           toast({
             title: "Sign up successful",
@@ -192,14 +170,9 @@ const RegisterForm = (props) => {
             isSubmitting,
             errors,
             touched,
-            setValues
-
           }) => (
-            <form onSubmit={handleSubmit}>    
-             {console.log("Formik", values)}         
+            <form onSubmit={handleSubmit}>          
              <Grid w='100%' gap={1} mb={4}>
-
-
                 <FormInput
                   type="text"
                   color="#898989"

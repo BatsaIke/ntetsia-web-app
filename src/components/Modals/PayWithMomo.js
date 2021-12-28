@@ -37,38 +37,44 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
 
 
 
+  const processErrors = (errors) => {
+    //error.response.data.errors.country_code[0],
+    let errorsStr = "";
+
+    Object.values(errors).map((err, index) => {
+      errorsStr += err[0] + "\n";
+    })
+
+    return errorsStr;
+  }
 
   const verifyOtp = async (
     values, {
       setSubmitting, setErrors, setStatus, resetForm }) => {
     console.log("YYYYYYYYYYVALUES", values);
     try {
-      let res = await momoOtpVerify(values)
+      let res = await momoOtpVerify(values);
+      if (res.status === "pay_offline") {
       setOtpMessage(res)
       resetForm({});
       setStatus({ success: true })
       setIsOpen(false)
-      setIsOpenverify(true)
+      setIsOpenverify(true)}
     } catch (error) {
+      toast({
+        title: "otp verification failed",
+        description: processErrors(error.response.data.errors),
+        status: "error",
+        duration: 5000,
+        position: "top-right",
+      });
+      setIsOpen(false)
       setStatus({ success: false });
       setSubmitting(false);
       setErrors({ submit: error.message });
       console.log(error.message)
     }
   }
-
-
-  // async function getinvo() {
-  //   try {
-  //     let data = await getInvoice()
-  //     setLoading(true)
-  //     console.log("invoice", data);
-  //     setInvoince(data)
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // }
-
 
   const veriMomoPayment = async (
     values, {
@@ -79,7 +85,7 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
      // setResponse(verify)
       if (verify.status === "success") {
         toast({
-          title: "payment up successful",
+          title: "payment successful",
           description: verify.data.message,
           status: "success",
           duration: 9000,
@@ -274,11 +280,11 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
       >
         <ModalBody align="center"
           justify="center" >
-          <Box> <Text fontSize="sm" >Verify payment</Text></Box>
+          <Box> <Text fontSize="sm" >check your phone for verification code</Text></Box>
 
           <Formik initialValues={{
             otp: "",
-            reference: otpMessage.reference
+            reference: response.reference
 
           }}
             validationSchema={MomoOtp}
@@ -313,9 +319,6 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
                   error={errors.otp}
                   touch={touched.otp}
                 />
-
-
-
                 <Button
                   mt="3"
                   isLoading={isSubmitting}
@@ -330,14 +333,8 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
                   _active={{ bg: "#100213" }}
 
                 />
-
-
               </form>
-
-
-
             )}
-
           </Formik>
 
         </ModalBody>
@@ -417,7 +414,7 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
                   />
                 </Stack>
 
-                <Box> <Text fontSize="sm" >{otpMessage.message}</Text></Box>
+                <Box> <Text fontSize="sm" ></Text></Box>
               </form>
 
 

@@ -6,6 +6,8 @@ import Type from 'components/Form/Type';
 import PoweredBy from 'container/PoweredBy';
 import useAPI from 'context/apiContext';
 import useComponent, { userContext } from "context/componentContext";
+import { Dots } from "react-activity";
+import "react-activity/dist/Dots.css";
 
 
 
@@ -15,8 +17,8 @@ export default function Contribute(props) {
     const [RiskQuestions, setRiskQuestions] = React.useState(false);
     const [choice, setChoice] = React.useState("");
     const {riskQuestions} = useAPI();
+    const [loading, setloading] = React.useState(false);
 
-    const [selectedId, setSelectedId] =useComponent()
 
     const {setState}= useComponent() 
     
@@ -29,6 +31,7 @@ export default function Contribute(props) {
         try {
             let data = await riskQuestions()
            console.log("NEWWWWW",data);
+           setloading(true)
            setRiskQuestions(data)
            } catch (error) {
              console.log(error)
@@ -69,22 +72,16 @@ export default function Contribute(props) {
             >
                 <Logo />
 
-                <Text fontWeight="extrabold" fontSize="32px" color="#646464" > {RiskQuestions.length >= 1 && RiskQuestions[0].question}</Text>
+           {loading?     <Text fontWeight="extrabold" fontSize="32px" color="#646464" > {RiskQuestions.length >= 1 && RiskQuestions[0].question}</Text> :<Dots/>}
                 <Stack direction="row" spacing={4} align="center" w={220} h={20}>
-                    <Type onClick={() => {setChoice("yes") }}>
-                   < Link
-                        as={NavLink}
-                        
-                        to="/competetionBelive"
-                    >
+                    <Type onClick={() => {setChoice("yes");Navigate() }}>
                         Yes
-                        </Link>
-                    </Type>
+                       </Type>
 
-                    <Type onClick={() => { setChoice("no") }}>
+                    <Type onClick={() => { setChoice("no"); Navigate() }}>
                         No
                     </Type>
-                </Stack>
+                </Stack> 
 
 
             </Flex>

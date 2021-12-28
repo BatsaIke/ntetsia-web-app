@@ -35,6 +35,7 @@ import ReferID from "components/MultiForm/RiskQuestions/ReferID";
 import JobDetails from "./JobDetails";
 import DashBoard from "pages/Dashboard/DashBoard";
 import Verification from "./Verification";
+import AccountType from "components/MultiForm/AccountType";
 
 
 export const Pages = {
@@ -61,5 +62,6 @@ export const Pages = {
   Notifications,
   JobDetails,
   DashBoard,
-  Verification
+  Verification,
+  AccountType
 };

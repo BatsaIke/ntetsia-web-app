@@ -7,8 +7,9 @@ import useAPI from 'context/apiContext';
 import React,{useEffect} from "react"
 import { Dots } from "react-activity";
 import "react-activity/dist/Dots.css";
+import { useToast } from "@chakra-ui/react";
 
-import { Select } from '@chakra-ui/react'
+import { Select, Button } from '@chakra-ui/react'
 
 const items = [
   { id: 1, img: 'mastercard.png', title: 'Pay with Card', type: 'card' },
@@ -22,11 +23,14 @@ const Payment = (props) => {
   const [invoice, setInvoince] = React.useState({});
   const [momoPay,setMomoPay]= React.useState({});
   const [loading, setLoading] = React.useState(false);
+  const [payMomo,setPay]= React.useState({});
+  
+  const toast = useToast();
 
   React.useEffect(()=>{
-      console.log("State0000", props.state)
+      console.log("State0000", props.location.state)
       //console.log("Type0000",props.type)
-      // setMomoPay(props.state)
+       setPay(props.location.state)
   },[])
 
   function getPaymentModal(value) {
@@ -38,6 +42,16 @@ const Payment = (props) => {
       default:
         return null;
     }
+  }
+
+  function Navigate1() {
+   
+      toast({
+          title: "Kindly select a payment type",
+          status: "success",
+          duration: 5000,
+          position: "top-right",
+        });
   }
 
   async function getinvo() {
@@ -53,27 +67,6 @@ const Payment = (props) => {
     }
   }
 
-  // const makepay = async (
-  //   values, { 
-  //     setSubmitting, setErrors, setStatus, resetForm }) => {
-  //   console.log("YYYYYYYYYYVALUES", values);
-  //   try {
-  //   let res=  await makePayment( {"token":invoice})
-  //     resetForm({});
-  //     setStatus({ success: true })
-  //            } catch (error) {
-  //     setStatus({ success: false });
-  //     setSubmitting(false);
-  //     setErrors({ submit: error.message });
-  //     console.log(error.message)
-  //     // toast({
-  //     //   title: "invalid code",
-  //     //   duration: 5000,
-  //     //   position: "top-right",
-  //     // });
-
-  //   }
-  // }
 
   useEffect(()=>{
      getinvo()
@@ -92,6 +85,7 @@ const Payment = (props) => {
       h={{ md: '100vh' }}
       w={{ md: '100%' }}
       direction='column'
+      overflow="scroll"
     >
       <Heading>NTETSIA</Heading>
       <Box textAlign='center' mb={{ md: 6 }} mt={6}>
@@ -100,32 +94,32 @@ const Payment = (props) => {
 
           </Heading>
         </Box>
-        <Stack spacing={3} direction="column"
+        {loading?    <Stack spacing={3} direction="column"
           align="center"
           justify="center"
 
           overflow="hidden"
           textAlign="center"
           mt={10}>
-          <Flex align="center" bg="#EAE7FD" justify="center" height="150px" width="300px" borderRadius="10">
-            <Heading as='h6' fontSize="0.6rem">
-              {/* {payMomo.length >= 1 && payMomo[0].currency} */}
-              momo
+          <Flex align="center" bg="#EAE7FD" justify="center" height="150px" width="300px" borderRadius="10" borderWidth="1px">
+            <Heading as='h6' fontSize="0.8rem">
+              {payMomo.length >= 1 && payMomo[0].currency}
               
-              <Heading as='h6' fontSize="2rem" mt={2} >
-                {/* {payMomo.length >= 1 && payMomo[0].fee} */}momo
+              
+              <Heading as='h2' fontSize="3rem" mt={2} >
+                {payMomo.length >= 1 && payMomo[0].fee}
 
                 <Heading as='h6' fontSize="0.7rem" mt={2}>
-                  {/* {payMomo.length >= 1 && payMomo[0].type} Category */} Category
+                  {payMomo.length >= 1 && payMomo[0].name} Category
 
                 </Heading>
               </Heading>
             </Heading>
 
           </Flex>
-          </Stack>
+          </Stack> :<Dots/>}
       {getPaymentModal(selected.type)}
-    {loading?  <Box
+     <Box
         filter='drop-shadow(0px 2px 50px rgba(0, 0, 0, 0.1))'
         w={{ md: 108 }}
         h={{ md: 60 }}
@@ -161,7 +155,16 @@ const Payment = (props) => {
           
           
         {/* </Grid> */}
-      </Box>:<Dots/>}
+
+      
+      </Box>
+   {loading ? <Box alignContent="center" marginBottom="4">
+    <Button bg="#EAE7FD" mt="10" color="#646464" w="200px" type="button"
+       onClick={() => { Navigate1() }}
+      >
+        Confirm
+      </Button>
+      </Box >:<Dots/>}
     </Flex>
   );
 };

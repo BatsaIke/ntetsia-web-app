@@ -5,13 +5,15 @@ import Logo from 'container/Logo';
 import React, { useEffect } from 'react';
 import PoweredBy from 'container/PoweredBy';
 import useAPI from 'context/apiContext';
+import { Dots } from "react-activity";
+import "react-activity/dist/Dots.css";
 
 
 
 
 
 export default function JobCreations(props) {
-    const [isByMember, setisByMember] = React.useState(false);
+    const [loading, setloading] = React.useState(false);
 
     const [RiskQuestions, setRiskQuestions] = React.useState(false);
     const {riskQuestions} = useAPI();
@@ -19,11 +21,12 @@ export default function JobCreations(props) {
     useEffect(async() => {
         // Update the document title using the browser API
         console.log(props.location.state)
-        setisByMember(props.location.state)
+        
 
         try {
             let data = await riskQuestions()
            console.log("NEWWWWW",data);
+           setloading(true)
            setRiskQuestions(data)
            } catch (error) {
              console.log(error)
@@ -60,7 +63,7 @@ export default function JobCreations(props) {
             >
                 <Logo />
 
-                <Text fontWeight="extrabold" fontSize="32px" color="#646464" > {RiskQuestions.length >= 1 && RiskQuestions[2].question}</Text>
+            {loading?    <Text fontWeight="extrabold" fontSize="32px" color="#646464" > {RiskQuestions.length >= 1 && RiskQuestions[2].question}</Text>:<Dots/>}
                 <Stack direction="row" spacing={4} align="center" w={220} h={20}>
                     <Type onClick={handleEvent}>
 

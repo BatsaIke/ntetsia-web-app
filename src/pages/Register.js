@@ -34,12 +34,12 @@ const Register = () => {
         return <RegisterForm fstate={handleStepClick} />;
       case 2:
         return <Verification />;
-      case 3:
-        return (
-          <AccountType onChange={setType} fstate={handleStepClick} />
-        );
-      case 4:
-        return <Payment state={type} />
+      // case 3:
+      //   return (
+      //     <AccountType onChange={setType} fstate={handleStepClick} />
+      //   );
+      // case 4:
+      //   return <Payment state={type} />
       default:
         return null;
     }

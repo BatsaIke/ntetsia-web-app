@@ -7,12 +7,15 @@ import Logo from 'container/Logo';
 import PoweredBy from 'container/PoweredBy';
 import useAPI from 'context/apiContext';
 import { Link, NavLink } from "react-router-dom";
+import { Dots } from "react-activity";
+import "react-activity/dist/Dots.css";
 
 
 export default function Competetion(props , ...rest) {
     const [isByMember,setisByMember]= React.useState(false);
     const [RiskQuestions, setRiskQuestions] = React.useState("Yes");
     const {riskQuestions} = useAPI();
+    const [loading, setloading] = React.useState(false);
 
     useEffect(async() => {
         // Update the document title using the browser API
@@ -21,6 +24,7 @@ export default function Competetion(props , ...rest) {
 
         try {
             let data = await riskQuestions()
+            setloading(true)
            setRiskQuestions(data)
            } catch (error) {
            }
@@ -47,7 +51,7 @@ function Navigate(){
                      <Logo/>
                     
                     
-                <Text fontWeight="extrabold" fontSize="32px" color="#646464" > {RiskQuestions.length >= 1 && RiskQuestions[1].question}</Text>
+             {loading?   <Text fontWeight="extrabold" fontSize="32px" color="#646464" > {RiskQuestions.length >= 1 && RiskQuestions[1].question}</Text> :<Dots/>}
                 <Stack direction="row" spacing={4} align="center"  w={220} h={20}>
                     <Type onClick={() => { setRiskQuestions("yes",{...rest}) }}>
                     <Link

@@ -115,8 +115,8 @@ function Navigate(){
                    
                     isLoading={isSubmitting}
                     borderColor="#191191191"
-                    type="button"
-                    // onClick={() => Navigate()}
+                    type="submit"
+                     onClick={() => Navigate()}
                     title ="next"
                     w='40%'
                     bg='#EAE7FD'

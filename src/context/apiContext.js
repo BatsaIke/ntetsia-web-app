@@ -543,28 +543,18 @@ export const ApiProvider = ({ children }) => {
 
                  const getEmailVirificaton = async () => {
                   const t = await getToken();
-                 try {
                    const { data } = await api.get(`/onboarding/email/send-verification-email`,{headers:{
                      'Authorization': `Bearer ${t}`
                    }});
-                   return data.data;
-                 } catch (error) {
-                   console.error(error.response.data.message);
-                   
-                 }
+                   return data;
                   };
 
                   const verifyEmail = async (payload) => {
                     const t = await getToken();
-                    try {
-                      const { data } = await api.post(`/onboarding/email/verify`,payload, {headers:{
+                      const { data } = await api.post(`onboarding/email/verify`,payload, {headers:{
                         'Authorization': `Bearer ${t}`
                       }});
-                      return data.data;
-                    } catch (error) {
-                      console.log(error.response.data.message);
-                      
-                    }
+                      return data;
                      };
 
   return (

@@ -29,25 +29,8 @@ const Verification = (props) => {
   const { handleStepClick } = useComponent();
   const toast = useToast();
 
-  // const onSubmit = async (
-  //   values,
-  //   { setSubmitting, setErrors, setStatus, resetForm }
-  // ) => {
-  //   try {
-  //     let res= await sendVerification(values);
-  //     if (res.status === 200) {
-  //     resetForm({});
-  //     setStatus({ success: true });
-  //     handleStepClick(+1);
-  //   } }catch (error) {
-  //     setStatus({ success: false });
-  //     setSubmitting(false);
-  //     setErrors({ submit: error.message });
-  //   }
-  // };
 
   const smsVerify = () => {
-
     try {
       let data = smsVerification()
       setSMS(data)

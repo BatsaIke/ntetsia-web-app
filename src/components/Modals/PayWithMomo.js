@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { Modal, ModalBody, SIZE, ROLE } from 'baseui/modal';
 import { Box, Heading, Text, Stack } from '@chakra-ui/react';
 import { Formik, validateYupSchema, FormErrorMessage, ErrorMessage } from 'formik';
@@ -32,7 +32,7 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
   const [isOpen1, setIsOpen] = React.useState(false);
   const [isOpenverify, setIsOpenverify] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  const idleTimeRef = React.useRef(null)
+  const submitref = React.useRef(null)
   const [onClose1, setOnclose1] = React.useState(false);
 
   const [timeLeft, setTimeLeft] = React.useState(true);
@@ -60,6 +60,7 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
         setStatus({ success: true })
         setIsOpen(false)
         setIsOpenverify(true)
+        setTimeout(() =>{ submitref.current.click();setTimeLeft(false)}, 30000);
       }
     } catch (error) {
       toast({
@@ -92,9 +93,8 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
           duration: 9000,
           position: "top-right",
         });
-        props.history.push({ pathname: "/email",  })
         setStatus({ success: true })
-        setIsOpenverify(false)
+        window.location.href = "/email"
       }
     } catch (error) {
       toast({
@@ -104,7 +104,7 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
         duration: 9000,
         position: "top-right",
       });
-      //setIsOpenverify(false)
+      setIsOpenverify(false)
       setStatus({ success: false });
       setSubmitting(false);
       setErrors({ submit: error.message });
@@ -143,8 +143,7 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
         onClose(true)
         setIsOpenverify(true)
         setTimeLeft(true)
-        setTimeout(() =>{ verifyMomoPayment();setTimeLeft(false)}, 5000);
-        
+        setTimeout(() =>{ submitref.current.click();setTimeLeft(false)}, 30000);
       }
     } catch (error) {
       toast({
@@ -162,11 +161,6 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
   };
 
   console.log("RESPONSE",verifyPayment)
-
-  React.useEffect(() => {
-
-     }, [])
-
 
   return (
     <Box>
@@ -196,7 +190,8 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
             provider: '',
           }}
             validationSchema={MomoSchema}
-            onSubmit={makepaywithMomo}>
+            onSubmit={makepaywithMomo}
+            >
             {({
               values,
               handleBlur,
@@ -208,7 +203,9 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
 
             }) => (
 
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}  
+              //ref={submitref} type="submit"
+              >
 
                 {console.log("Formik", values)}
                 {console.log("Erroes", errors)}
@@ -386,6 +383,9 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
                 {console.log("E", errors)}
 
                 {timeLeft?<Dots/>:"" }
+
+               
+                <button type="submit" ref={submitref}></button>
               </form>
             )}
           </Formik>

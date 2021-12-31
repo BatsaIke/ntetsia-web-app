@@ -90,7 +90,7 @@ const Payment = (props) => {
     >
       <Heading>NTETSIA</Heading>
       <Box textAlign='center' mb={{ md: 6 }} mt={6}>
-          <Heading as='h5' fontSize={{ md: 'md' }} Fonts="JackFrost">
+          <Heading as='h5' fontSize={{ md: 'md' }} fontFamily="JackFrost">
             Payment
 
           </Heading>

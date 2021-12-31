@@ -35,6 +35,10 @@ export const smsVerificationSchema = Yup.object().shape({
   code: Yup.string().required('check your phone for verification code')
 });
 
+export const emailVerificationSchema = Yup.object().shape({
+  code: Yup.string().required('check your email for verification code')
+});
+
 export const SignupTrustForSchema = Yup.object().shape({
  // referer: Yup.string().required('Referer is required!'),
   guarantor_id: Yup.string().required('Quarantor code is required!'),

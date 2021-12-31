@@ -36,6 +36,7 @@ import JobDetails from "./JobDetails";
 import DashBoard from "pages/Dashboard/DashBoard";
 import Verification from "./Verification";
 import AccountType from "components/MultiForm/AccountType";
+import Emailverification from "./EmailVerification";
 
 
 export const Pages = {
@@ -63,5 +64,6 @@ export const Pages = {
   JobDetails,
   DashBoard,
   Verification,
-  AccountType
+  AccountType,
+  Emailverification,
 };

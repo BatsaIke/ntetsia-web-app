@@ -27,6 +27,7 @@ const Router = () => {
         <Route exact path="/competetionBelive" component={Pages.Competetion} />
         <Route exact path="/referID" component={Pages.ReferID} />
         <Route exact path="/dashboard" component={Pages.DashBoard} />
+        <Route exact path="/email" component={Pages.Emailverification} />
         
 
       

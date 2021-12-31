@@ -24,7 +24,7 @@ export const SignupSchema = Yup.object().shape({
 });
 
 export const ReferalSchema = Yup.object().shape({
-  //code: Yup.string().required('Referer is required!')
+  code: Yup.string().required('Referer is required!')
 });
 
 export const MomoOtp = Yup.object().shape({

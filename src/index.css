@@ -41,7 +41,9 @@
 
 @font-face {
   font-family: 'JackFrost';
-  src: local('JackFrost'), url('./assets/fonts/Jack\ Frost.otf') format('otf');
+  font-style: normal;
+  font-weight: normal;
+  src: local('JackFrost'), url('./assets/fonts/JackFrost.otf') format('otf');
 }
 
 @font-face {

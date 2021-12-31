@@ -3,6 +3,7 @@ import { Modal, ModalBody, SIZE, ROLE } from 'baseui/modal';
 import { Box, Heading, Text, Stack } from '@chakra-ui/react';
 import { Formik, validateYupSchema, FormErrorMessage, ErrorMessage } from 'formik';
 // import { Select } from 'baseui/select';
+import IdleTimer from "react-idle-timer"
 import FormInput from 'components/Form/FormInput';
 import { MomoSchema, MomoOtp, } from "utils/validation";
 import Button from 'components/Button';
@@ -15,13 +16,11 @@ import useComponent from "context/componentContext";
 import { Dots } from "react-activity";
 import "react-activity/dist/Dots.css";
 
+const token = localStorage.getItem("token-momo");
 
 
-  const token = localStorage.getItem("token-momo");
- 
 
-
-const PayWithMomo = ({ isOpen, onClose, state }) => {
+const PayWithMomo = ({ isOpen, onClose, state },props) => {
   const { handleStepClick } = useComponent();
   const { getInvoice, paywithMomo, momoOtpVerify, verifyMomoPayment } = useAPI();
   const toast = useToast();
@@ -33,9 +32,10 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
   const [isOpen1, setIsOpen] = React.useState(false);
   const [isOpenverify, setIsOpenverify] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
-  //const [onClose, setOnclose] = React.useState(false);
+  const idleTimeRef = React.useRef(null)
+  const [onClose1, setOnclose1] = React.useState(false);
 
-
+  const [timeLeft, setTimeLeft] = React.useState(true);
 
   const processErrors = (errors) => {
     //error.response.data.errors.country_code[0],
@@ -53,17 +53,18 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
       setSubmitting, setErrors, setStatus, resetForm }) => {
     console.log("YYYYYYYYYYVALUES", values);
     try {
-      let res = await momoOtpVerify(values);
-      if (res.status === "pay_offline") {
-      setOtpMessage(res)
-      resetForm({});
-      setStatus({ success: true })
-      setIsOpen(false)
-      setIsOpenverify(true)}
+      let data = await momoOtpVerify(values);
+      if (data.data.status === "pay_offline") {
+        setOtpMessage(data)
+        resetForm({});
+        setStatus({ success: true })
+        setIsOpen(false)
+        setIsOpenverify(true)
+      }
     } catch (error) {
       toast({
         title: "otp verification failed",
-        description: processErrors(error.response.data.errors),
+        description: processErrors(error.response.data.message),
         status: "error",
         duration: 5000,
         position: "top-right",
@@ -78,62 +79,77 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
 
   const veriMomoPayment = async (
     values, {
-      setSubmitting, setErrors, setStatus, resetForm }) => {
-    console.log("YYYYYYYYYYVALUES", values);
+      setSubmitting, setErrors, setStatus}) => {
+    //console.log("YYYYYYYYYYVALUES", values);
     try {
-      let verify = await verifyMomoPayment(values)
-     // setResponse(verify)
-      if (verify.status === "success") {
+      let data = await verifyMomoPayment(values)
+      setVerifyPayment(data.data.message)
+      if (data.data.status === "success") {
         toast({
           title: "payment successful",
-          description: verify.data.message,
+          description:  data.data.message,
           status: "success",
           duration: 9000,
           position: "top-right",
         });
+        props.history.push({ pathname: "/email",  })
         setStatus({ success: true })
         setIsOpenverify(false)
-        handleStepClick(+1);
       }
     } catch (error) {
       toast({
         title: "error",
-        description: error.data.message,
+        description: processErrors(error.response.data.message),
         status: "success",
         duration: 9000,
         position: "top-right",
       });
+      //setIsOpenverify(false)
       setStatus({ success: false });
       setSubmitting(false);
       setErrors({ submit: error.message });
       console.log(error.message)
     }
   }
-
-
-
 
   const makepaywithMomo = async (
     values, {
       setSubmitting, setErrors, setStatus, resetForm }) => {
     console.log("YYYYYYYYYYVALUES", values);
     try {
-      let res = await paywithMomo(values)
-      setResponse(res)
-      if (res.status === "send_otp") {
+      let data = await paywithMomo(values)
+      setResponse(data.data.reference)
+      if (data.data.status === "send_otp") {
+        toast({
+          title: "otp verificationsent",
+          description: data.data.message, 
+          status: "success",
+          duration: 5000,
+          position: "top-right",
+        });
         resetForm({});
         setStatus({ success: true })
         onClose(true)
         setIsOpen(true)
       }
-      else{
-      setIsOpenverify(true)
+      else {
+        toast({
+          title: "payment initiated",
+          description: data.data.message, 
+          status: "success",
+          duration: 5000,
+          position: "top-right",
+        });
+        onClose(true)
+        setIsOpenverify(true)
+        setTimeLeft(true)
+        setTimeout(() =>{ verifyMomoPayment();setTimeLeft(false)}, 5000);
+        
       }
-
     } catch (error) {
       toast({
-        title: "error",
-        description: error.data.message,
+        title: "Error",
+        description: processErrors(error.response.data.message),
         status: "success",
         duration: 9000,
         position: "top-right",
@@ -141,17 +157,16 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
       setStatus({ success: false });
       setSubmitting(false);
       setErrors({ submit: error.message });
-      console.log(error.message)
+      console.error(error.message)
     }
-  }
+  };
 
+  console.log("RESPONSE",verifyPayment)
 
- 
   React.useEffect(() => {
-   
-    // getinvo()
-    //  makepaywithMomo()
-  }, [])
+
+     }, [])
+
 
   return (
     <Box>
@@ -171,11 +186,11 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
           },
         }}
       >
-       <ModalBody align="center"
+        <ModalBody align="center"
           justify="center" >
 
-{/* {loading ?     */}
-<Formik initialValues={{
+          {/* {loading ?     */}
+          <Formik initialValues={{
             token: token,
             phone: '',
             provider: '',
@@ -193,15 +208,12 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
 
             }) => (
 
-
-               <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit}>
 
                 {console.log("Formik", values)}
                 {console.log("Erroes", errors)}
-                
 
-
-                     <Select
+                <Select
                   placeholder="Pay with"
                   width='100%'
                   name="provider"
@@ -250,11 +262,9 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
                   _active={{ bg: "#100213" }}
 
                 />
+                
 
               </form>
-
-
-
             )}
 
           </Formik>
@@ -278,20 +288,19 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
           },
         }}
       >
-        <ModalBody align="center"
+        <ModalBody align="center "
           justify="center" >
           <Box> <Text fontSize="sm" >check your phone for verification code</Text></Box>
 
           <Formik initialValues={{
             otp: "",
-            reference: response.reference
+            reference: response
 
           }}
             validationSchema={MomoOtp}
             onSubmit={verifyOtp}>
             {({
               values,
-              handleBlur,
               handleChange,
               handleSubmit,
               isSubmitting,
@@ -331,7 +340,6 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
                   borderColor="#191191191"
                   _hover={{ bg: "#BEFEF2" }}
                   _active={{ bg: "#100213" }}
-
                 />
               </form>
             )}
@@ -340,7 +348,7 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
         </ModalBody>
       </Modal>
       <Modal
-        onClose={onClose}
+        onClose={onClose1}
         closeable
         isOpen={isOpenverify}
         animate
@@ -355,7 +363,7 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
           },
         }}
       >
-       <ModalBody align="center"
+        <ModalBody align="center"
           justify="center" >
           <Box> <Text fontSize="sm" ></Text>
             <Text fontSize="sm" >Online deposit has been initiated on your phone. Please follow instructions on the prompt
@@ -363,67 +371,25 @@ const PayWithMomo = ({ isOpen, onClose, state }) => {
           </Box>
 
           <Formik initialValues={{
-            reference: response.reference
-
+            reference: response
           }}
             validationSchema=""
             onSubmit={veriMomoPayment}>
             {({
               values,
-              handleBlur,
-              handleChange,
               handleSubmit,
-              isSubmitting,
               errors,
-              touched,
-
             }) => (
-
-
               <form onSubmit={handleSubmit}>
 
-                {console.log("Formik response", values)}
+                {console.log("Formik response verify", values)}
                 {console.log("E", errors)}
 
-                <Stack align="center">
-                  <Button
-                    mt="3"
-                    onCick={() => onClose(true)}
-                    title="cancel"
-                    w="50%"
-                    bg="#EAE7FD"
-                    color="#898989"
-                    borderColor="#191191191"
-                    _hover={{ bg: "#BEFEF2" }}
-                    _active={{ bg: "#100213" }}
-                  />
-
-                  <Button
-                    mt="3"
-                    isLoading={isSubmitting}
-                    loadingText="processing"
-                    type="submit"
-                    title="completed"
-                    w="50%"
-                    bg="#EAE7FD"
-                    color="#898989"
-                    borderColor="#191191191"
-                    _hover={{ bg: "#BEFEF2" }}
-                    _active={{ bg: "#100213" }}
-
-                  />
-                </Stack>
-
-                <Box> <Text fontSize="sm" ></Text></Box>
+                {timeLeft?<Dots/>:"" }
               </form>
-
-
-
             )}
-
           </Formik>
-
-        </ModalBody> 
+        </ModalBody>
       </Modal>
     </Box>
 

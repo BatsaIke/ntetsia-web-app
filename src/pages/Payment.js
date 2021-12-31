@@ -8,8 +8,9 @@ import React,{useEffect} from "react"
 import { Dots } from "react-activity";
 import "react-activity/dist/Dots.css";
 import { useToast } from "@chakra-ui/react";
-
+import "../index.css"
 import { Select, Button } from '@chakra-ui/react'
+import Fonts from "../container/Font"
 
 const items = [
   { id: 1, img: 'mastercard.png', title: 'Pay with Card', type: 'card' },
@@ -89,7 +90,7 @@ const Payment = (props) => {
     >
       <Heading>NTETSIA</Heading>
       <Box textAlign='center' mb={{ md: 6 }} mt={6}>
-          <Heading as='h5' fontSize={{ md: 'md' }}>
+          <Heading as='h5' fontSize={{ md: 'md' }} Fonts="JackFrost">
             Payment
 
           </Heading>
@@ -119,7 +120,7 @@ const Payment = (props) => {
           </Flex>
           </Stack> :<Dots/>}
       {getPaymentModal(selected.type)}
-     <Box
+     {/* <Box
         filter='drop-shadow(0px 2px 50px rgba(0, 0, 0, 0.1))'
         w={{ md: 108 }}
         h={{ md: 60 }}
@@ -128,12 +129,12 @@ const Payment = (props) => {
         mt={{ md: 10 }}
         px={{ md: 6 }}
         py={{ md: 10 }}
-      >
+      > */}
         
-        {/* <Grid gap={3} mt={4}> */}
+        <Grid gap={3} mt={4}>
         
         {/* <Select placeholder='Pay with'  w="300px" variant="outline" align="center"> */}
-        
+       
         {items.map((item) => (
             <PaymentCard
               key={item.id}
@@ -154,10 +155,10 @@ const Payment = (props) => {
         {/* </Select> */}
           
           
-        {/* </Grid> */}
+        </Grid>
 
       
-      </Box>
+      {/* </Box> */}
    {loading ? <Box alignContent="center" marginBottom="4">
     <Button bg="#EAE7FD" mt="10" color="#646464" w="200px" type="button"
        onClick={() => { Navigate1() }}

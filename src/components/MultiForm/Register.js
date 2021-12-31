@@ -5,16 +5,18 @@ import useComponent from "context/componentContext";
 import { userContext } from "context/componentContext";
 import useAuth from "context/userContext";
 import { Formik } from "formik";
-import React,{useContext} from "react";
+import React, { useContext } from "react";
 import { SignupSchema } from "utils/validation";
 import { Heading, Stack } from "@chakra-ui/layout";
 import CountriesLib from "./CountriesLib";
 import { useToast } from "@chakra-ui/react";
 import FormPhone from "components/Form/FormPhone";
-import  { Component, 
-  
-  useEffect, } from 'react'
-  import useAPI from 'context/apiContext';
+import {
+  Component,
+
+  useEffect,
+} from 'react'
+import useAPI from 'context/apiContext';
 import PoweredBy from "container/PoweredBy";
 
 
@@ -23,22 +25,22 @@ import PoweredBy from "container/PoweredBy";
 
 
 const RegisterForm = (props) => {
- const {data} = useComponent();
+  const { data } = useComponent();
   const { signup } = useAuth();
   const toast = useToast();
 
 
-  useEffect(async() => {
-}, []);
+  useEffect(async () => {
+  }, []);
 
 
   const { handleStepClick } = useComponent();
- const msg =useContext(userContext)
- const  {smsVerification}= useAPI();
+  const msg = useContext(userContext)
+  const { smsVerification } = useAPI();
 
 
   const [checkedItems, setCheckedItems] = React.useState([false,])
-  const [sms, setSMS] = React.useState("")
+  const [register, setRegister] = React.useState("")
   const allChecked = checkedItems.every(Boolean)
   const alChecked = checkedItems.every(Boolean)
   const isIndeterminate = checkedItems.some(Boolean) && !checkedItems
@@ -47,10 +49,10 @@ const RegisterForm = (props) => {
   const [phone, setPhone] = React.useState('')
 
   const handlePChange = (e) => {
-   
+
     //setData(data.dialCode)
   }
-  
+
 
   const processErrors = (errors) => {
     //error.response.data.errors.country_code[0],
@@ -80,12 +82,13 @@ const RegisterForm = (props) => {
     } else {
       try {
         var s = values.phone
-        
-        while (s.charAt(0) === '0')  {
+
+        while (s.charAt(0) === '0') {
           s = values.country_code.substring(1) + s.substring(1)
-          values.phone =s
+          values.phone = s
         }
-          let res = await signup(values);
+        let res = await signup(values);
+        setRegister(res)
         if (res.status === 200) {
           toast({
             title: "Sign up successful",
@@ -94,13 +97,14 @@ const RegisterForm = (props) => {
             duration: 5000,
             position: "top-right",
           });
-          
-          localStorage.setItem("token-ds" ,res.data.data.token)
-         // resetForm({});
+
+          localStorage.setItem("token-ds", res.data.data.token)
+
+          // resetForm({});
           setStatus({ success: true });
-         // smsVerify();
+          // smsVerify();
           handleStepClick(+1);
-          
+
         }
       } catch (error) {
         toast({
@@ -112,14 +116,15 @@ const RegisterForm = (props) => {
         });
         setStatus({ success: false });
         setSubmitting(false);
-        
+
       }
 
     }
 
   };
 
-
+  // localStorage.setItem("register", register.data.response)
+  console.log(register, "resss")
 
 
   return (
@@ -143,20 +148,9 @@ const RegisterForm = (props) => {
             country_code: "",
             password: "",
             password_confirmation: "",
-            risk_assessment: [
-              {
-                  "question_id": 1,
-                  "answer": true
-              },
-              {
-                  "question_id": 2,
-                  "answer": false
-              },
-              {
-                  "question_id": 3,
-                  "answer": true
-              }
-          ]
+            is_assesement_one_accepted: true,
+            is_assesement_two_accepted: true,
+            is_assesement_three_accepted: true
 
           }}
           validationSchema={SignupSchema}
@@ -171,8 +165,9 @@ const RegisterForm = (props) => {
             errors,
             touched,
           }) => (
-            <form onSubmit={handleSubmit}>          
-             <Grid w='100%' gap={1} mb={4}>
+            <form onSubmit={handleSubmit}>
+              {console.log(errors, "error")}
+              <Grid w='100%' gap={1} mb={4}>
                 <FormInput
                   type="text"
                   color="#898989"
@@ -241,9 +236,9 @@ const RegisterForm = (props) => {
 
 
                 />
-                
-                <CountriesLib 
-                onChange={handleChange}
+
+                <CountriesLib
+                  onChange={handleChange}
                   text="country"
                   placeholder="select a country"
                   value={values.country}

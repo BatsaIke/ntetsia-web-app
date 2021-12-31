@@ -7,38 +7,44 @@ import FormInput from "components/Form/FormInput";
 import Logo from "container/Logo";
 import PoweredBy from "container/PoweredBy";
 import useAPI from "context/apiContext";
-
+import { useToast } from "@chakra-ui/react";
 
 
 export default function ReferID(props) {
 
-  const [state1, setState]= React.useState("");
+  const [state1, setState]= React.useState([]);
   
 
   const { ckecKReferal } = useAPI();
-
-  // const submit = async (values, { setSubmitting, setErrors, setStatus, resetForm }) => {
-  //   console.log("YYYYYYYYYYVALUES", values);
-  //   try {
-  //   let res=  await ckecKReferal(values)
-  //     if (res.status === 200) {
-  //       resetForm({});
-  //     setStatus({ success: true });
-      
-         
-  //      }
-       
-       
-  //   } catch (error) {
-  //     setStatus({ success: false });
-  //     setSubmitting(false);
-  //     setErrors({ submit: error.message });
-  //     console.log(error.message)
-  //     //Navigate()
-  //   }
-  // }
+  const toast = useToast();
+  const submit = async (values, { setSubmitting, setErrors, setStatus, resetForm }) => {
+    console.log("YYYYYYYYYYVALUES", values);
+    try {
+    let res=  await ckecKReferal(values);
+    setState(res)
+    if (res.id !== "") 
+     {
+        props.history.push({pathname:"/register"})
+        resetForm({});
+      setStatus({ success: true });
+          }
+           } catch (error) {
+            toast({
+              title:"invalid referal id",
+             // description: error.response.data.errors.referer_id[0],
+              status: "success",
+              duration: 5000,
+              position: "top-right",
+            });
+      setStatus({ success: false });
+      setSubmitting(false);
+      setErrors({ submit: error.message });
+      console.log(error.message)
+      //Navigate()
+    }
+  }
   
-  
+  console.log(state1,"stateq")
   React.useEffect(() => {
     // setRefer(referer)
   
@@ -69,12 +75,12 @@ function Navigate(){
                          Kindly provide the ID from the one who introduced you</Text>
                     <Formik
         initialValues={{
-          referer: "",
+          code: "",
           
          
         }}
         validationSchema={ReferalSchema}
-      //  onSubmit={submit}
+        onSubmit={submit}
         
       >
         {({
@@ -87,12 +93,14 @@ function Navigate(){
           touched,
           
         }) => (
+         
           
           <form onSubmit={handleSubmit}>
+           {console.log("Formik", values)}
+           {console.log("Erroes", errors)}
                     
                     <Stack direction="column" spacing={4} justifyContent='center'  alignSelf= 'center' alignItems='center'>
                 <FormInput
-                isRequired
                 type="text"
                 w='90'
                 alignSelf='center'
@@ -101,22 +109,17 @@ function Navigate(){
                 borderColor="black"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values.referer}
-                error={errors.referer}
-                touch={touched.referer}
-                name="referer"
-                placeholder="Rferrer ID"
-                variant='outlined'
-                // onChange={e => setState(e.target.value)}
-                
-                
+                value={values.code}
+                error={errors.code}
+                touch={touched.code}
+                name="code"
+                placeholder="Referrer ID"
               />
                     <Button
-                   
                     isLoading={isSubmitting}
                     borderColor="#191191191"
                     type="submit"
-                     onClick={() => Navigate()}
+                     //onClick={() => Navigate()}
                     title ="next"
                     w='40%'
                     bg='#EAE7FD'

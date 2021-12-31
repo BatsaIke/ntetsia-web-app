@@ -2,7 +2,7 @@ import { Image } from '@chakra-ui/image';
 import { Box, Flex, Heading } from '@chakra-ui/layout';
 import React from 'react';
 
-const PaymentCard = ({ image, title, selected, onClick }) => {
+const PaymentCard = ({ title, selected, onClick }) => {
   return (
     <Box
       as='button'
@@ -16,13 +16,13 @@ const PaymentCard = ({ image, title, selected, onClick }) => {
       onClick={onClick}
     >
       <Flex align='center' justify='space-between'>
-        <Image
+        {/* <Image
           w={{ md: 16 }}
           h={{ md: 10 }}
           rounded='md'
           objectFit='cover'
           src={require(`../../assets/images/${image}`).default}
-        />
+        /> */}
         <Heading
           as='h6'
           fontSize={{ md: 'md' }}

@@ -86,7 +86,7 @@ function NavigatetoRegister(param){
             <Text  fontWeight="extrabold" fontSize="32px" color="#646464" >How did you hear about us?</Text>
 
             <Stack direction='column' spacing={1}  >
-                <Type leftIcon={<IoMdMan />} styles={txtStyle} color="#898989" >  
+                <Type styles={txtStyle} color="#898989" >  
                 <Link as={NavLink}
                 to="/referID"
                 >            
@@ -95,12 +95,12 @@ function NavigatetoRegister(param){
                 </Type>
             
 
-                <Type leftIcon={<BsGoogle />} txtStyle onClick={()=>{NavigatetoRegister(false)} }  color="#898989"  >
+                <Type txtStyle onClick={()=>{NavigatetoRegister(false)} }  color="#898989"  >
                 
                     Found you online/Conference
                 
                 </Type>
-                <Type leftIcon={<GiThink />}  onClick={()=>{NavigatetoRegister(false)}  } color="#898989">
+                <Type onClick={()=>{NavigatetoRegister(false)}  } color="#898989">
                 
                     By someone but i have forgotten
                     

@@ -46,34 +46,15 @@ export const ApiProvider = ({ children }) => {
     }
      };
 
-  const MomoPay = async (payload) =>{
-    try{
-      const res =  await api.post('/payments/momo-pay',payload);
-      console.log(res);
-      if(res.status == 200){
-        toast({
-          title: "Success",
-          description: res.data.message,
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
-      }
-      
-    }catch(error){
-      toast({
-        title: "Error occured.",
-        description: error.response.data.errors.body[0],
-        status: "error",
-        duration: 9000,
-        isClosable: true,
-      });
-    }  
- }
+  
+ 
 
   const getProfile = async (id) => {
+    const t = await getToken();
     try {
-      const { data } = await api.get(`/members/${id}/profile`);
+      const { data } = await api.get(`/members/${id}/profile`,{headers:{
+        'Authorization': `Bearer ${t}`
+      }});
       return data.data;
     } catch (error) {
       console.log(error.response.data.message);
@@ -329,8 +310,11 @@ export const ApiProvider = ({ children }) => {
   };
 
   const deleteSchoolExperiences = async (id) => {
+    const t = await getToken();
     try {
-      const res = await api.delete(`/schools/${id}`);
+      const res = await api.delete(`/schools/${id}`,{headers:{
+        'Authorization': `Bearer ${t}`
+      }});
       if (res.status === 200) {
         toast({
           description: res.data.message,
@@ -346,8 +330,11 @@ export const ApiProvider = ({ children }) => {
 
   //Work Experiences
   const createWorkExperiences = async (payload) => {
+    const t = await getToken();
     try {
-      const res = await api.post("/work-experiences", payload);
+      const res = await api.post("/work-experiences", payload,{headers:{
+        'Authorization': `Bearer ${t}`
+      }});
       if (res.status === 200) {
         toast({
           description: res.data.message,
@@ -362,8 +349,11 @@ export const ApiProvider = ({ children }) => {
   };
 
   const updateWorkExperiences = async (id, payload) => {
+    const t = await getToken();
     try {
-      const res = await api.patch(`/work-experiences/${id}`, payload);
+      const res = await api.patch(`/work-experiences/${id}`, payload,{headers:{
+        'Authorization': `Bearer ${t}`
+      }});
       if (res.status === 200) {
         toast({
           description: res.data.message,
@@ -378,8 +368,11 @@ export const ApiProvider = ({ children }) => {
   };
 
   const deleteWorkExperiences = async (id) => {
+    const t = await getToken();
     try {
-      const res = await api.delete(`/work-experiences/${id}`);
+      const res = await api.delete(`/work-experiences/${id}`,{headers:{
+        'Authorization': `Bearer ${t}`
+      }});
       if (res.status === 200) {
         toast({
           description: res.data.message,
@@ -395,8 +388,11 @@ export const ApiProvider = ({ children }) => {
 
   //Notifications
   const getNotifications = async () => {
+    const t = await getToken();
     try {
-      const { data } = await api.get("/notifications");
+      const { data } = await api.get("/notifications",{headers:{
+        'Authorization': `Bearer ${t}`
+      }});
       return data;
     } catch (error) {
       console.log(error.response);
@@ -417,8 +413,11 @@ export const ApiProvider = ({ children }) => {
      };
 
      const getAvailableBanks = async () => {
+      const t = await getToken();
       try {
-        const { data } = await api.get(`data/available-banks`);
+        const { data } = await api.get(`data/available-banks`,{headers:{
+          'Authorization': `Bearer ${t}`
+        }});
         return data.data;
       } catch (error) {
         console.log(error.response.data.message);
@@ -441,8 +440,11 @@ export const ApiProvider = ({ children }) => {
        
      
        const riskQuestions = async () => {
+        const t = await getToken();
         try {
-          const { data } = await api.get(`/data/risk-questions`);
+          const { data } = await api.get(`/data/risk-questions`,{headers:{
+            'Authorization': `Bearer ${t}`
+          }});
           return data.data;
         } catch (error) {
           console.log(error.response.data.message);
@@ -490,8 +492,11 @@ export const ApiProvider = ({ children }) => {
              };
 
          const ckecKReferal = async (payload) => {
+          const t = await getToken();
           try {
-            const { data } = await api.post(`/onboarding/lookup-referrer`,payload);
+            const { data } = await api.post(`/onboarding/lookup-referrer`,payload,{headers:{
+              'Authorization': `Bearer ${t}`
+            }});
             return data.data;
           } catch (error) {
             console.log(error.response.data.message);
@@ -514,42 +519,53 @@ export const ApiProvider = ({ children }) => {
 
              const momoOtpVerify = async (payload) => {
               const t = await getToken();
-              try {
                 const { data } = await api.post(`/payments/verify-momo-otp`,payload, {headers:{
                   'Authorization': `Bearer ${t}`
                 }});
-                return data.data;
-              } catch (error) {
-                console.log(error.response.data.message);
-                
-              }
+                return data;
                };
 
                const verifyMomoPayment = async (payload) => {
                 const t = await getToken();
-                try {
                   const { data } = await api.post(`payments/verify-payment`,payload, {headers:{
                     'Authorization': `Bearer ${t}`
                   }});
-                  return data.data;
-                } catch (error) {
-                  console.log(error.response.data.message);
-                  
-                }
+                  return data;
                  };
 
                const paywithMomo = async (payload) => {
                 const t = await getToken();
-                try {
                   const { data } = await api.post(`payments/make-momo-payment`,payload, {headers:{
                     'Authorization': `Bearer ${t}`
                   }});
-                  return data.data;
-                } catch (error) {
-                  console.log(error.response.data.message);
-                  
-                }
+                  return data;
                  };
+
+                 const getEmailVirificaton = async () => {
+                  const t = await getToken();
+                 try {
+                   const { data } = await api.get(`/onboarding/email/send-verification-email`,{headers:{
+                     'Authorization': `Bearer ${t}`
+                   }});
+                   return data.data;
+                 } catch (error) {
+                   console.error(error.response.data.message);
+                   
+                 }
+                  };
+
+                  const verifyEmail = async (payload) => {
+                    const t = await getToken();
+                    try {
+                      const { data } = await api.post(`/onboarding/email/verify`,payload, {headers:{
+                        'Authorization': `Bearer ${t}`
+                      }});
+                      return data.data;
+                    } catch (error) {
+                      console.log(error.response.data.message);
+                      
+                    }
+                     };
 
   return (
     <ApiContext.Provider
@@ -600,6 +616,8 @@ export const ApiProvider = ({ children }) => {
         momoOtpVerify,
         paywithMomo,
         verifyMomoPayment,
+        getEmailVirificaton,
+        verifyEmail,
 
       }}
     >

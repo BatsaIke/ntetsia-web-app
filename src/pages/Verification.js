@@ -44,12 +44,10 @@ const Verification = (props) => {
   const onSubmit = async (
     values, {
       setSubmitting, setErrors, setStatus, resetForm }) => {
-   // console.log("YYYYYYYYYYVALUES", values);
     try {
       let res = await sendVerification(values)
       window.location.href = "/accounttype"
       setSMS(res)
-    //  console.log("resss", res)
       resetForm({});
       setStatus({ success: true })
             // setIsOpen(false)
@@ -64,9 +62,7 @@ const Verification = (props) => {
         duration: 5000,
         position: "top-right",
       });
-     
       setIsOpen(true)
-      
     }
   }
 
@@ -89,10 +85,12 @@ const Verification = (props) => {
 
           <ModalBody p={14}>
             <Flex direction='column' mb={8} textAlign='center'>
-              <Heading as='h3' fontWeight='bold' fontSize={{ md: '2xl' }}>
+              <Heading as='h3'  color="#898989" fontWeight='bold' fontSize={{ md: '2xl' }}>
                 Phone Verification
               </Heading>
-              <Text>Check your phone number for a verification code</Text>
+              <Text fontSize="12px"  color="#898989">Check your phone number for a verification code</Text>
+              <Text>Did not receive code? <Button bg="#EAE7FD" fontSize="10px" h="15px"
+                  color="#898989" title="send again" onClick={()=>smsVerify()} /></Text>
 
 
               <Formik

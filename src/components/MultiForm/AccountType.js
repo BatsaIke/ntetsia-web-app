@@ -111,7 +111,8 @@ const AccountType = (props,) => {
         Choose your account type
       </Heading>
 
-      <Select placeholder='Select Category' onChange={(e) => { updateDaysActive(e.target.value) }} bg="#EAE7FD" w="300px" variant="outline" align="center"   >
+      <Select placeholder='Select Category' onChange={(e) => { updateDaysActive(e.target.value) }} 
+      bg="#EAE7FD" w="300px" variant="outline" align="center"  textAlign="center"  >
         {accountTypes.map((item) => (
           <option value={item.id}  >
             {item.name}{' '}{item.currency} {item.fee}

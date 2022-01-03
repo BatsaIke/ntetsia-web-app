@@ -139,7 +139,6 @@ const Payment = (props) => {
             <PaymentCard
               key={item.id}
               title={item.title}
-              image={item.img}
               selected={selected.id === item.id}
               onClick={() => {
                 setSelected(item);

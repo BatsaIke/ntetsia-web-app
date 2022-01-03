@@ -3,7 +3,7 @@ import { Modal, ModalBody, SIZE, ROLE } from 'baseui/modal';
 import { Box, Heading, Text, Stack } from '@chakra-ui/react';
 import { Formik, validateYupSchema, FormErrorMessage, ErrorMessage } from 'formik';
 // import { Select } from 'baseui/select';
-import IdleTimer from "react-idle-timer"
+import { useHistory } from 'react-router-dom';
 import FormInput from 'components/Form/FormInput';
 import { MomoSchema, MomoOtp, } from "utils/validation";
 import Button from 'components/Button';
@@ -21,8 +21,7 @@ const token = localStorage.getItem("token-momo");
 
 
 const PayWithMomo = ({ isOpen, onClose, state },props) => {
-  const { handleStepClick } = useComponent();
-  const { getInvoice, paywithMomo, momoOtpVerify, verifyMomoPayment } = useAPI();
+  const { paywithMomo, momoOtpVerify, verifyMomoPayment } = useAPI();
   const toast = useToast();
   const [response, setResponse] = React.useState([]);
   const [momopay, setPayMomo] = React.useState({});
@@ -34,7 +33,7 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
   const [loading, setLoading] = React.useState(false);
   const submitref = React.useRef(null)
   const [onClose1, setOnclose1] = React.useState(false);
-
+  const history = useHistory();
   const [timeLeft, setTimeLeft] = React.useState(true);
 
   const processErrors = (errors) => {
@@ -51,7 +50,6 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
   const verifyOtp = async (
     values, {
       setSubmitting, setErrors, setStatus, resetForm }) => {
-    console.log("YYYYYYYYYYVALUES", values);
     try {
       let data = await momoOtpVerify(values);
       if (data.data.status === "pay_offline") {
@@ -60,7 +58,7 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
         setStatus({ success: true })
         setIsOpen(false)
         setIsOpenverify(true)
-        setTimeout(() =>{ submitref.current.click();setTimeLeft(false)}, 30000);
+        setTimeout(() =>{ submitref.current.click()}, 40000);
       }
     } catch (error) {
       toast({
@@ -85,6 +83,7 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
     try {
       let data = await verifyMomoPayment(values)
       setVerifyPayment(data.data.message)
+      localStorage.setItem("momo-response",data.data.message)
       if (data.data.status === "success") {
         toast({
           title: "payment successful",
@@ -94,9 +93,10 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
           position: "top-right",
         });
         setStatus({ success: true })
-        window.location.href = "/email"
+        history.push({ pathname: "/email"})
       }
     } catch (error) {
+      history.push({ pathname: "/email"})
       toast({
         title: "error",
         description: processErrors(error.response.data.message),
@@ -143,12 +143,12 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
         onClose(true)
         setIsOpenverify(true)
         setTimeLeft(true)
-        setTimeout(() =>{ submitref.current.click();setTimeLeft(false)}, 30000);
+        setTimeout(() =>{ submitref.current.click()}, 40000);
       }
     } catch (error) {
       toast({
-        title: "Error",
-        description: processErrors(error.response.data.message),
+        title: "error",
+        description: "Payment initialization failed",
         status: "success",
         duration: 9000,
         position: "top-right",
@@ -308,11 +308,6 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
 
 
               <form onSubmit={handleSubmit}>
-
-                {console.log("Formik", values)}
-                {console.log("Erroes", errors)}
-
-
                 <FormInput
                   width='50%'
                   textAlign='center'
@@ -364,7 +359,7 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
           justify="center" >
           <Box> <Text fontSize="sm" ></Text>
             <Text fontSize="sm" >Online deposit has been initiated on your phone. Please follow instructions on the prompt
-              to complete the deposit. If you already done, tap on the "Completed" button to confirm</Text>
+              to complete the deposit. If you are done, wait a while for confirmation</Text>
           </Box>
 
           <Formik initialValues={{
@@ -378,10 +373,6 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
               errors,
             }) => (
               <form onSubmit={handleSubmit}>
-
-                {console.log("Formik response verify", values)}
-                {console.log("E", errors)}
-
                 {timeLeft?<Dots/>:"" }
 
                

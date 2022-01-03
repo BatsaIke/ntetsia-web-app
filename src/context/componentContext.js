@@ -17,7 +17,7 @@ export const ComponentProvider = ({ children }) => {
   const [state, setState] = React.useState('');
   const [mode, setMode] = React.useState('');
   const [currentIndex, setCurrentIndex] = React.useState(0);
-  const [data,setData] = React.useState({});
+  const [data,setData] = React.useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [open, setOpen] = React.useState(false);
   const close = () => setOpen(false);
@@ -64,6 +64,7 @@ export const ComponentProvider = ({ children }) => {
         toggleDialog,
         open,
         close,
+        data
         
       }}
     >

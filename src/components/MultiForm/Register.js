@@ -19,19 +19,27 @@ import {
 import useAPI from 'context/apiContext';
 import PoweredBy from "container/PoweredBy";
 
+const contribute = localStorage.getItem("contribute")===true;
+const competetion = localStorage.getItem("competetion")===true;
+const JobCreations = localStorage.getItem("jobcreation")===true;
+const referid = localStorage.getItem("referid");
 
 
 
-
-
-const RegisterForm = (props) => {
+const RegisterForm = (props, state) => {
   const { data } = useComponent();
   const { signup } = useAuth();
   const toast = useToast();
 
 
   useEffect(async () => {
+  
+   
   }, []);
+
+  
+  console.log(contribute, "con", competetion,"compete", JobCreations,"job")
+
 
 
   const { handleStepClick } = useComponent();
@@ -123,8 +131,6 @@ const RegisterForm = (props) => {
 
   };
 
-  // localStorage.setItem("register", register.data.response)
-  console.log(register, "resss")
 
 
   return (
@@ -138,7 +144,7 @@ const RegisterForm = (props) => {
         </Heading>
         <Formik
           initialValues={{
-            referer: "kweku",
+            referer: referid,
             first_name: "",
             last_name: "",
             email: "",
@@ -148,9 +154,9 @@ const RegisterForm = (props) => {
             country_code: "",
             password: "",
             password_confirmation: "",
-            is_assesement_one_accepted: true,
-            is_assesement_two_accepted: true,
-            is_assesement_three_accepted: true
+            is_assesement_one_accepted: contribute,
+            is_assesement_two_accepted: competetion,
+            is_assesement_three_accepted: JobCreations
 
           }}
           validationSchema={SignupSchema}
@@ -166,7 +172,7 @@ const RegisterForm = (props) => {
             touched,
           }) => (
             <form onSubmit={handleSubmit}>
-              {console.log(errors, "error")}
+              {console.log(values, "error")}
               <Grid w='100%' gap={1} mb={4}>
                 <FormInput
                   type="text"

@@ -7,6 +7,7 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { Client as Styletron } from "styletron-engine-atomic";
 import { Provider as StyletronProvider } from "styletron-react";
 import { LightTheme, BaseProvider } from "baseui";
+import { CookiesProvider } from "react-cookie";
 import { theme } from "theme/theme";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
@@ -19,8 +20,10 @@ ReactDOM.render(
     <StyletronProvider value={engine}>
       <BaseProvider theme={LightTheme}>
         <ChakraProvider theme={theme}>
+        <CookiesProvider>
           <ColorModeScript initialColorMode={theme.config.useSystemColorMode} />
           <App />
+          </CookiesProvider>
         </ChakraProvider>
       </BaseProvider>
     </StyletronProvider>

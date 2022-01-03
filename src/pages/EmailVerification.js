@@ -190,7 +190,7 @@ const Emailverification = () => {
                         as={NavLink}
                         _hover={{ textDecor: "none" }}
                         _focus={{ textDecor: "none" }}
-                        to="/"
+                        to="home"
                     >
 
                         Next

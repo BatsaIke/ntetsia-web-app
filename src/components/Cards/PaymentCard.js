@@ -16,13 +16,7 @@ const PaymentCard = ({ title, selected, onClick }) => {
       onClick={onClick}
     >
       <Flex align='center' justify='space-between'>
-        {/* <Image
-          w={{ md: 16 }}
-          h={{ md: 10 }}
-          rounded='md'
-          objectFit='cover'
-          src={require(`../../assets/images/${image}`).default}
-        /> */}
+        
         <Heading
           as='h6'
           fontSize={{ md: 'md' }}

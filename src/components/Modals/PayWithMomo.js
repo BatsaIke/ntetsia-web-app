@@ -143,8 +143,7 @@ const PayWithMomo = ({ isOpen, onClose, state },props) => {
         onClose(true)
         setIsOpenverify(true)
         setTimeLeft(true)
-        submitref.current.click()
-        //setTimeout(() =>{ }, 40000);
+        setTimeout(() =>{ submitref.current.click()}, 40000);
       }
     } catch (error) {
       toast({

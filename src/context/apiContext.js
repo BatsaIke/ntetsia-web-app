@@ -533,6 +533,43 @@ export const ApiProvider = ({ children }) => {
                   return data;
                  };
 
+            //  async function verifyMomoPayment( retries, callback, payload) {
+            //     const t = await getToken();
+            //     const { data } = await api.post(`payments/verify-payment`,payload, {headers:{
+            //       'Authorization': `Bearer ${t}`
+            //     }}).then(response => {
+            //         // request successful
+            
+            //         if(response.data['done'] == 1) {
+            //             // server done, deliver data to script to consume
+            //             callback(response);
+            //         }
+            //         else {
+            //             // server not done yet
+            //             // retry, if any retries left
+            //             if (retries > 0) {
+            //                  Request (--retries, callback);
+            //             }
+            //             else {
+            //                 // no retries left, calling callback with error
+            //                 callback([], "out of retries");
+            //             }
+            //         }
+            //     }).catch(error => {
+            //         // ajax error occurred
+            //         // would be better to not retry on 404, 500 and other unrecoverable HTTP errors
+            //         // retry, if any retries left
+            //         if (retries > 0) {
+            //             Request(--retries, callback);
+            //         }
+            //         else {
+            //             // no retries left, calling callback with error
+            //             callback([], error);
+            //         }
+            //     });
+            // }
+
+
                const paywithMomo = async (payload) => {
                 const t = await getToken();
                   const { data } = await api.post(`payments/make-momo-payment`,payload, {headers:{
